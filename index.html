@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>الخطة المالية</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#3D2008">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="الخطة المالية">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#3D2008;--accent:#C8622A;--accent2:#E8A87C;
+  --green:#1A6B35;--red:#922B21;--red-l:#E74C3C;
+  --blue:#1A4A7A;--blue-l:#2980B9;
+  --bg:#F5F0EB;--bg2:#EDE6DC;--card:#FFF;--text:#2C1A0E;
+  --muted:#8A7060;--border:#D4C4B0;--sh:rgba(61,32,8,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
+
+.hdr{background:linear-gradient(160deg,var(--brand) 0%,#6B3218 100%);position:sticky;top:0;z-index:300;box-shadow:0 3px 20px rgba(61,32,8,.35);}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;}
+.hdr-left{display:flex;flex-direction:column;}
+.hdr-name{color:#fff;font-size:18px;font-weight:700;background:transparent;border:none;border-bottom:1px dashed rgba(255,255,255,.3);font-family:inherit;padding:0;width:180px;}
+.hdr-period-row{display:flex;align-items:center;gap:8px;margin-top:5px;}
+.hdr-month{color:rgba(255,255,255,.85);font-size:12px;font-weight:700;}
+.hdr-range{color:rgba(255,255,255,.5);font-size:11px;}
+.hdr-btns{display:flex;gap:5px;}
+.hbtn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:6px 9px;color:#fff;font-size:11px;font-family:inherit;cursor:pointer;white-space:nowrap;}
+.hbtn:active{background:rgba(255,255,255,.3);}
+
+.period-strip{overflow-x:auto;scrollbar-width:none;padding:8px 14px 0;}
+.period-strip::-webkit-scrollbar{display:none;}
+.period-cards{display:flex;gap:6px;padding-bottom:12px;}
+.pcard{flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding:7px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);cursor:pointer;min-width:50px;}
+.pcard.active{background:var(--accent);border-color:var(--accent);}
+.pcard.today{border-color:rgba(255,255,255,.45);}
+.pc-m{font-size:11px;font-weight:700;color:rgba(255,255,255,.5);}
+.pc-d{font-size:9px;color:rgba(255,255,255,.3);margin-top:1px;}
+.pcard.active .pc-m,.pcard.active .pc-d{color:#fff;}
+.pcard.today .pc-m{color:rgba(255,255,255,.9);}
+
+.main-tabs{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(255,255,255,.08);}
+.mtab{padding:10px;border:none;background:transparent;color:rgba(255,255,255,.45);font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;border-bottom:3px solid transparent;text-align:center;}
+.mtab.active{color:#fff;border-bottom-color:var(--accent2);}
+
+.main{padding:14px;padding-bottom:30px;}
+.view{display:none;}.view.active{display:block;}
+
+/* summary card */
+.ps-card{background:linear-gradient(140deg,var(--brand) 0%,#7A3820 100%);border-radius:16px;padding:16px;margin-bottom:14px;color:#fff;box-shadow:0 4px 18px rgba(61,32,8,.3);}
+.ps-period{font-size:11px;opacity:.6;margin-bottom:10px;}
+.ps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.ps-lbl{font-size:10px;opacity:.6;margin-bottom:3px;}
+.ps-val{font-size:17px;font-weight:700;line-height:1;}
+.ps-val.g{color:#6BF08A;}.ps-val.r{color:#FF7575;}.ps-val.gold{color:var(--accent2);}
+.ps-sub{font-size:9px;opacity:.45;margin-top:2px;}
+.ps-row2{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1);}
+.ps-row2-lbl{font-size:10px;opacity:.6;}
+.ps-row2-val{font-size:12px;font-weight:700;color:var(--accent2);}
+.ps-bar-wrap{margin-top:10px;}
+.ps-bar-lbl{display:flex;justify-content:space-between;font-size:10px;opacity:.55;margin-bottom:4px;}
+.ps-bar-track{height:5px;background:rgba(255,255,255,.12);border-radius:3px;overflow:hidden;display:flex;}
+.pb-sp{background:var(--red-l);height:100%;transition:width .4s;}
+.pb-net{background:#6BF08A;height:100%;transition:width .4s;}
+
+/* sub tabs */
+.sub-tabs{display:flex;background:#fff;border-radius:12px;border:1px solid var(--border);margin-bottom:14px;overflow:hidden;box-shadow:0 1px 4px var(--sh);}
+.stab{flex:1;padding:9px 2px;border:none;background:transparent;color:var(--muted);font-size:11px;font-family:inherit;cursor:pointer;border-left:1px solid var(--border);text-align:center;line-height:1.3;}
+.stab:last-child{border-left:none;}.stab.active{background:var(--brand);color:#fff;font-weight:700;}
+.sub-view{display:none;}.sub-view.active{display:block;}
+
+/* sections */
+.section{background:var(--card);border-radius:12px;border:1px solid var(--border);margin-bottom:12px;overflow:hidden;box-shadow:0 1px 4px var(--sh);}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.sec-title-wrap{display:flex;align-items:center;gap:7px;flex:1;min-width:0;}
+.sec-icon{font-size:14px;}
+.sec-title-inp{border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:700;color:var(--brand);flex:1;min-width:0;}
+.sec-total{font-size:12px;font-weight:700;color:var(--accent);white-space:nowrap;margin:0 5px;}
+.del-sec-btn{color:var(--red);background:rgba(146,43,33,.08);border:1px solid rgba(146,43,33,.2);font-size:11px;padding:4px 7px;cursor:pointer;border-radius:6px;flex-shrink:0;font-family:inherit;}
+
+/* rows — fixed ref (commit) */
+.row-item{display:flex;align-items:center;padding:8px 12px;border-bottom:1px solid var(--bg2);gap:8px;}
+.row-item:last-child{border-bottom:none;}
+.row-lbl-inp{flex:1;font-size:13px;color:var(--text);background:transparent;border:none;min-width:0;font-family:inherit;}
+.row-inp-wrap{display:flex;align-items:center;gap:4px;flex-shrink:0;}
+.row-inp{width:82px;padding:5px 7px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;text-align:left;direction:ltr;font-family:inherit;background:var(--bg);}
+.row-inp:focus{outline:none;border-color:var(--accent);background:#fff;}
+.row-cur{font-size:10px;color:var(--muted);}
+.del-row-btn{color:var(--red);background:none;border:none;font-size:14px;padding:3px 5px;cursor:pointer;flex-shrink:0;}
+.add-row-btn{display:flex;align-items:center;gap:5px;padding:9px;color:var(--accent);font-size:12px;background:none;border:none;width:100%;justify-content:center;border-top:1px dashed var(--border);cursor:pointer;font-family:inherit;}
+.add-sec-btn{display:flex;align-items:center;gap:6px;padding:12px;color:var(--brand);font-size:12px;background:var(--card);border:1.5px dashed var(--border);width:100%;justify-content:center;border-radius:12px;cursor:pointer;font-family:inherit;margin-bottom:12px;}
+
+/* commit ref badge */
+.ref-note{background:rgba(61,32,8,.05);border-bottom:1px solid var(--border);padding:6px 12px;font-size:10px;color:var(--muted);display:flex;align-items:center;gap:5px;}
+.ref-badge{background:var(--bg2);color:var(--brand);font-size:9px;font-weight:700;padding:2px 6px;border-radius:8px;border:1px solid var(--border);}
+
+/* total card */
+.total-card{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:12px 16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 4px var(--sh);}
+.total-card.ref{background:var(--bg2);border-style:dashed;}
+.tc-lbl{font-size:12px;color:var(--muted);}
+.tc-val{font-size:18px;font-weight:700;}
+.tc-val.g{color:var(--green);}.tc-val.r{color:var(--red);}
+
+/* forms */
+.fbox{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:14px;margin-bottom:12px;box-shadow:0 1px 4px var(--sh);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.fg{margin-bottom:10px;}.fg:last-child{margin-bottom:0;}
+.flbl{display:block;font-size:11px;color:var(--muted);margin-bottom:4px;}
+.finp,.fsel{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;background:var(--bg);}
+.finp:focus,.fsel:focus{outline:none;border-color:var(--accent);background:#fff;}
+.cat-btn{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-family:inherit;background:var(--bg);text-align:right;cursor:pointer;color:var(--muted);}
+.cat-btn.sel{color:var(--text);border-color:var(--accent);}
+.add-btn{width:100%;padding:11px;background:var(--brand);color:#fff;border:none;border-radius:9px;font-weight:700;font-size:13px;font-family:inherit;cursor:pointer;margin-top:4px;}
+.add-btn:active{background:var(--accent);}
+
+/* entry cards (daily / month-commit / rev) */
+.entry-card{display:flex;align-items:flex-start;padding:10px 12px;border-bottom:1px solid var(--bg2);gap:9px;}
+.entry-card:last-child{border-bottom:none;}
+.ec-info{flex:1;min-width:0;}
+.ec-name{font-size:13px;font-weight:600;margin-bottom:2px;}
+.ec-meta{font-size:10px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px;align-items:center;}
+.ec-badge{font-size:9px;padding:1px 6px;border-radius:8px;font-weight:600;}
+.ec-badge.cat{background:rgba(200,98,42,.12);color:var(--accent);}
+.ec-badge.mth{background:rgba(41,128,185,.1);color:var(--blue-l);}
+.ec-badge.rev{background:rgba(26,107,53,.1);color:var(--green);}
+.ec-amt{font-weight:700;font-size:13px;direction:ltr;white-space:nowrap;flex-shrink:0;}
+.ec-amt.r{color:var(--red);}.ec-amt.g{color:var(--green);}
+
+/* annual month grid */
+.ann-summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.ann-card{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:14px;box-shadow:0 1px 4px var(--sh);}
+.ann-lbl{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.ann-val{font-size:18px;font-weight:700;}
+.ann-val.g{color:var(--green);}.ann-val.r{color:var(--red);}.ann-val.gold{color:var(--accent);}
+.ann-months-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.amc{background:var(--card);border-radius:11px;border:1px solid var(--border);padding:11px 9px;box-shadow:0 1px 4px var(--sh);cursor:pointer;}
+.amc.cur{border-color:var(--accent);border-width:2px;}
+.amc-name{font-size:11px;font-weight:700;color:var(--brand);margin-bottom:5px;}
+.amc-row{display:flex;justify-content:space-between;font-size:9px;margin-bottom:2px;}
+.amc-lbl{color:var(--muted);}
+.amc-v{font-weight:600;}.amc-v.g{color:var(--green);}.amc-v.r{color:var(--red);}
+.amc-net{margin-top:5px;padding-top:5px;border-top:1px solid var(--border);display:flex;justify-content:space-between;}
+.amc-nl{font-size:9px;color:var(--muted);}
+.amc-nv{font-size:12px;font-weight:700;}
+.amc-nv.g{color:var(--green);}.amc-nv.r{color:var(--red);}
+.amc-empty{font-size:9px;opacity:.35;text-align:center;padding:6px 0;}
+
+/* inv goal */
+.igc{background:linear-gradient(135deg,var(--brand),var(--accent));border-radius:12px;padding:16px;color:#fff;margin-bottom:12px;box-shadow:0 4px 14px var(--sh);}
+.igc-title{font-size:13px;font-weight:700;margin-bottom:12px;}
+.igc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.igc-lbl{font-size:10px;opacity:.7;margin-bottom:3px;}
+.igc-val{font-size:18px;font-weight:700;}
+.igc-inp{width:100%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:6px 8px;color:#fff;font-size:14px;font-family:inherit;direction:ltr;text-align:left;}
+.igc-inp::placeholder{color:rgba(255,255,255,.4);}.igc-inp:focus{outline:none;background:rgba(255,255,255,.25);}
+.goal-bar{height:6px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden;margin-bottom:5px;}
+.goal-fill{height:100%;background:#fff;transition:width .4s;}
+.goal-meta{display:flex;justify-content:space-between;font-size:10px;opacity:.65;}
+
+/* needs */
+.need-item{display:flex;align-items:center;padding:10px 12px;border-bottom:1px solid var(--bg2);gap:10px;}
+.need-item:last-child{border-bottom:none;}
+.need-chk{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;}
+.need-nm{flex:1;font-size:13px;}.need-nm.done{text-decoration:line-through;opacity:.45;}
+.need-prio{font-size:11px;flex-shrink:0;}
+.need-amt{font-weight:700;font-size:13px;direction:ltr;color:var(--brand);white-space:nowrap;flex-shrink:0;}
+
+/* toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(26,107,53,.95);color:#fff;padding:9px 20px;border-radius:20px;font-size:12px;z-index:999;opacity:0;pointer-events:none;transition:all .25s;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.err{background:rgba(146,43,33,.95);}
+.empty{text-align:center;padding:28px 20px;color:var(--muted);font-size:13px;}
+
+/* overlays */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;display:flex;align-items:flex-end;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;}
+.ov.open{opacity:1;visibility:visible;}
+.sheet{background:var(--card);border-radius:20px 20px 0 0;padding:20px;width:100%;max-height:85vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s ease;}
+.ov.open .sheet{transform:translateY(0);}
+.sheet-hdr{font-size:15px;font-weight:700;color:var(--brand);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
+.sheet-x{background:none;border:none;font-size:22px;color:var(--muted);cursor:pointer;padding:0 4px;line-height:1;}
+.rep-sec{margin-bottom:16px;}
+.rep-head{font-size:12px;font-weight:700;color:var(--brand);border-bottom:1px solid var(--border);padding-bottom:5px;margin-bottom:8px;}
+.rep-row{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid var(--bg2);}
+.rep-row:last-child{border-bottom:none;}
+.print-btn{width:100%;padding:12px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:10px;}
+.pick-group{margin-bottom:12px;}
+.pick-g-lbl{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--border);}
+.pick-item{display:flex;align-items:center;gap:10px;padding:10px 8px;border-radius:9px;cursor:pointer;}
+.pick-item:active{background:var(--bg2);}
+.pick-name{flex:1;font-size:13px;}
+.pick-chk{color:var(--accent);font-size:16px;visibility:hidden;flex-shrink:0;}
+.pick-chk.on{visibility:visible;}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-top">
+    <div class="hdr-left">
+      <input class="hdr-name" id="mainTitle" value="الخطة المالية" oninput="autoSave()">
+      <div class="hdr-period-row">
+        <span class="hdr-month" id="hdr-month">—</span>
+        <span class="hdr-range" id="hdr-range">—</span>
+      </div>
+    </div>
+    <div class="hdr-btns">
+      <button class="hbtn" onclick="openReport()">📊</button>
+      <button class="hbtn" onclick="exportData()">📤</button>
+      <button class="hbtn" onclick="document.getElementById('importFile').click()">📥</button>
+    </div>
+  </div>
+  <div class="period-strip"><div class="period-cards" id="periodCards"></div></div>
+  <div class="main-tabs">
+    <button class="mtab active" id="mt-monthly" onclick="switchMain('monthly')">📅 الشهري</button>
+    <button class="mtab" id="mt-annual" onclick="switchMain('annual')">🗓 السنوي</button>
+  </div>
+</div>
+
+<div class="main">
+  <!-- MONTHLY -->
+  <div class="view active" id="view-monthly">
+    <div class="ps-card">
+      <div class="ps-period" id="ps-label">—</div>
+      <div class="ps-grid">
+        <div><div class="ps-lbl">الدخل</div><div class="ps-val g" id="ps-rev">0.000</div><div class="ps-sub">KWD</div></div>
+        <div><div class="ps-lbl">المنصرفات</div><div class="ps-val r" id="ps-exp">0.000</div><div class="ps-sub">KWD</div></div>
+        <div><div class="ps-lbl">الصافي الشهري</div><div class="ps-val gold" id="ps-net">0.000</div><div class="ps-sub" id="ps-net-lbl">KWD</div></div>
+      </div>
+      <div class="ps-row2">
+        <span class="ps-row2-lbl">📋 الالتزامات الثابتة (مرجع)</span>
+        <span class="ps-row2-val" id="ps-commit-ref">0.000 KWD</span>
+      </div>
+      <div class="ps-bar-wrap">
+        <div class="ps-bar-lbl"><span>المنصرفات</span><span>الصافي</span></div>
+        <div class="ps-bar-track">
+          <div class="pb-sp" id="pb-sp" style="width:0%"></div>
+          <div class="pb-net" id="pb-net-bar" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-tabs">
+      <button class="stab active" id="st-commit" onclick="switchSub('commit')">📋 الالتزامات</button>
+      <button class="stab" id="st-mcommit" onclick="switchSub('mcommit')">🔵 هذا الشهر</button>
+      <button class="stab" id="st-daily" onclick="switchSub('daily')">🧾 المنصرفات</button>
+      <button class="stab" id="st-rev" onclick="switchSub('rev')">💰 الإيرادات</button>
+    </div>
+
+    <!-- COMMIT fixed ref -->
+    <div class="sub-view active" id="sv-commit">
+      <div style="background:rgba(61,32,8,.05);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:11px;color:var(--muted);line-height:1.7;">
+        📌 أدخل الالتزامات مرة واحدة — تترحل تلقائياً كل شهر ولا تُحسب في الصافي. تظهر كمرجع فقط.
+      </div>
+      <div id="commit-cont"></div>
+      <button class="add-sec-btn" onclick="addSection('commit')">➕ إضافة قسم التزامات</button>
+      <div class="total-card ref">
+        <span class="tc-lbl">📋 إجمالي الالتزامات الثابتة</span>
+        <span class="tc-val" id="total-commit" style="color:var(--brand);font-size:16px;">0.000 KWD</span>
+      </div>
+    </div>
+
+    <!-- THIS MONTH COMMIT -->
+    <div class="sub-view" id="sv-mcommit">
+      <div style="background:rgba(41,128,185,.06);border:1px solid rgba(41,128,185,.2);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:11px;color:var(--blue-l);line-height:1.7;">
+        🔵 التزامات هذا الشهر فقط — تُحسب في الصافي ولا تترحل.
+      </div>
+      <div class="fbox">
+        <div class="fg"><label class="flbl">اسم الالتزام</label><input class="finp" id="mc-name" placeholder="مثال: إصلاح سيارة، فاتورة طارئة..."></div>
+        <div class="form-row">
+          <div class="fg"><label class="flbl">المبلغ (KWD)</label><input class="finp" id="mc-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;"></div>
+          <div class="fg"><label class="flbl">القسم</label>
+            <select class="fsel" id="mc-cat">
+              <option value="">— بدون قسم —</option>
+            </select>
+          </div>
+        </div>
+        <button class="add-btn" onclick="addMonthCommit()">✚ إضافة التزام الشهر</button>
+      </div>
+      <div class="section"><div id="mcommit-list"></div></div>
+      <div id="mc-status" style="font-size:11px;text-align:center;margin-bottom:8px;color:var(--muted);"></div>
+      <div class="total-card">
+        <span class="tc-lbl">إجمالي التزامات هذا الشهر</span>
+        <span class="tc-val r" id="total-mcommit">0.000 KWD</span>
+      </div>
+    </div>
+
+    <!-- DAILY spending -->
+    <div class="sub-view" id="sv-daily">
+      <div class="fbox">
+        <div class="fg"><label class="flbl">اسم المنصرف</label><input class="finp" id="daily-name" placeholder="قهوة، بقالة، أوبر..."></div>
+        <div class="form-row">
+          <div class="fg"><label class="flbl">المبلغ (KWD)</label><input class="finp" id="daily-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;"></div>
+          <div class="fg"><label class="flbl">البند</label><button class="cat-btn" id="cat-btn" onclick="openPicker()">اختر ▾</button></div>
+        </div>
+        <button class="add-btn" onclick="addDailyExpense()">✚ تسجيل</button>
+      </div>
+      <div class="section"><div id="daily-list"></div></div>
+      <div class="total-card"><span class="tc-lbl">إجمالي المنصرفات</span><span class="tc-val r" id="total-daily">0.000 KWD</span></div>
+    </div>
+
+    <!-- REVENUE -->
+    <div class="sub-view" id="sv-rev">
+      <div class="fbox">
+        <div class="fg"><label class="flbl">اسم الإيراد</label><input class="finp" id="rev-name" placeholder="مثال: راتب، عمل حر، بيع..."></div>
+        <div class="form-row">
+          <div class="fg"><label class="flbl">المبلغ (KWD)</label><input class="finp" id="rev-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;"></div>
+          <div class="fg"><label class="flbl">نوع الإيراد</label>
+            <select class="fsel" id="rev-type">
+              <option value="salary">💼 راتب</option>
+              <option value="invest">📈 عائد استثمار</option>
+              <option value="freelance">💻 عمل حر</option>
+              <option value="other">🔹 أخرى</option>
+            </select>
+          </div>
+        </div>
+        <button class="add-btn" onclick="addRevEntry()">✚ إضافة إيراد</button>
+      </div>
+      <div class="section"><div id="rev-list"></div></div>
+      <div class="total-card"><span class="tc-lbl">إجمالي الإيرادات</span><span class="tc-val g" id="total-rev">0.000 KWD</span></div>
+    </div>
+  </div>
+
+  <!-- ANNUAL -->
+  <div class="view" id="view-annual">
+    <div class="ann-summary">
+      <div class="ann-card"><div class="ann-lbl">إجمالي الدخل السنوي</div><div class="ann-val g" id="ann-rev">0.000</div><div style="font-size:10px;color:var(--muted)">KWD</div></div>
+      <div class="ann-card"><div class="ann-lbl">إجمالي المنصرفات</div><div class="ann-val r" id="ann-exp">0.000</div><div style="font-size:10px;color:var(--muted)">KWD</div></div>
+      <div class="ann-card"><div class="ann-lbl">الصافي السنوي</div><div class="ann-val gold" id="ann-net">0.000</div><div style="font-size:10px;color:var(--muted)">KWD</div></div>
+      <div class="ann-card"><div class="ann-lbl">بعد الاستثمار والاحتياجات</div><div class="ann-val" id="ann-final">0.000</div><div style="font-size:10px;color:var(--muted)">KWD</div></div>
+    </div>
+    <div style="font-size:12px;font-weight:700;color:var(--brand);margin-bottom:10px;" id="ann-yr-lbl">ملخص الدورات</div>
+    <div class="ann-months-grid" id="annGrid"></div>
+
+    <div class="igc">
+      <div class="igc-title">🎯 هدف الادخار السنوي</div>
+      <div class="igc-grid">
+        <div><div class="igc-lbl">الهدف (KWD)</div><input class="igc-inp" type="number" id="inv-goal" placeholder="0.000" oninput="autoSave();updateAll();"></div>
+        <div><div class="igc-lbl">المتراكم</div><div class="igc-val" id="inv-accum">0.000</div></div>
+      </div>
+      <div class="goal-bar"><div class="goal-fill" id="goal-fill" style="width:0%"></div></div>
+      <div class="goal-meta"><span id="goal-pct">0%</span><span id="goal-rem" style="direction:ltr;">0.000 KWD متبقي</span></div>
+    </div>
+
+    <!-- INVESTMENTS (deducted from annual net) -->
+    <div style="font-size:12px;font-weight:700;color:var(--brand);margin-bottom:8px;">💰 الاستثمارات — تُخصم من الصافي السنوي</div>
+    <div class="fbox">
+      <div class="fg"><label class="flbl">اسم الاستثمار</label><input class="finp" id="inv-name" placeholder="عقار، أسهم، صندوق..."></div>
+      <div class="form-row">
+        <div class="fg"><label class="flbl">المبلغ (KWD)</label><input class="finp" id="inv-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;"></div>
+        <div class="fg"><label class="flbl">النوع</label>
+          <select class="fsel" id="inv-type">
+            <option value="out">📤 استثمار (صرف)</option>
+            <option value="in">📥 عائد استثمار (دخل)</option>
+          </select>
+        </div>
+      </div>
+      <button class="add-btn" onclick="addInvEntry()">✚ إضافة</button>
+    </div>
+    <div class="section"><div id="inv-list"></div></div>
+
+    <!-- NEEDS -->
+    <div style="font-size:12px;font-weight:700;color:var(--brand);margin:14px 0 8px;">📝 الاحتياجات — تُخصم من الصافي السنوي</div>
+    <div class="section">
+      <div class="sec-hdr">
+        <div class="sec-title-wrap"><span class="sec-icon">📝</span><span style="font-weight:700;font-size:13px;color:var(--brand)">قائمة الاحتياجات</span></div>
+        <span class="sec-total" id="needs-total">0.000 KWD</span>
+      </div>
+      <div class="fbox" style="border-radius:0;border:none;box-shadow:none;border-bottom:1px solid var(--border);margin-bottom:0;padding:12px;">
+        <div class="fg"><label class="flbl">اسم الاحتياج</label><input class="finp" id="need-name" placeholder="هاتف، أثاث..."></div>
+        <div class="form-row">
+          <div class="fg"><label class="flbl">السعر (KWD)</label><input class="finp" id="need-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;"></div>
+          <div class="fg"><label class="flbl">الأولوية</label><select class="fsel" id="need-priority"><option value="high">🔴 عالية</option><option value="med" selected>🟡 متوسطة</option><option value="low">🟢 منخفضة</option></select></div>
+        </div>
+        <button class="add-btn" onclick="addNeed()">✚ إضافة</button>
+      </div>
+      <div id="needs-list"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="ov" id="ov-report" onclick="ovOut(event,'ov-report')">
+  <div class="sheet">
+    <div class="sheet-hdr"><span id="rep-title">التقرير</span><button class="sheet-x" onclick="closeOv('ov-report')">✕</button></div>
+    <div id="rep-content"></div>
+    <button class="print-btn" onclick="printReport()">🖨 طباعة / PDF</button>
+  </div>
+</div>
+
+<div class="ov" id="ov-picker" onclick="ovOut(event,'ov-picker')">
+  <div class="sheet">
+    <div class="sheet-hdr"><span>اختر البند</span><button class="sheet-x" onclick="closeOv('ov-picker')">✕</button></div>
+    <div id="picker-content"></div>
+    <button class="add-btn" style="margin-top:10px;" onclick="confirmPicker()">تأكيد ✓</button>
+  </div>
+</div>
+
+<input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
+
+<script>
+const CDAY=23;
+let CY=new Date().getFullYear(),CP=0;
+let pickerSel={secId:null,secTitle:'',rowId:null,rowLabel:''};
+let ready=false;
+
+/* PERIODS */
+const MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+function getPeriods(y){
+  return MONTHS.map(function(mn,m){
+    var em=(m+1)%12;
+    return{index:m,name:mn,short:mn.substr(0,3),
+      label:'23 '+mn+' \u2013 22 '+MONTHS[em]};
+  });
+}
+function initPeriod(){var d=new Date();return d.getDate()>=CDAY?d.getMonth():(d.getMonth()-1+12)%12;}
+var TODAY_P=initPeriod();
+
+/* STORAGE */
+function SK(y,p,k){return 'F4_v_'+y+'_p'+p+'_'+k;}
+function DK(y,p){return 'F4_d_'+y+'_p'+p;}        // daily expenses
+function MK(y,p){return 'F4_m_'+y+'_p'+p;}        // month-commit
+function RK(y,p){return 'F4_r_'+y+'_p'+p;}        // revenues
+function IK(y){return 'F4_i_'+y;}                 // investments (annual)
+function SECK(t){return 'F4_s_'+t;}
+function NK(y){return 'F4_n_'+y;}
+function SETK(){return 'F4_cfg';}
+
+const DEFS={
+  commit:[{id:'cs1',icon:'🏛',title:'الالتزامات الثابتة',rows:[{id:'cr1',label:'قسط',key:'cmt_s'}]}]
+};
+function getSecs(t){try{var s=localStorage.getItem(SECK(t));return s?JSON.parse(s):JSON.parse(JSON.stringify(DEFS[t]||[]));}catch{return[];}}
+function saveSecs(t,d){localStorage.setItem(SECK(t),JSON.stringify(d));}
+function gcv(k){return parseFloat(localStorage.getItem('F4_cv_'+k))||0;}
+function scv(k,v){localStorage.setItem('F4_cv_'+k,parseFloat(v)||0);}
+function getCfg(){try{var s=localStorage.getItem(SETK());return s?JSON.parse(s):{title:'الخطة المالية',invGoal:''};}catch{return{title:'الخطة المالية',invGoal:''};}}
+function saveCfg(){var c=getCfg();c.title=document.getElementById('mainTitle').value;var ig=document.getElementById('inv-goal');c.invGoal=ig?ig.value:'';localStorage.setItem(SETK(),JSON.stringify(c));}
+
+function flushInputs(){document.querySelectorAll('[data-ck]').forEach(function(el){scv(el.dataset.ck,el.value);});}
+function loadInputValues(){document.querySelectorAll('[data-ck]').forEach(function(el){var v=gcv(el.dataset.ck);el.value=v?v:'';});}
+function autoSave(){if(!ready)return;flushInputs();saveCfg();}
+
+/* UTILS */
+function uid(){return '_'+Math.random().toString(36).substr(2,9);}
+function fmt(n){return parseFloat(n||0).toLocaleString('en-US',{minimumFractionDigits:3,maximumFractionDigits:3});}
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+function nowStr(){
+  var d=new Date();
+  var time=d.toLocaleTimeString('ar-KW',{hour:'2-digit',minute:'2-digit'});
+  var date=d.toLocaleDateString('ar-KW',{day:'numeric',month:'short'});
+  return date+' \u00b7 '+time;
+}
+function toast(msg,err){var t=document.getElementById('toast');t.textContent=msg;t.className='toast'+(err?' err':'');t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show');},2200);}
+function openOv(id){document.getElementById(id).classList.add('open');}
+function closeOv(id){document.getElementById(id).classList.remove('open');}
+function ovOut(e,id){if(e.target===document.getElementById(id))closeOv(id);}
+
+/* RENDER COMMIT SECTIONS (fixed ref) */
+function renderCommitSections(){
+  if(ready)flushInputs();
+  var secs=getSecs('commit');
+  var cont=document.getElementById('commit-cont');
+  if(!cont)return;
+  cont.innerHTML='';
+  secs.forEach(function(sec){
+    var rowsHTML=sec.rows.map(function(row){
+      return '<div class="row-item">'+
+        '<input class="row-lbl-inp" value="'+esc(row.label)+'" onchange="updateRowLabel(\'commit\',\''+sec.id+'\',\''+row.id+'\',this.value)">'+
+        '<div class="row-inp-wrap">'+
+          '<input class="row-inp" type="number" step="0.001" min="0" placeholder="0.000" data-ck="'+row.key+'" oninput="autoSave();updateAll();" style="direction:ltr;">'+
+          '<span class="row-cur">KWD</span>'+
+          '<button class="del-row-btn" onclick="deleteRow(\'commit\',\''+sec.id+'\',\''+row.id+'\')">✕</button>'+
+        '</div></div>';
+    }).join('');
+    var div=document.createElement('div');
+    div.className='section';
+    div.innerHTML=
+      '<div class="sec-hdr">'+
+        '<div class="sec-title-wrap"><span class="sec-icon">'+sec.icon+'</span>'+
+          '<input class="sec-title-inp" value="'+esc(sec.title)+'" onchange="updateSecTitle(\'commit\',\''+sec.id+'\',this.value)"></div>'+
+        '<span class="sec-total" id="st-'+sec.id+'">0.000</span>'+
+        '<button class="del-sec-btn" onclick="deleteSection(\'commit\',\''+sec.id+'\')">🗑 حذف</button>'+
+      '</div>'+
+      '<div class="ref-note"><span class="ref-badge">ثابت</span> يترحل تلقائياً — لا يؤثر على الصافي</div>'+
+      '<div id="sb-'+sec.id+'">'+rowsHTML+'</div>'+
+      '<button class="add-row-btn" onclick="addRow(\'commit\',\''+sec.id+'\')">➕ إضافة بند</button>';
+    cont.appendChild(div);
+  });
+  loadInputValues();
+  rebuildMcCatSelect();
+  if(ready)updateAll();
+}
+
+function updateSecTitle(type,id,val){var d=getSecs(type),s=d.find(function(x){return x.id===id;});if(s){s.title=val;saveSecs(type,d);}}
+function updateRowLabel(type,sid,rid,val){var d=getSecs(type),s=d.find(function(x){return x.id===sid;});if(s){var r=s.rows.find(function(x){return x.id===rid;});if(r){r.label=val;saveSecs(type,d);}}}
+function addRow(type,sid){flushInputs();var d=getSecs(type),s=d.find(function(x){return x.id===sid;});if(!s)return;s.rows.push({id:uid(),label:'بند جديد',key:type+'_'+uid()});saveSecs(type,d);renderCommitSections();}
+function deleteRow(type,sid,rid){flushInputs();var d=getSecs(type),s=d.find(function(x){return x.id===sid;});if(s){s.rows=s.rows.filter(function(x){return x.id!==rid;});saveSecs(type,d);renderCommitSections();}}
+function addSection(type){flushInputs();var d=getSecs(type);d.push({id:uid(),icon:'📌',title:'قسم جديد',rows:[{id:uid(),label:'بند جديد',key:type+'_'+uid()}]});saveSecs(type,d);renderCommitSections();}
+function deleteSection(type,sid){flushInputs();saveSecs(type,getSecs(type).filter(function(x){return x.id!==sid;}));renderCommitSections();}
+
+/* Rebuild month-commit category select */
+function rebuildMcCatSelect(){
+  var sel=document.getElementById('mc-cat');if(!sel)return;
+  var prev=sel.value;
+  sel.innerHTML='<option value="">— بدون قسم —</option>';
+  getSecs('commit').forEach(function(s){
+    var opt=document.createElement('option');opt.value=s.id;opt.textContent=s.icon+' '+s.title;sel.appendChild(opt);
+  });
+  sel.value=prev;
+}
+
+/* MONTH COMMIT */
+function getMC(y,p){try{var s=localStorage.getItem(MK(y,p));return s?JSON.parse(s):[]}catch{return[];}}
+function saveMC(y,p,l){localStorage.setItem(MK(y,p),JSON.stringify(l));}
+function addMonthCommit(){
+  var name=document.getElementById('mc-name').value.trim();
+  var amt=parseFloat(document.getElementById('mc-amount').value);
+  var catId=document.getElementById('mc-cat').value;
+  if(!name||isNaN(amt)||amt<=0){toast('أدخل اسم ومبلغ صحيح',true);return;}
+  var secs=getSecs('commit');
+  var catName=catId?(secs.find(function(s){return s.id===catId;})||{title:''}).title:'';
+  var list=getMC(CY,CP);
+  list.unshift({id:uid(),name:name,amount:amt,catId:catId,catName:catName,ts:nowStr(),paid:false});
+  saveMC(CY,CP,list);
+  document.getElementById('mc-name').value='';
+  document.getElementById('mc-amount').value='';
+  renderMcList();updateAll();
+}
+function toggleMC(id){
+  var list=getMC(CY,CP),e=list.find(function(x){return x.id===id;});
+  if(e){e.paid=!e.paid;saveMC(CY,CP,list);renderMcList();updateAll();}
+}
+function renderMcList(){
+  var list=getMC(CY,CP);
+  var cont=document.getElementById('mcommit-list');
+  if(!list.length){cont.innerHTML='<div class="empty">لا توجد التزامات هذا الشهر</div>';return;}
+  cont.innerHTML=list.map(function(e){
+    return '<div class="entry-card" style="'+(e.paid?'opacity:.7':'')+'">'+
+      '<input class="need-chk" type="checkbox"'+(e.paid?' checked':'')+' onchange="toggleMC(\''+e.id+'\')" style="flex-shrink:0;margin-top:2px;">'+
+      '<div class="ec-info">'+
+        '<div class="ec-name" style="'+(e.paid?'text-decoration:line-through':'')+'">'+esc(e.name)+'</div>'+
+        '<div class="ec-meta">'+
+          '<span>'+esc(e.ts)+'</span>'+
+          (e.catName?'<span class="ec-badge mth">'+esc(e.catName)+'</span>':'')+
+          (e.paid?'<span class="ec-badge rev">✅ تم الدفع</span>':'<span class="ec-badge cat">⏳ لم يُدفع</span>')+
+        '</div>'+
+      '</div>'+
+      '<span class="ec-amt r">'+fmt(e.amount)+' KWD</span>'+
+      '<button class="del-row-btn" onclick="delMC(\''+e.id+'\')">✕</button>'+
+    '</div>';
+  }).join('');
+  // paid total vs pending
+  var paid=list.filter(function(e){return e.paid;}).reduce(function(a,e){return a+e.amount;},0);
+  var pend=list.filter(function(e){return !e.paid;}).reduce(function(a,e){return a+e.amount;},0);
+  var info=document.getElementById('mc-status');
+  if(info)info.innerHTML='<span style="color:var(--red)">مدفوع: '+fmt(paid)+' KWD</span> &nbsp;|&nbsp; <span style="color:var(--muted)">معلق: '+fmt(pend)+' KWD</span>';
+}
+function delMC(id){saveMC(CY,CP,getMC(CY,CP).filter(function(x){return x.id!==id;}));renderMcList();updateAll();}
+
+/* DAILY EXPENSES */
+function getDL(y,p){try{var s=localStorage.getItem(DK(y,p));return s?JSON.parse(s):[]}catch{return[];}}
+function saveDL(y,p,l){localStorage.setItem(DK(y,p),JSON.stringify(l));}
+
+function openPicker(){
+  var secs=getSecs('commit');
+  var html='';
+  secs.forEach(function(sec){
+    html+='<div class="pick-group"><div class="pick-g-lbl">'+sec.icon+' '+esc(sec.title)+'</div>';
+    sec.rows.forEach(function(row){
+      var on=pickerSel.secId===sec.id&&pickerSel.rowId===row.id;
+      html+='<div class="pick-item" onclick="pickItem(\''+sec.id+'\',\''+esc(sec.title)+'\',\''+row.id+'\',\''+esc(row.label)+'\')">'+
+        '<span class="pick-name">'+esc(row.label)+'</span>'+
+        '<span class="pick-chk'+(on?' on':'')+'">✓</span></div>';
+    });
+    html+='</div>';
+  });
+  if(!secs.length)html='<div class="empty">لا توجد أقسام التزامات</div>';
+  html+='<div class="pick-group"><div class="pick-g-lbl">أخرى</div>'+
+    '<div class="pick-item" onclick="pickItem(\'\',\'متنوع\',\'\',\'متنوع\')">'+
+    '<span class="pick-name">متنوع / غير مصنف</span>'+
+    '<span class="pick-chk'+(pickerSel.secId===''?' on':'')+'">✓</span></div></div>';
+  document.getElementById('picker-content').innerHTML=html;
+  openOv('ov-picker');
+}
+function pickItem(secId,secTitle,rowId,rowLabel){
+  pickerSel={secId:secId,secTitle:secTitle,rowId:rowId,rowLabel:rowLabel};
+  document.querySelectorAll('.pick-chk').forEach(function(el){el.classList.remove('on');});
+  document.querySelectorAll('.pick-item').forEach(function(el){
+    var nm=el.querySelector('.pick-name');
+    if(nm&&nm.textContent===rowLabel)el.querySelector('.pick-chk').classList.add('on');
+  });
+}
+function confirmPicker(){
+  var b=document.getElementById('cat-btn');
+  if(pickerSel.rowLabel){b.textContent=pickerSel.rowLabel+' \u25be';b.classList.add('sel');}
+  closeOv('ov-picker');
+}
+
+function addDailyExpense(){
+  var name=document.getElementById('daily-name').value.trim();
+  var amt=parseFloat(document.getElementById('daily-amount').value);
+  if(!name||isNaN(amt)||amt<=0){toast('أدخل اسم ومبلغ صحيح',true);return;}
+  var list=getDL(CY,CP);
+  list.unshift({id:uid(),name:name,amount:amt,
+    secTitle:pickerSel.secTitle,rowLabel:pickerSel.rowLabel,
+    ts:nowStr()});
+  saveDL(CY,CP,list);
+  document.getElementById('daily-name').value='';
+  document.getElementById('daily-amount').value='';
+  pickerSel={secId:null,secTitle:'',rowId:null,rowLabel:''};
+  var b=document.getElementById('cat-btn');b.textContent='اختر \u25be';b.classList.remove('sel');
+  renderDailyList();updateAll();
+}
+function renderDailyList(){
+  var list=getDL(CY,CP);
+  var cont=document.getElementById('daily-list');
+  if(!list.length){cont.innerHTML='<div class="empty">لا توجد منصرفات مسجلة</div>';return;}
+  cont.innerHTML=list.map(function(e){
+    return '<div class="entry-card">'+
+      '<div class="ec-info">'+
+        '<div class="ec-name">'+esc(e.name)+'</div>'+
+        '<div class="ec-meta">'+
+          '<span>'+esc(e.ts||'')+'</span>'+
+          (e.rowLabel?'<span class="ec-badge cat">'+esc(e.rowLabel)+'</span>':'')+
+          (e.secTitle&&e.secTitle!==e.rowLabel?'<span class="ec-badge cat" style="opacity:.7">'+esc(e.secTitle)+'</span>':'')+
+        '</div>'+
+      '</div>'+
+      '<span class="ec-amt r">'+fmt(e.amount)+' KWD</span>'+
+      '<button class="del-row-btn" onclick="delDaily(\''+e.id+'\')">✕</button>'+
+    '</div>';
+  }).join('');
+}
+function delDaily(id){saveDL(CY,CP,getDL(CY,CP).filter(function(x){return x.id!==id;}));renderDailyList();updateAll();}
+
+/* REVENUES */
+function getRL(y,p){try{var s=localStorage.getItem(RK(y,p));return s?JSON.parse(s):[]}catch{return[];}}
+function saveRL(y,p,l){localStorage.setItem(RK(y,p),JSON.stringify(l));}
+var REV_ICONS={salary:'💼',invest:'📈',freelance:'💻',other:'🔹'};
+var REV_LABELS={salary:'راتب',invest:'عائد استثمار',freelance:'عمل حر',other:'أخرى'};
+function addRevEntry(){
+  var name=document.getElementById('rev-name').value.trim();
+  var amt=parseFloat(document.getElementById('rev-amount').value);
+  var type=document.getElementById('rev-type').value;
+  if(!name||isNaN(amt)||amt<=0){toast('أدخل اسم ومبلغ صحيح',true);return;}
+  var list=getRL(CY,CP);
+  list.unshift({id:uid(),name:name,amount:amt,type:type,ts:nowStr()});
+  saveRL(CY,CP,list);
+  document.getElementById('rev-name').value='';
+  document.getElementById('rev-amount').value='';
+  renderRevList();updateAll();
+}
+function renderRevList(){
+  var list=getRL(CY,CP);
+  var cont=document.getElementById('rev-list');
+  if(!list.length){cont.innerHTML='<div class="empty">لا توجد إيرادات مسجلة</div>';return;}
+  cont.innerHTML=list.map(function(e){
+    return '<div class="entry-card">'+
+      '<div class="ec-info">'+
+        '<div class="ec-name">'+(REV_ICONS[e.type]||'🔹')+' '+esc(e.name)+'</div>'+
+        '<div class="ec-meta">'+
+          '<span>'+esc(e.ts||'')+'</span>'+
+          '<span class="ec-badge rev">'+(REV_LABELS[e.type]||'')+'</span>'+
+        '</div>'+
+      '</div>'+
+      '<span class="ec-amt g">'+fmt(e.amount)+' KWD</span>'+
+      '<button class="del-row-btn" onclick="delRev(\''+e.id+'\')">✕</button>'+
+    '</div>';
+  }).join('');
+}
+function delRev(id){saveRL(CY,CP,getRL(CY,CP).filter(function(x){return x.id!==id;}));renderRevList();updateAll();}
+
+/* INVESTMENTS (annual) */
+function getInvList(){try{var s=localStorage.getItem(IK(CY));return s?JSON.parse(s):[]}catch{return[];}}
+function saveInvList(l){localStorage.setItem(IK(CY),JSON.stringify(l));}
+function addInvEntry(){
+  var name=document.getElementById('inv-name').value.trim();
+  var amt=parseFloat(document.getElementById('inv-amount').value);
+  var type=document.getElementById('inv-type').value;
+  if(!name||isNaN(amt)||amt<=0){toast('أدخل اسم ومبلغ صحيح',true);return;}
+  var list=getInvList();
+  list.unshift({id:uid(),name:name,amount:amt,type:type,ts:nowStr()});
+  saveInvList(list);
+  document.getElementById('inv-name').value='';
+  document.getElementById('inv-amount').value='';
+  renderInvList();updateAll();
+}
+function renderInvList(){
+  var list=getInvList();
+  var cont=document.getElementById('inv-list');
+  if(!list.length){cont.innerHTML='<div class="empty">لا توجد استثمارات مسجلة</div>';return;}
+  cont.innerHTML='<div>'+list.map(function(e){
+    var isIn=e.type==='in';
+    return '<div class="entry-card">'+
+      '<div class="ec-info">'+
+        '<div class="ec-name">'+(isIn?'📥':'📤')+' '+esc(e.name)+'</div>'+
+        '<div class="ec-meta"><span>'+esc(e.ts||'')+'</span>'+
+          '<span class="ec-badge '+(isIn?'rev':'cat')+'">'+(isIn?'عائد':'صرف')+'</span></div>'+
+      '</div>'+
+      '<span class="ec-amt '+(isIn?'g':'r')+'">'+fmt(e.amount)+' KWD</span>'+
+      '<button class="del-row-btn" onclick="delInv(\''+e.id+'\')">✕</button>'+
+    '</div>';
+  }).join('')+'</div>';
+}
+function delInv(id){saveInvList(getInvList().filter(function(x){return x.id!==id;}));renderInvList();updateAll();}
+
+/* NEEDS */
+function getNeeds(){try{var s=localStorage.getItem(NK(CY));return s?JSON.parse(s):[]}catch{return[];}}
+function saveNeeds(l){localStorage.setItem(NK(CY),JSON.stringify(l));}
+function addNeed(){
+  var name=document.getElementById('need-name').value.trim();
+  var amt=parseFloat(document.getElementById('need-amount').value)||0;
+  var prio=document.getElementById('need-priority').value;
+  if(!name)return;
+  var l=getNeeds();l.push({id:uid(),name:name,amount:amt,priority:prio,done:false});saveNeeds(l);
+  document.getElementById('need-name').value='';document.getElementById('need-amount').value='';
+  renderNeeds();updateAll();
+}
+function renderNeeds(){
+  var list=getNeeds();var cont=document.getElementById('needs-list');
+  if(!list.length){cont.innerHTML='<div class="empty">لا توجد احتياجات</div>';return;}
+  var pl={high:'🔴',med:'🟡',low:'🟢'};
+  cont.innerHTML=list.map(function(n){
+    return '<div class="need-item">'+
+      '<input class="need-chk" type="checkbox"'+(n.done?' checked':'')+' onchange="toggleNeed(\''+n.id+'\')">'+
+      '<span class="need-nm'+(n.done?' done':'')+'">'+esc(n.name)+'</span>'+
+      '<span class="need-prio">'+(pl[n.priority]||'')+'</span>'+
+      '<span class="need-amt">'+fmt(n.amount)+' KWD</span>'+
+      '<button class="del-row-btn" onclick="delNeed(\''+n.id+'\')">✕</button>'+
+    '</div>';
+  }).join('');
+  document.getElementById('needs-total').textContent=fmt(list.reduce(function(a,n){return a+n.amount;},0))+' KWD';
+}
+function toggleNeed(id){var l=getNeeds(),n=l.find(function(x){return x.id===id;});if(n){n.done=!n.done;saveNeeds(l);renderNeeds();updateAll();}}
+function delNeed(id){saveNeeds(getNeeds().filter(function(x){return x.id!==id;}));renderNeeds();updateAll();}
+
+/* TOTALS */
+function getPT(y,p){
+  // revenues from entry list
+  var rev=getRL(y,p).reduce(function(a,e){return a+e.amount;},0);
+  // daily spending
+  var daily=getDL(y,p).reduce(function(a,e){return a+e.amount;},0);
+  // month commit — only PAID items deducted from net
+  var mcommit=getMC(y,p).filter(function(e){return e.paid;}).reduce(function(a,e){return a+e.amount;},0);
+  // commit fixed (ref only)
+  var commitRef=0;
+  getSecs('commit').forEach(function(s){s.rows.forEach(function(r){commitRef+=gcv(r.key);});});
+  var totalSpent=daily+mcommit;
+  return{rev:rev,daily:daily,mcommit:mcommit,commitRef:commitRef,totalSpent:totalSpent,net:rev-totalSpent};
+}
+
+function updateAll(){
+  if(!ready)return;
+  // commit section totals
+  var totalCommitRef=0;
+  getSecs('commit').forEach(function(s){
+    var st=s.rows.reduce(function(a,r){return a+gcv(r.key);},0);
+    totalCommitRef+=st;
+    var el=document.getElementById('st-'+s.id);if(el)el.textContent=fmt(st)+' KWD';
+  });
+
+  var t=getPT(CY,CP);
+
+  // summary
+  document.getElementById('ps-rev').textContent=fmt(t.rev);
+  document.getElementById('ps-exp').textContent=fmt(t.totalSpent);
+  document.getElementById('ps-net').textContent=fmt(Math.abs(t.net));
+  document.getElementById('ps-net').className='ps-val '+(t.net>=0?'g':'r');
+  document.getElementById('ps-net-lbl').textContent=t.net>=0?'KWD فائض ✅':'KWD عجز ⚠️';
+  document.getElementById('ps-commit-ref').textContent=fmt(totalCommitRef)+' KWD';
+
+  // sub totals
+  document.getElementById('total-commit').textContent=fmt(totalCommitRef)+' KWD';
+  var mcList=getMC(CY,CP);
+  var mcPaid=mcList.filter(function(e){return e.paid;}).reduce(function(a,e){return a+e.amount;},0);
+  var mcTotal=mcList.reduce(function(a,e){return a+e.amount;},0);
+  document.getElementById('total-mcommit').textContent=fmt(mcPaid)+' KWD مدفوع / '+fmt(mcTotal)+' KWD إجمالي';
+  document.getElementById('total-daily').textContent=fmt(t.daily)+' KWD';
+  document.getElementById('total-rev').textContent=fmt(t.rev)+' KWD';
+
+  // bar
+  if(t.rev>0){
+    document.getElementById('pb-sp').style.width=Math.min(100,t.totalSpent/t.rev*100)+'%';
+    document.getElementById('pb-net-bar').style.width=Math.max(0,t.net/t.rev*100)+'%';
+  }else{
+    document.getElementById('pb-sp').style.width='0%';
+    document.getElementById('pb-net-bar').style.width='0%';
+  }
+
+  buildAnnual();
+}
+
+function buildAnnual(){
+  var periods=getPeriods(CY);
+  var grid=document.getElementById('annGrid');if(!grid)return;
+  var aRev=0,aSpent=0,aNet=0;
+  var html='';
+  periods.forEach(function(p){
+    var t=getPT(CY,p.index);
+    aRev+=t.rev;aSpent+=t.totalSpent;aNet+=t.net;
+    var has=t.rev>0||t.totalSpent>0;
+    var isCur=p.index===CP;
+    html+='<div class="amc'+(isCur?' cur':'')+'" onclick="changePeriod('+p.index+');switchMain(\'monthly\');">'+
+      '<div class="amc-name">'+p.short+'</div>';
+    if(has){
+      html+='<div class="amc-row"><span class="amc-lbl">دخل</span><span class="amc-v g">'+fmt(t.rev)+'</span></div>'+
+        '<div class="amc-row"><span class="amc-lbl">صرف</span><span class="amc-v r">'+fmt(t.totalSpent)+'</span></div>'+
+        '<div class="amc-net"><span class="amc-nl">صافي</span><span class="amc-nv '+(t.net>=0?'g':'r')+'">'+fmt(t.net)+'</span></div>';
+    }else{
+      html+='<div class="amc-empty">— لا بيانات —</div>';
+    }
+    html+='</div>';
+  });
+  grid.innerHTML=html;
+  document.getElementById('ann-yr-lbl').textContent='ملخص دورات '+CY;
+  document.getElementById('ann-rev').textContent=fmt(aRev);
+  document.getElementById('ann-exp').textContent=fmt(aSpent);
+  document.getElementById('ann-net').textContent=fmt(aNet);
+
+  // investments — out deducts, in adds
+  var invList=getInvList();
+  var invOut=invList.filter(function(e){return e.type==='out';}).reduce(function(a,e){return a+e.amount;},0);
+  var invIn=invList.filter(function(e){return e.type==='in';}).reduce(function(a,e){return a+e.amount;},0);
+  // inv-in counted in revenues already? No — it's annual-level. So: final = annNet + invIn - invOut - needsTot
+  var needsTot=getNeeds().filter(function(n){return n.done;}).reduce(function(a,n){return a+n.amount;},0);
+  var fin=aNet+invIn-invOut-needsTot;
+  var fe=document.getElementById('ann-final');
+  if(fe){fe.textContent=fmt(fin);fe.className='ann-val '+(fin>=0?'g':'r');}
+
+  // goal
+  var goal=parseFloat(document.getElementById('inv-goal')?document.getElementById('inv-goal').value:0)||0;
+  document.getElementById('inv-accum').textContent=fmt(aNet);
+  if(goal>0){
+    var gp=Math.min(100,aNet/goal*100);
+    document.getElementById('goal-fill').style.width=gp+'%';
+    document.getElementById('goal-pct').textContent=gp.toFixed(1)+'%';
+    document.getElementById('goal-rem').textContent=fmt(Math.max(0,goal-aNet))+' KWD متبقي';
+  }
+}
+
+/* NAV */
+function switchMain(tab){
+  ['monthly','annual'].forEach(function(t){
+    document.getElementById('mt-'+t).classList.toggle('active',t===tab);
+    document.getElementById('view-'+t).classList.toggle('active',t===tab);
+  });
+  if(tab==='annual'){renderInvList();buildAnnual();}
+}
+function switchSub(tab){
+  ['commit','mcommit','daily','rev'].forEach(function(t){
+    document.getElementById('st-'+t).classList.toggle('active',t===tab);
+    document.getElementById('sv-'+t).classList.toggle('active',t===tab);
+  });
+}
+function changePeriod(idx){
+  flushInputs();CP=idx;
+  document.querySelectorAll('.pcard').forEach(function(b,i){b.classList.toggle('active',i===idx);});
+  var p=getPeriods(CY)[idx];
+  document.getElementById('hdr-month').textContent=p.name;
+  document.getElementById('hdr-range').textContent=p.label;
+  document.getElementById('ps-label').textContent='📆 '+p.label;
+  loadInputValues();renderDailyList();renderMcList();renderRevList();updateAll();
+}
+function buildPeriodNav(){
+  var cont=document.getElementById('periodCards');cont.innerHTML='';
+  getPeriods(CY).forEach(function(p,i){
+    var div=document.createElement('div');
+    div.className='pcard'+(i===CP?' active':'')+(i===TODAY_P&&i!==CP?' today':'');
+    div.innerHTML='<span class="pc-m">'+p.short+'</span><span class="pc-d">23</span>';
+    div.onclick=function(){changePeriod(i);};
+    cont.appendChild(div);
+  });
+}
+
+/* EXPORT / IMPORT */
+function exportData(){
+  flushInputs();saveCfg();
+  var d={};
+  for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.startsWith('F4_'))d[k]=localStorage.getItem(k);}
+  var blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;a.download='\u062e\u0637\u0629-\u0645\u0627\u0644\u064a\u0629-'+CY+'.json';a.click();
+  URL.revokeObjectURL(url);toast('\ud83d\udce4 \u062a\u0645 \u0627\u0644\u062a\u0635\u062f\u064a\u0631');
+}
+function handleImport(e){
+  var file=e.target.files[0];if(!file)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    try{
+      var d=JSON.parse(ev.target.result);
+      Object.keys(d).forEach(function(k){if(k.startsWith('F4_'))localStorage.setItem(k,d[k]);});
+      init();toast('\ud83d\udce5 \u062a\u0645 \u0627\u0644\u0627\u0633\u062a\u064a\u0631\u0627\u062f');
+    }catch(err){toast('\u274c \u0645\u0644\u0641 \u063a\u064a\u0631 \u0635\u0627\u0644\u062d',true);}
+  };
+  r.readAsText(file);e.target.value='';
+}
+
+/* REPORT */
+function openReport(){
+  var p=getPeriods(CY)[CP],t=getPT(CY,CP);
+  document.getElementById('rep-title').textContent='\u062a\u0642\u0631\u064a\u0631: '+p.label;
+  var html='<div class="rep-sec"><div class="rep-head">\u0645\u0644\u062e\u0635 \u0627\u0644\u062f\u0648\u0631\u0629</div>'+
+    '<div class="rep-row"><span>\u0627\u0644\u062f\u062e\u0644</span><span style="color:var(--green)">'+fmt(t.rev)+' KWD</span></div>'+
+    '<div class="rep-row"><span>\u0627\u0644\u0645\u0646\u0635\u0631\u0641\u0627\u062a</span><span style="color:var(--red)">'+fmt(t.daily)+' KWD</span></div>'+
+    '<div class="rep-row"><span>\u0627\u0644\u062a\u0632\u0627\u0645\u0627\u062a \u0647\u0630\u0627 \u0627\u0644\u0634\u0647\u0631</span><span style="color:var(--red)">'+fmt(t.mcommit)+' KWD</span></div>'+
+    '<div class="rep-row"><b>\u0627\u0644\u0635\u0627\u0641\u064a \u0627\u0644\u0634\u0647\u0631\u064a</b><b style="color:'+(t.net>=0?'var(--green)':'var(--red)')+'">'+fmt(t.net)+' KWD</b></div>'+
+    '<div class="rep-row"><span style="color:var(--muted)">\u0627\u0644\u0627\u0644\u062a\u0632\u0627\u0645\u0627\u062a \u0627\u0644\u062b\u0627\u0628\u062a\u0629 (\u0645\u0631\u062c\u0639)</span><span style="color:var(--muted)">'+fmt(t.commitRef)+' KWD</span></div>'+
+    '</div>';
+  var dl=getDL(CY,CP);
+  if(dl.length){
+    html+='<div class="rep-sec"><div class="rep-head">\u0627\u0644\u0645\u0646\u0635\u0631\u0641\u0627\u062a</div>';
+    dl.forEach(function(e){html+='<div class="rep-row"><span>'+esc(e.name)+(e.rowLabel?' \u00b7 '+esc(e.rowLabel):'')+' <small style="color:var(--muted)">'+esc(e.ts||'')+'</small></span><span>'+fmt(e.amount)+' KWD</span></div>';});
+    html+='</div>';
+  }
+  var ml=getMC(CY,CP);
+  if(ml.length){
+    html+='<div class="rep-sec"><div class="rep-head">\u0627\u0644\u062a\u0632\u0627\u0645\u0627\u062a \u0647\u0630\u0627 \u0627\u0644\u0634\u0647\u0631</div>';
+    ml.forEach(function(e){html+='<div class="rep-row"><span>'+esc(e.name)+(e.catName?' \u00b7 '+esc(e.catName):'')+' <small style="color:var(--muted)">'+esc(e.ts||'')+'</small></span><span>'+fmt(e.amount)+' KWD</span></div>';});
+    html+='</div>';
+  }
+  var rl=getRL(CY,CP);
+  if(rl.length){
+    html+='<div class="rep-sec"><div class="rep-head">\u0627\u0644\u0625\u064a\u0631\u0627\u062f\u0627\u062a</div>';
+    rl.forEach(function(e){html+='<div class="rep-row"><span>'+esc(e.name)+' <small style="color:var(--muted)">'+esc(e.ts||'')+'</small></span><span style="color:var(--green)">'+fmt(e.amount)+' KWD</span></div>';});
+    html+='</div>';
+  }
+  var aRev=0,aSpent=0,aNet=0;
+  getPeriods(CY).forEach(function(pp){var tt=getPT(CY,pp.index);aRev+=tt.rev;aSpent+=tt.totalSpent;aNet+=tt.net;});
+  var invList=getInvList();
+  var invOut=invList.filter(function(e){return e.type==='out';}).reduce(function(a,e){return a+e.amount;},0);
+  var invIn=invList.filter(function(e){return e.type==='in';}).reduce(function(a,e){return a+e.amount;},0);
+  var nTot=getNeeds().filter(function(n){return n.done;}).reduce(function(a,n){return a+n.amount;},0);
+  var fin=aNet+invIn-invOut-nTot;
+  html+='<div class="rep-sec"><div class="rep-head">\u0627\u0644\u0645\u0644\u062e\u0635 \u0627\u0644\u0633\u0646\u0648\u064a '+CY+'</div>'+
+    '<div class="rep-row"><span>\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u062f\u062e\u0644</span><span style="color:var(--green)">'+fmt(aRev)+' KWD</span></div>'+
+    '<div class="rep-row"><span>\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u0645\u0635\u0631\u0648\u0641</span><span style="color:var(--red)">'+fmt(aSpent)+' KWD</span></div>'+
+    '<div class="rep-row"><b>\u0627\u0644\u0635\u0627\u0641\u064a \u0627\u0644\u0633\u0646\u0648\u064a</b><b style="color:'+(aNet>=0?'var(--green)':'var(--red)')+'">'+fmt(aNet)+' KWD</b></div>'+
+    '<div class="rep-row"><span>\u0639\u0627\u0626\u062f \u0627\u0633\u062a\u062b\u0645\u0627\u0631</span><span style="color:var(--green)">+'+fmt(invIn)+' KWD</span></div>'+
+    '<div class="rep-row"><span>\u0635\u0631\u0641 \u0627\u0633\u062a\u062b\u0645\u0627\u0631</span><span style="color:var(--red)">-'+fmt(invOut)+' KWD</span></div>'+
+    '<div class="rep-row"><span>\u0627\u0644\u0627\u062d\u062a\u064a\u0627\u062c\u0627\u062a</span><span>-'+fmt(nTot)+' KWD</span></div>'+
+    '<div class="rep-row"><b>\u0627\u0644\u0646\u062a\u064a\u062c\u0629 \u0627\u0644\u0646\u0647\u0627\u0626\u064a\u0629</b><b style="color:'+(fin>=0?'var(--green)':'var(--red)')+'">'+fmt(fin)+' KWD</b></div>'+
+    '</div>';
+  document.getElementById('rep-content').innerHTML=html;
+  openOv('ov-report');
+}
+function printReport(){
+  var title=document.getElementById('rep-title').textContent;
+  var content=document.getElementById('rep-content').innerHTML;
+  var w=window.open('','_blank');
+  w.document.write('<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><title>'+title+'</title>'+
+    '<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">'+
+    '<style>body{font-family:"IBM Plex Sans Arabic",sans-serif;padding:30px;color:#2C1A0E;max-width:700px;margin:auto;}'+
+    'h1{font-size:18px;margin-bottom:20px;color:#3D2008;}'+
+    '.rep-sec{margin-bottom:18px;}.rep-head{font-size:12px;font-weight:700;color:#3D2008;border-bottom:2px solid #D4C4B0;padding-bottom:4px;margin-bottom:8px;}'+
+    '.rep-row{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid #EDE6DC;}'+
+    '@media print{@page{margin:15mm;}}</style></head><body>'+
+    '<h1>'+title+'</h1>'+content+
+    '<script>window.onload=function(){window.print();};<\/script></body></html>');
+  w.document.close();
+}
+
+/* INIT */
+function init(){
+  ready=false;
+  CP=initPeriod();
+  var cfg=getCfg();
+  document.getElementById('mainTitle').value=cfg.title||'\u0627\u0644\u062e\u0637\u0629 \u0627\u0644\u0645\u0627\u0644\u064a\u0629';
+  buildPeriodNav();
+  renderCommitSections();
+  var p=getPeriods(CY)[CP];
+  document.getElementById('hdr-month').textContent=p.name;
+  document.getElementById('hdr-range').textContent=p.label;
+  document.getElementById('ps-label').textContent='\ud83d\udcc6 '+p.label;
+  var ig=document.getElementById('inv-goal');if(ig)ig.value=cfg.invGoal||'';
+  loadInputValues();
+  renderDailyList();renderMcList();renderRevList();renderNeeds();renderInvList();
+  ready=true;
+  updateAll();
+  setTimeout(function(){
+    var cards=document.querySelectorAll('.pcard');
+    if(cards[CP])cards[CP].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+  },150);
+}
+
+init();
+
+// PWA Service Worker
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
+</script>
+</body>
+</html>
