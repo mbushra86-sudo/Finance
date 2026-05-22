@@ -28,17 +28,15 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 .hdr-title{color:#fff;font-size:18px;font-weight:700;}
 .hdr-sub{color:rgba(255,255,255,.6);font-size:11px;margin-top:2px;}
 .hdr-btns{display:flex;gap:5px;align-items:center;}
-.hbtn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:6px 9px;color:#fff;font-size:13px;font-family:inherit;cursor:pointer;}
+.hbtn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:6px 10px;color:#fff;font-size:14px;font-family:inherit;cursor:pointer;}
 .hbtn:active{background:rgba(255,255,255,.3);}
-/* hamburger menu */
 .menu-wrap{position:relative;}
-.menu-dropdown{position:absolute;top:calc(100% + 8px);left:0;background:var(--card);border-radius:12px;border:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,.15);min-width:160px;z-index:400;display:none;}
+.menu-dropdown{position:absolute;top:calc(100% + 8px);left:0;background:var(--card);border-radius:12px;border:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,.18);min-width:160px;z-index:400;display:none;overflow:hidden;}
 .menu-dropdown.open{display:block;}
 .menu-item{display:flex;align-items:center;gap:10px;padding:12px 14px;font-size:13px;color:var(--text);cursor:pointer;border-bottom:1px solid var(--bg2);}
 .menu-item:last-child{border-bottom:none;}
 .menu-item:active{background:var(--bg2);}
 
-/* PERIOD STRIP */
 .period-strip{overflow-x:auto;scrollbar-width:none;padding:6px 12px 0;}
 .period-strip::-webkit-scrollbar{display:none;}
 .period-cards{display:flex;gap:5px;padding-bottom:10px;}
@@ -48,23 +46,22 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 .pc-n{font-size:13px;font-weight:700;color:rgba(255,255,255,.55);}
 .pc-d{font-size:8px;color:rgba(255,255,255,.3);margin-top:1px;}
 .pcard.active .pc-n,.pcard.active .pc-d{color:#fff;}
-.pcard.today .pc-n{color:rgba(255,255,255,.95);}
-
-/* MAIN TABS */
-.main-tabs{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(255,255,255,.08);}
-.mtab{padding:10px;border:none;background:transparent;color:rgba(255,255,255,.45);font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;border-bottom:3px solid transparent;text-align:center;}
+.pcard.today .pc-n{color:#fff;}
+.main-tabs{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(255,255,255,.08);}
+.mtab{padding:10px;border:none;background:transparent;color:rgba(255,255,255,.45);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;border-bottom:3px solid transparent;text-align:center;}
 .mtab.active{color:#fff;border-bottom-color:var(--accent2);}
 
 /* STICKY SUB TABS */
-.sub-tabs-sticky{position:sticky;top:var(--hdr-h,120px);z-index:200;background:var(--bg);padding:8px 12px 0;}
+.sub-tabs-sticky{position:sticky;z-index:200;background:var(--bg);padding:8px 12px 0;}
 .sub-tabs{display:flex;background:#fff;border-radius:12px;border:1px solid var(--border);overflow:hidden;box-shadow:0 1px 6px var(--sh);}
-.stab{flex:1;padding:9px 4px;border:none;background:transparent;color:var(--muted);font-size:11px;font-family:inherit;cursor:pointer;border-left:1px solid var(--border);text-align:center;white-space:nowrap;}
+.stab{flex:1;padding:9px 2px;border:none;background:transparent;color:var(--muted);font-size:11px;font-family:inherit;cursor:pointer;border-left:1px solid var(--border);text-align:center;white-space:nowrap;}
 .stab:last-child{border-left:none;}.stab.active{background:var(--brand);color:#fff;font-weight:700;}
 
 /* LAYOUT */
 .main{padding:0 12px 30px;}
 .view{display:none;}.view.active{display:block;}
 .sub-view{display:none;}.sub-view.active{display:block;padding-top:10px;}
+.ann-sub-view{display:none;}.ann-sub-view.active{display:block;padding-top:10px;}
 
 /* INNER TABS */
 .inner-tabs{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px;margin-bottom:6px;}
@@ -74,7 +71,7 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 .inner-view{display:none;}.inner-view.active{display:block;}
 
 /* SUMMARY CARD */
-.ps-card{background:linear-gradient(140deg,var(--brand),#7A3820);border-radius:16px;padding:14px;margin:10px 0 10px;color:#fff;box-shadow:0 4px 18px rgba(61,32,8,.3);}
+.ps-card{background:linear-gradient(140deg,var(--brand),#7A3820);border-radius:16px;padding:14px;margin:10px 0;color:#fff;box-shadow:0 4px 18px rgba(61,32,8,.3);}
 .ps-period{font-size:11px;opacity:.6;margin-bottom:8px;}
 .ps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
 .ps-lbl{font-size:10px;opacity:.6;margin-bottom:2px;}
@@ -90,38 +87,35 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 
 /* COLLAPSE BLOCK */
 .cblock{background:var(--card);border-radius:12px;border:1px solid var(--border);margin-bottom:10px;overflow:hidden;box-shadow:0 1px 4px var(--sh);}
-.cblock-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg2);cursor:pointer;user-select:none;}
-.cblock-title{font-size:13px;font-weight:700;color:var(--brand);display:flex;align-items:center;gap:6px;flex:1;}
-.cblock-right{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.cblock-hdr{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;background:var(--bg2);}
+.cblock-title{font-size:13px;font-weight:700;color:var(--brand);display:flex;align-items:center;gap:6px;flex:1;min-width:0;}
+.cblock-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
 .cbadge{font-size:11px;font-weight:700;color:var(--accent);}
-.carr{font-size:14px;color:var(--muted);transition:transform .25s;line-height:1;}
+.carr{font-size:16px;color:var(--muted);transition:transform .25s;cursor:pointer;padding:4px;flex-shrink:0;}
 .carr.open{transform:rotate(180deg);}
-.cblock-body{overflow:hidden;transition:max-height .3s ease,opacity .25s;max-height:2000px;opacity:1;}
+.cblock-body{overflow:hidden;transition:max-height .35s ease,opacity .25s;max-height:3000px;opacity:1;}
 .cblock-body.closed{max-height:0 !important;opacity:0;}
 
-/* SECTIONS inside collapse */
-.sec-inner{border-bottom:1px solid var(--border);}
-.sec-inner:last-child{border-bottom:none;}
-.sec-row-hdr{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:rgba(61,32,8,.03);border-bottom:1px solid var(--bg2);cursor:pointer;}
-.sec-row-title{display:flex;align-items:center;gap:6px;flex:1;}
-.sec-row-inp{border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:600;color:var(--brand);flex:1;min-width:0;}
-.sec-row-total{font-size:11px;font-weight:700;color:var(--accent);white-space:nowrap;margin:0 4px;}
-.sec-row-actions{display:flex;gap:4px;flex-shrink:0;}
-.del-sec-btn{color:var(--red);background:rgba(146,43,33,.08);border:1px solid rgba(146,43,33,.15);font-size:10px;padding:3px 7px;cursor:pointer;border-radius:6px;font-family:inherit;}
-.ann-sub-view{display:none;}.ann-sub-view.active{display:block;}
-.drag-handle{font-size:14px;color:var(--muted);cursor:grab;padding:0 4px;touch-action:none;}
+/* SECTIONS */
+.sec-inp{border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:600;color:var(--brand);flex:1;min-width:0;max-width:120px;}
+.sec-total-badge{font-size:11px;font-weight:700;color:var(--accent);white-space:nowrap;}
+.del-sec-btn{color:var(--red);background:rgba(146,43,33,.1);border:1px solid rgba(146,43,33,.2);font-size:11px;padding:4px 8px;cursor:pointer;border-radius:6px;font-family:inherit;white-space:nowrap;}
 
 /* ROWS */
-.row-item{display:flex;align-items:center;padding:7px 12px;border-bottom:1px solid var(--bg2);gap:6px;}
+.row-item{display:flex;align-items:center;padding:10px 12px;border-bottom:1px solid var(--bg2);gap:8px;touch-action:none;}
 .row-item:last-child{border-bottom:none;}
+.drag-handle{font-size:18px;color:var(--muted);cursor:grab;padding:4px 6px;flex-shrink:0;touch-action:none;user-select:none;}
+.row-lbl-wrap{flex:1;min-width:0;display:flex;align-items:center;gap:4px;}
 .row-lbl-inp{flex:1;font-size:13px;color:var(--text);background:transparent;border:none;min-width:0;font-family:inherit;}
-.row-inp-wrap{display:flex;align-items:center;gap:3px;flex-shrink:0;}
-.row-inp{width:80px;padding:5px 6px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;text-align:left;direction:ltr;font-family:inherit;background:var(--bg);}
+.clear-x{background:none;border:none;color:var(--muted);font-size:14px;padding:2px 4px;cursor:pointer;flex-shrink:0;opacity:.6;}
+.clear-x:active{opacity:1;color:var(--red);}
+.row-amt-wrap{display:flex;align-items:center;gap:3px;flex-shrink:0;}
+.row-inp{width:76px;padding:5px 6px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;text-align:left;direction:ltr;font-family:inherit;background:var(--bg);}
 .row-inp:focus{outline:none;border-color:var(--accent);background:#fff;}
 .row-cur{font-size:10px;color:var(--muted);}
-.del-row-btn{color:var(--red);background:none;border:none;font-size:13px;padding:3px 4px;cursor:pointer;flex-shrink:0;}
-.add-row-btn{display:flex;align-items:center;gap:5px;padding:9px;color:var(--accent);font-size:12px;background:none;border:none;width:100%;justify-content:center;border-top:1px dashed var(--border);cursor:pointer;font-family:inherit;}
-.add-sec-btn{display:flex;align-items:center;gap:6px;padding:10px;color:var(--brand);font-size:12px;background:var(--card);border:1.5px dashed var(--border);width:100%;justify-content:center;border-radius:12px;cursor:pointer;font-family:inherit;margin-bottom:10px;}
+.del-row-btn{color:var(--red);background:none;border:none;font-size:16px;padding:4px 5px;cursor:pointer;flex-shrink:0;}
+.add-row-btn{display:flex;align-items:center;gap:5px;padding:10px;color:var(--accent);font-size:12px;background:none;border:none;width:100%;justify-content:center;border-top:1px dashed var(--border);cursor:pointer;font-family:inherit;}
+.add-sec-btn{display:flex;align-items:center;gap:6px;padding:11px;color:var(--brand);font-size:12px;background:var(--card);border:1.5px dashed var(--border);width:100%;justify-content:center;border-radius:12px;cursor:pointer;font-family:inherit;margin-bottom:10px;}
 
 /* TOTAL CARD */
 .total-card{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:11px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 4px var(--sh);}
@@ -131,19 +125,24 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 .tc-val.g{color:var(--green);}.tc-val.r{color:var(--red);}
 
 /* FORMS */
-.fbox{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:12px;margin-bottom:10px;box-shadow:0 1px 4px var(--sh);}
+.fbox{padding:12px;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .fg{margin-bottom:8px;}.fg:last-child{margin-bottom:0;}
 .flbl{display:block;font-size:11px;color:var(--muted);margin-bottom:3px;}
-.finp,.fsel{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;background:var(--bg);}
-.finp:focus,.fsel:focus{outline:none;border-color:var(--accent);background:#fff;}
+.finp-wrap{position:relative;display:flex;align-items:center;}
+.finp{width:100%;padding:8px 32px 8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;background:var(--bg);}
+.finp:focus{outline:none;border-color:var(--accent);background:#fff;}
+.finp-clear{position:absolute;left:8px;background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;padding:2px;opacity:.5;}
+.finp-clear:active{opacity:1;color:var(--red);}
+.fsel{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;background:var(--bg);}
+.fsel:focus{outline:none;border-color:var(--accent);background:#fff;}
 .cat-btn{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-family:inherit;background:var(--bg);text-align:right;cursor:pointer;color:var(--muted);}
 .cat-btn.sel{color:var(--text);border-color:var(--accent);}
 .add-btn{width:100%;padding:10px;background:var(--brand);color:#fff;border:none;border-radius:9px;font-weight:700;font-size:13px;font-family:inherit;cursor:pointer;margin-top:3px;}
 .add-btn:active{background:var(--accent);}
 
 /* ENTRY CARDS */
-.entry-card{display:flex;align-items:flex-start;padding:9px 12px;border-bottom:1px solid var(--bg2);gap:7px;}
+.entry-card{display:flex;align-items:flex-start;padding:9px 12px;border-bottom:1px solid var(--bg2);gap:7px;touch-action:none;}
 .entry-card:last-child{border-bottom:none;}
 .ec-info{flex:1;min-width:0;}
 .ec-name{font-size:13px;font-weight:600;margin-bottom:2px;}
@@ -155,6 +154,7 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 .ec-badge.high{background:rgba(146,43,33,.1);color:var(--red);}
 .ec-badge.med{background:rgba(184,134,11,.1);color:#B8860B;}
 .ec-badge.low{background:rgba(26,107,53,.1);color:var(--green);}
+.ec-badge.debt{background:rgba(41,128,185,.12);color:var(--blue-l);}
 .ec-amt{font-weight:700;font-size:13px;direction:ltr;white-space:nowrap;flex-shrink:0;}
 .ec-amt.r{color:var(--red);}.ec-amt.g{color:var(--green);}
 
@@ -177,7 +177,7 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 .amc-nv.g{color:var(--green);}.amc-nv.r{color:var(--red);}
 .amc-empty{font-size:9px;opacity:.35;text-align:center;padding:5px 0;}
 
-/* GOAL / PIGGY */
+/* GOAL/PIGGY */
 .goal-card{background:linear-gradient(135deg,var(--brand),var(--accent));border-radius:14px;padding:16px;color:#fff;margin-bottom:10px;box-shadow:0 4px 14px var(--sh);}
 .goal-card-title{font-size:13px;font-weight:700;margin-bottom:12px;}
 .goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
@@ -188,16 +188,13 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 .goal-bar{height:5px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden;margin-bottom:4px;}
 .goal-fill{height:100%;background:#fff;transition:width .4s;}
 .goal-meta{display:flex;justify-content:space-between;font-size:10px;opacity:.65;}
-
-/* NET WORTH */
 .networth-card{background:linear-gradient(135deg,#6B3218,var(--accent));border-radius:14px;padding:16px;color:#fff;margin-bottom:10px;box-shadow:0 4px 14px rgba(61,32,8,.3);}
 .nw-lbl{font-size:11px;opacity:.7;margin-bottom:4px;}
 .nw-val{font-size:28px;font-weight:700;letter-spacing:-0.5px;}
-.nw-sub{font-size:11px;opacity:.6;margin-top:6px;display:flex;gap:14px;}
-.nw-sub span{display:flex;align-items:center;gap:3px;}
+.nw-sub{font-size:11px;opacity:.65;margin-top:6px;display:flex;gap:12px;flex-wrap:wrap;}
 
 /* PRIORITY TABS */
-.prio-tabs{display:flex;gap:5px;margin-bottom:8px;}
+.prio-tabs{display:flex;gap:5px;margin-bottom:8px;padding:8px 12px 0;}
 .ptab{flex:1;padding:7px 4px;border-radius:9px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:11px;font-family:inherit;cursor:pointer;text-align:center;}
 .ptab.active{font-weight:700;}
 .ptab.p-high.active{background:rgba(146,43,33,.1);color:var(--red);border-color:var(--red);}
@@ -205,12 +202,16 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 .ptab.p-low.active{background:rgba(26,107,53,.1);color:var(--green);border-color:var(--green);}
 .ptab.p-all.active{background:var(--brand);color:#fff;border-color:var(--brand);}
 
-/* NEEDS */
+/* NEEDS / DEBT ITEMS */
 .need-item{display:flex;align-items:center;padding:10px 12px;border-bottom:1px solid var(--bg2);gap:7px;}
 .need-item:last-child{border-bottom:none;}
 .need-chk{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;}
 .need-nm{flex:1;font-size:13px;}.need-nm.done{text-decoration:line-through;opacity:.45;}
 .need-prio-btn{font-size:10px;padding:2px 6px;border-radius:8px;border:none;cursor:pointer;background:transparent;flex-shrink:0;}
+.debt-progress{height:4px;background:var(--bg2);border-radius:2px;overflow:hidden;margin-top:3px;}
+.debt-fill{height:100%;background:var(--green);border-radius:2px;transition:width .3s;}
+.debt-due{font-size:9px;color:var(--muted);}
+.debt-due.overdue{color:var(--red);font-weight:600;}
 
 /* TOAST */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(26,107,53,.95);color:#fff;padding:9px 20px;border-radius:20px;font-size:12px;z-index:999;opacity:0;pointer-events:none;transition:all .25s;white-space:nowrap;}
@@ -232,14 +233,14 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 .print-btn{width:100%;padding:11px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:8px;}
 .pick-group{margin-bottom:10px;}
 .pick-g-lbl{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:5px;padding-bottom:3px;border-bottom:1px solid var(--border);}
-.pick-item{display:flex;align-items:center;gap:10px;padding:10px 8px;border-radius:9px;cursor:pointer;}
+.pick-item{display:flex;align-items:center;gap:10px;padding:11px 8px;border-radius:9px;cursor:pointer;border:1px solid transparent;}
 .pick-item:active{background:var(--bg2);}
+.pick-item.selected{background:rgba(200,98,42,.08);border-color:var(--accent);}
 .pick-name{flex:1;font-size:13px;}
-.pick-chk{color:var(--accent);font-size:16px;visibility:hidden;flex-shrink:0;}
+.pick-chk{color:var(--accent);font-size:18px;visibility:hidden;flex-shrink:0;}
 .pick-chk.on{visibility:visible;}
 .settings-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--bg2);}
 .settings-row:last-child{border-bottom:none;}
-.settings-lbl{font-size:13px;color:var(--text);}
 </style>
 </head>
 <body>
@@ -266,10 +267,12 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
   <div class="main-tabs">
     <button class="mtab active" id="mt-monthly" onclick="switchMain('monthly')">📅 الشهري</button>
     <button class="mtab" id="mt-annual" onclick="switchMain('annual')">🗓 السنوي</button>
+    <button class="mtab" id="mt-debts" onclick="switchMain('debts')">💳 الديون</button>
   </div>
 </div>
 
 <div class="main">
+
   <!-- MONTHLY -->
   <div class="view active" id="view-monthly">
     <div class="ps-card">
@@ -277,7 +280,7 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
       <div class="ps-grid">
         <div><div class="ps-lbl">الدخل</div><div class="ps-val g" id="ps-rev">0.000</div><div class="ps-sub">KWD</div></div>
         <div><div class="ps-lbl">المنصرفات</div><div class="ps-val r" id="ps-exp">0.000</div><div class="ps-sub">KWD</div></div>
-        <div><div class="ps-lbl">الصافي الشهري</div><div class="ps-val gold" id="ps-net">0.000</div><div class="ps-sub" id="ps-net-lbl">KWD</div></div>
+        <div><div class="ps-lbl">الصافي</div><div class="ps-val gold" id="ps-net">0.000</div><div class="ps-sub" id="ps-net-lbl">KWD</div></div>
       </div>
       <div class="ps-row2">
         <span class="ps-row2-lbl">📋 الالتزامات الثابتة (مرجع)</span>
@@ -289,13 +292,12 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
       </div>
     </div>
 
-    <!-- sticky sub tabs -->
     <div class="sub-tabs-sticky" id="subTabsSticky">
       <div class="sub-tabs">
-        <button class="stab active" id="st-commit" onclick="switchSub('commit')">📋 الالتزامات</button>
-        <button class="stab" id="st-mcommit" onclick="switchSub('mcommit')">🔵 هذا الشهر</button>
-        <button class="stab" id="st-daily" onclick="switchSub('daily')">🧾 المنصرفات</button>
-        <button class="stab" id="st-rev" onclick="switchSub('rev')">💰 الإيرادات</button>
+        <button class="stab active" id="st-commit"  onclick="switchSub('commit')">📋 الالتزامات</button>
+        <button class="stab"        id="st-mcommit" onclick="switchSub('mcommit')">🔵 هذا الشهر</button>
+        <button class="stab"        id="st-daily"   onclick="switchSub('daily')">🧾 المنصرفات</button>
+        <button class="stab"        id="st-rev"     onclick="switchSub('rev')">💰 الإيرادات</button>
       </div>
     </div>
 
@@ -311,25 +313,30 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 
     <!-- THIS MONTH -->
     <div class="sub-view" id="sv-mcommit">
-      <div class="inner-tabs" id="mc-inner-tabs"></div>
-      <div id="mc-inner-views"></div>
-      <!-- add form -->
-      <div class="cblock" style="margin-top:8px;">
-        <div class="cblock-hdr" onclick="toggleCBlock('mc-form-body',this)">
+      <!-- FORM TOP -->
+      <div class="cblock">
+        <div class="cblock-hdr">
           <span class="cblock-title">➕ إضافة التزام شهري</span>
-          <span class="carr open">▼</span>
+          <span class="carr open" onclick="toggleCBlock('mc-form-body',this)">▼</span>
         </div>
         <div class="cblock-body" id="mc-form-body">
-          <div style="padding:12px;">
-            <div class="fg"><label class="flbl">اسم الالتزام</label><input class="finp" id="mc-name" placeholder="إصلاح، فاتورة..." onkeydown="if(event.key==='Enter')addMonthCommit()"></div>
+          <div class="fbox">
+            <div class="fg"><label class="flbl">اسم الالتزام</label>
+              <div class="finp-wrap"><input class="finp" id="mc-name" placeholder="إصلاح، فاتورة..." onkeydown="if(event.key==='Enter')addMonthCommit()"><button class="finp-clear" onclick="document.getElementById('mc-name').value=''">✕</button></div>
+            </div>
             <div class="form-row">
-              <div class="fg"><label class="flbl">المبلغ (KWD)</label><input class="finp" id="mc-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addMonthCommit()"></div>
+              <div class="fg"><label class="flbl">المبلغ (KWD)</label>
+                <div class="finp-wrap"><input class="finp" id="mc-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addMonthCommit()"><button class="finp-clear" onclick="document.getElementById('mc-amount').value=''">✕</button></div>
+              </div>
               <div class="fg"><label class="flbl">القسم</label><select class="fsel" id="mc-cat"><option value="">— بدون —</option></select></div>
             </div>
             <button class="add-btn" onclick="addMonthCommit()">✚ إضافة</button>
           </div>
         </div>
       </div>
+      <!-- DATA BELOW -->
+      <div class="inner-tabs" id="mc-inner-tabs"></div>
+      <div id="mc-inner-views"></div>
       <div class="total-card" style="flex-direction:column;gap:8px;align-items:stretch;">
         <span class="tc-lbl">التزامات هذا الشهر</span>
         <div style="display:flex;gap:8px;">
@@ -348,15 +355,19 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
     <!-- DAILY -->
     <div class="sub-view" id="sv-daily">
       <div class="cblock">
-        <div class="cblock-hdr" onclick="toggleCBlock('daily-form-body',this)">
+        <div class="cblock-hdr">
           <span class="cblock-title">➕ تسجيل منصرف</span>
-          <span class="carr open">▼</span>
+          <span class="carr open" onclick="toggleCBlock('daily-form-body',this)">▼</span>
         </div>
         <div class="cblock-body" id="daily-form-body">
-          <div style="padding:12px;">
-            <div class="fg"><label class="flbl">اسم المنصرف</label><input class="finp" id="daily-name" placeholder="قهوة، بقالة..." onkeydown="if(event.key==='Enter')addDailyExpense()"></div>
+          <div class="fbox">
+            <div class="fg"><label class="flbl">اسم المنصرف</label>
+              <div class="finp-wrap"><input class="finp" id="daily-name" placeholder="قهوة، بقالة..." onkeydown="if(event.key==='Enter')addDailyExpense()"><button class="finp-clear" onclick="document.getElementById('daily-name').value=''">✕</button></div>
+            </div>
             <div class="form-row">
-              <div class="fg"><label class="flbl">المبلغ (KWD)</label><input class="finp" id="daily-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addDailyExpense()"></div>
+              <div class="fg"><label class="flbl">المبلغ (KWD)</label>
+                <div class="finp-wrap"><input class="finp" id="daily-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addDailyExpense()"><button class="finp-clear" onclick="document.getElementById('daily-amount').value=''">✕</button></div>
+              </div>
               <div class="fg"><label class="flbl">البند</label><button class="cat-btn" id="cat-btn" onclick="openPicker()">اختر ▾</button></div>
             </div>
             <button class="add-btn" onclick="addDailyExpense()">✚ تسجيل</button>
@@ -370,23 +381,20 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 
     <!-- REVENUE -->
     <div class="sub-view" id="sv-rev">
-      <!-- investment returns reference card -->
-      <div class="total-card ref" id="inv-returns-card" style="margin-top:10px;">
-        <span class="tc-lbl">📈 عوائد الاستثمار السنوية (مرجع)</span>
-        <span style="font-size:15px;font-weight:700;color:var(--green);" id="inv-returns-ref">0.000 KWD</span>
-      </div>
-      <div class="inner-tabs" id="rev-inner-tabs"></div>
-      <div id="rev-inner-views"></div>
-      <div class="cblock" style="margin-top:8px;">
-        <div class="cblock-hdr" onclick="toggleCBlock('rev-form-body',this)">
+      <div class="cblock">
+        <div class="cblock-hdr">
           <span class="cblock-title">➕ إضافة إيراد</span>
-          <span class="carr open">▼</span>
+          <span class="carr open" onclick="toggleCBlock('rev-form-body',this)">▼</span>
         </div>
         <div class="cblock-body" id="rev-form-body">
-          <div style="padding:12px;">
-            <div class="fg"><label class="flbl">اسم الإيراد</label><input class="finp" id="rev-name" placeholder="راتب، عمل حر..." onkeydown="if(event.key==='Enter')addRevEntry()"></div>
+          <div class="fbox">
+            <div class="fg"><label class="flbl">اسم الإيراد</label>
+              <div class="finp-wrap"><input class="finp" id="rev-name" placeholder="راتب، عمل حر..." onkeydown="if(event.key==='Enter')addRevEntry()"><button class="finp-clear" onclick="document.getElementById('rev-name').value=''">✕</button></div>
+            </div>
             <div class="form-row">
-              <div class="fg"><label class="flbl">المبلغ (KWD)</label><input class="finp" id="rev-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addRevEntry()"></div>
+              <div class="fg"><label class="flbl">المبلغ (KWD)</label>
+                <div class="finp-wrap"><input class="finp" id="rev-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addRevEntry()"><button class="finp-clear" onclick="document.getElementById('rev-amount').value=''">✕</button></div>
+              </div>
               <div class="fg"><label class="flbl">النوع</label>
                 <select class="fsel" id="rev-type">
                   <option value="salary">💼 راتب</option>
@@ -400,6 +408,8 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
           </div>
         </div>
       </div>
+      <div class="inner-tabs" id="rev-inner-tabs"></div>
+      <div id="rev-inner-views"></div>
       <div class="total-card"><span class="tc-lbl">إجمالي الإيرادات</span><span class="tc-val g" id="total-rev">0.000 KWD</span></div>
     </div>
   </div>
@@ -412,80 +422,66 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
       <div class="ann-card"><div class="ann-lbl">الصافي السنوي</div><div class="ann-val gold" id="ann-net">0.000</div><div style="font-size:10px;color:var(--muted)">KWD</div></div>
       <div class="ann-card"><div class="ann-lbl">النتيجة النهائية</div><div class="ann-val" id="ann-final">0.000</div><div style="font-size:10px;color:var(--muted)">KWD</div></div>
     </div>
-
-    <!-- NET WORTH -->
     <div class="networth-card">
       <div class="nw-lbl">💎 صافي الثروة</div>
       <div class="nw-val" id="nw-val">0.000 KWD</div>
       <div class="nw-sub">
-        <span>🐷 الحصالة: <b id="nw-piggy">0.000</b></span>
-        <span>📊 الصافي: <b id="nw-net">0.000</b></span>
+        <span>🐷 <b id="nw-piggy">0.000</b> KWD</span>
+        <span>📊 صافي: <b id="nw-net">0.000</b> KWD</span>
       </div>
     </div>
-
-    <!-- 1. GOAL -->
-    <div class="goal-card">
-      <div class="goal-card-title">🎯 هدف الادخار السنوي</div>
-      <div class="goal-grid">
-        <div><div class="goal-lbl">الهدف (KWD)</div><input class="goal-inp" type="number" id="inv-goal" placeholder="0.000" oninput="autoSave();updateAll();"></div>
-        <div><div class="goal-lbl">المتراكم</div><div class="goal-val" id="inv-accum">0.000</div></div>
-      </div>
-      <div class="goal-bar"><div class="goal-fill" id="goal-fill" style="width:0%"></div></div>
-      <div class="goal-meta"><span id="goal-pct">0%</span><span id="goal-rem" style="direction:ltr;">0.000 KWD متبقي</span></div>
-    </div>
-
-    <!-- 2. PIGGY BANK -->
-    <div class="cblock">
-      <div class="cblock-hdr" onclick="toggleCBlock('piggy-body',this)">
-        <span class="cblock-title">🐷 الحصالة</span>
-        <div class="cblock-right">
-          <span class="cbadge" id="piggy-badge">0.000 KWD</span>
-          <span class="carr open">▼</span>
-        </div>
-      </div>
-      <div class="cblock-body" id="piggy-body">
-        <div style="padding:12px;">
-          <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">المبلغ المدخر في الحصالة — يُضاف لصافي الثروة ويُخصم من النتيجة النهائية</div>
-          <div class="fg">
-            <label class="flbl">المبلغ المدخر (KWD)</label>
-            <input class="finp" id="piggy-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;font-size:18px;font-weight:700;" oninput="autoSave();updateAll();">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ANNUAL SUB TABS -->
-    <div class="sub-tabs-sticky" id="annSubTabsSticky">
+    <div class="sub-tabs-sticky" id="annSubTabsSticky" style="display:none;">
       <div class="sub-tabs">
-        <button class="stab active" id="ast-needs" onclick="switchAnnualSub('needs')">📝 الاحتياجات</button>
-        <button class="stab" id="ast-inv"   onclick="switchAnnualSub('inv')">💰 الاستثمار</button>
-        <button class="stab" id="ast-months" onclick="switchAnnualSub('months')">🗓 الدورات</button>
+        <button class="stab active" id="ast-needs"  onclick="switchAnnualSub('needs')">📝 الاحتياجات</button>
+        <button class="stab"        id="ast-inv"    onclick="switchAnnualSub('inv')">💰 الاستثمار</button>
+        <button class="stab"        id="ast-months" onclick="switchAnnualSub('months')">🗓 الدورات</button>
       </div>
     </div>
-
     <!-- NEEDS -->
-    <div class="ann-sub-view active" id="asv-needs" style="padding-top:10px;">
+    <div class="ann-sub-view active" id="asv-needs">
+      <div class="goal-card">
+        <div class="goal-card-title">🎯 هدف الادخار السنوي</div>
+        <div class="goal-grid">
+          <div><div class="goal-lbl">الهدف (KWD)</div><input class="goal-inp" type="number" id="inv-goal" placeholder="0.000" oninput="autoSave();updateAll();"></div>
+          <div><div class="goal-lbl">المتراكم</div><div class="goal-val" id="inv-accum">0.000</div></div>
+        </div>
+        <div class="goal-bar"><div class="goal-fill" id="goal-fill" style="width:0%"></div></div>
+        <div class="goal-meta"><span id="goal-pct">0%</span><span id="goal-rem">0.000 KWD متبقي</span></div>
+      </div>
       <div class="cblock">
-        <div class="cblock-hdr" onclick="toggleCBlock('needs-body',this)">
-          <span class="cblock-title">📝 الاحتياجات</span>
-          <div class="cblock-right">
-            <span class="cbadge" id="needs-total">0.000</span>
-            <span class="carr open">▼</span>
+        <div class="cblock-hdr">
+          <span class="cblock-title">🐷 الحصالة</span>
+          <div class="cblock-right"><span class="cbadge" id="piggy-badge">0.000 KWD</span><span class="carr open" onclick="toggleCBlock('piggy-body',this)">▼</span></div>
+        </div>
+        <div class="cblock-body" id="piggy-body">
+          <div class="fbox">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">المبلغ المدخر — يُضاف لصافي الثروة ويُخصم من النتيجة النهائية</div>
+            <div class="finp-wrap"><input class="finp" id="piggy-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;font-size:16px;font-weight:700;" oninput="autoSave();updateAll();"><button class="finp-clear" onclick="document.getElementById('piggy-amount').value='';autoSave();updateAll();">✕</button></div>
           </div>
+        </div>
+      </div>
+      <div class="cblock">
+        <div class="cblock-hdr">
+          <span class="cblock-title">📝 الاحتياجات</span>
+          <div class="cblock-right"><span class="cbadge" id="needs-total">0.000</span><span class="carr open" onclick="toggleCBlock('needs-body',this)">▼</span></div>
         </div>
         <div class="cblock-body" id="needs-body">
-          <div style="padding:8px 12px;font-size:11px;color:var(--muted);background:rgba(26,107,53,.04);border-bottom:1px solid var(--border);">تُخصم من الصافي السنوي عند التحديد ✅</div>
-          <div class="prio-tabs" style="padding:8px 12px 0;">
-            <button class="ptab p-all active" id="nt-all" onclick="switchNeedTab('all')">الكل</button>
-            <button class="ptab p-high" id="nt-high" onclick="switchNeedTab('high')">🔴 عالية</button>
-            <button class="ptab p-med" id="nt-med" onclick="switchNeedTab('med')">🟡 وسط</button>
-            <button class="ptab p-low" id="nt-low" onclick="switchNeedTab('low')">🟢 منخفضة</button>
+          <div style="padding:7px 12px;font-size:11px;color:var(--muted);background:rgba(26,107,53,.04);border-bottom:1px solid var(--border);">تُخصم من الصافي السنوي عند التحديد ✅</div>
+          <div class="prio-tabs">
+            <button class="ptab p-all active" id="nt-all"  onclick="switchNeedTab('all')">الكل</button>
+            <button class="ptab p-high"       id="nt-high" onclick="switchNeedTab('high')">🔴 عالية</button>
+            <button class="ptab p-med"        id="nt-med"  onclick="switchNeedTab('med')">🟡 وسط</button>
+            <button class="ptab p-low"        id="nt-low"  onclick="switchNeedTab('low')">🟢 منخفضة</button>
           </div>
           <div id="needs-list"></div>
-          <div style="padding:10px 12px;">
-            <div class="fg"><label class="flbl">اسم الاحتياج</label><input class="finp" id="need-name" placeholder="هاتف، أثاث..." onkeydown="if(event.key==='Enter')addNeed()"></div>
+          <div class="fbox" style="border-top:1px solid var(--border);">
+            <div class="fg"><label class="flbl">اسم الاحتياج</label>
+              <div class="finp-wrap"><input class="finp" id="need-name" placeholder="هاتف، أثاث..." onkeydown="if(event.key==='Enter')addNeed()"><button class="finp-clear" onclick="document.getElementById('need-name').value=''">✕</button></div>
+            </div>
             <div class="form-row">
-              <div class="fg"><label class="flbl">السعر (KWD)</label><input class="finp" id="need-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addNeed()"></div>
+              <div class="fg"><label class="flbl">السعر (KWD)</label>
+                <div class="finp-wrap"><input class="finp" id="need-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addNeed()"><button class="finp-clear" onclick="document.getElementById('need-amount').value=''">✕</button></div>
+              </div>
               <div class="fg"><label class="flbl">الأولوية</label><select class="fsel" id="need-priority"><option value="high">🔴 عالية</option><option value="med" selected>🟡 متوسطة</option><option value="low">🟢 منخفضة</option></select></div>
             </div>
             <button class="add-btn" onclick="addNeed()">✚ إضافة</button>
@@ -493,59 +489,114 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
         </div>
       </div>
     </div>
-
     <!-- INVESTMENTS -->
-    <div class="ann-sub-view" id="asv-inv" style="padding-top:10px;">
+    <div class="ann-sub-view" id="asv-inv">
       <div class="cblock">
-        <div class="cblock-hdr" onclick="toggleCBlock('inv-body',this)">
+        <div class="cblock-hdr">
           <span class="cblock-title">💰 الاستثمارات</span>
-          <div class="cblock-right">
-            <span class="cbadge" id="inv-badge">0.000 KWD</span>
-            <span class="carr open">▼</span>
-          </div>
+          <div class="cblock-right"><span class="cbadge" id="inv-badge">0.000 KWD</span><span class="carr open" onclick="toggleCBlock('inv-body',this)">▼</span></div>
         </div>
         <div class="cblock-body" id="inv-body">
-          <div class="inner-tabs" style="padding:8px 12px 0;" id="inv-inner-tabs">
+          <div class="inner-tabs" style="padding:8px 12px 0;">
             <button class="itab active" id="ivt-all" onclick="switchInvTab('all')">الكل</button>
-            <button class="itab" id="ivt-out" onclick="switchInvTab('out')">📤 صرف</button>
-            <button class="itab" id="ivt-in" onclick="switchInvTab('in')">📥 عائد</button>
+            <button class="itab"        id="ivt-out" onclick="switchInvTab('out')">📤 صرف</button>
+            <button class="itab"        id="ivt-in"  onclick="switchInvTab('in')">📥 عائد</button>
           </div>
-          <div id="inv-list-all" class="inner-view active"><div id="inv-list"></div></div>
-          <div id="inv-list-out" class="inner-view"><div id="inv-list-out-items"></div></div>
-          <div id="inv-list-in" class="inner-view"><div id="inv-list-in-items"></div></div>
-          <div style="padding:12px;border-top:1px solid var(--border);">
-            <div class="fg"><label class="flbl">اسم الاستثمار</label><input class="finp" id="inv-name" placeholder="عقار، أسهم..." onkeydown="if(event.key==='Enter')addInvEntry()"></div>
+          <div id="inv-list-all"  class="inner-view active"><div id="inv-list"></div></div>
+          <div id="inv-list-out"  class="inner-view"><div id="inv-list-out-items"></div></div>
+          <div id="inv-list-in"   class="inner-view"><div id="inv-list-in-items"></div></div>
+          <div class="fbox" style="border-top:1px solid var(--border);">
+            <div class="fg"><label class="flbl">اسم الاستثمار</label>
+              <div class="finp-wrap"><input class="finp" id="inv-name" placeholder="عقار، أسهم..." onkeydown="if(event.key==='Enter')addInvEntry()"><button class="finp-clear" onclick="document.getElementById('inv-name').value=''">✕</button></div>
+            </div>
             <div class="form-row">
-              <div class="fg"><label class="flbl">المبلغ (KWD)</label><input class="finp" id="inv-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addInvEntry()"></div>
-              <div class="fg"><label class="flbl">النوع</label>
-                <select class="fsel" id="inv-type">
-                  <option value="out">📤 استثمار (صرف)</option>
-                  <option value="in">📥 عائد (دخل)</option>
-                </select>
+              <div class="fg"><label class="flbl">المبلغ (KWD)</label>
+                <div class="finp-wrap"><input class="finp" id="inv-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addInvEntry()"><button class="finp-clear" onclick="document.getElementById('inv-amount').value=''">✕</button></div>
               </div>
+              <div class="fg"><label class="flbl">النوع</label><select class="fsel" id="inv-type"><option value="out">📤 استثمار (صرف)</option><option value="in">📥 عائد (دخل)</option></select></div>
             </div>
             <button class="add-btn" onclick="addInvEntry()">✚ إضافة</button>
           </div>
         </div>
       </div>
+      <!-- inv returns ref -->
+      <div class="total-card ref">
+        <span class="tc-lbl">📈 عوائد الاستثمار (مرجع في الإيرادات)</span>
+        <span style="font-size:14px;font-weight:700;color:var(--green);" id="inv-returns-ref">0.000 KWD</span>
+      </div>
     </div>
-
-    <!-- MONTH DETAILS -->
-    <div class="ann-sub-view" id="asv-months" style="padding-top:10px;">
+    <!-- MONTHS -->
+    <div class="ann-sub-view" id="asv-months">
       <div class="cblock">
-        <div class="cblock-hdr" onclick="toggleCBlock('months-body',this)">
+        <div class="cblock-hdr">
           <span class="cblock-title" id="ann-yr-lbl">ملخص الدورات</span>
-          <span class="carr open">▼</span>
+          <span class="carr open" onclick="toggleCBlock('months-body',this)">▼</span>
         </div>
         <div class="cblock-body" id="months-body">
-          <div style="padding:10px;">
-            <div class="ann-months-grid" id="annGrid"></div>
-          </div>
+          <div style="padding:10px;"><div class="ann-months-grid" id="annGrid"></div></div>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+  <!-- DEBTS -->
+  <div class="view" id="view-debts">
+    <!-- summary -->
+    <div class="ps-card" style="margin-top:10px;">
+      <div class="ps-period">💳 إدارة الديون</div>
+      <div class="ps-grid">
+        <div><div class="ps-lbl">إجمالي الديون</div><div class="ps-val r" id="debt-total">0.000</div><div class="ps-sub">KWD</div></div>
+        <div><div class="ps-lbl">المدفوع</div><div class="ps-val g" id="debt-paid-total">0.000</div><div class="ps-sub">KWD</div></div>
+        <div><div class="ps-lbl">المتبقي</div><div class="ps-val gold" id="debt-remaining">0.000</div><div class="ps-sub">KWD</div></div>
+      </div>
+      <div class="ps-bar-track" style="margin-top:10px;">
+        <div class="pb-net" id="debt-progress-bar" style="width:0%;background:var(--green-l,#27AE60)"></div>
+      </div>
+    </div>
+
+    <!-- add debt form -->
+    <div class="cblock">
+      <div class="cblock-hdr">
+        <span class="cblock-title">➕ إضافة دين</span>
+        <span class="carr open" onclick="toggleCBlock('debt-form-body',this)">▼</span>
+      </div>
+      <div class="cblock-body" id="debt-form-body">
+        <div class="fbox">
+          <div class="fg"><label class="flbl">اسم الدين / الدائن</label>
+            <div class="finp-wrap"><input class="finp" id="debt-name" placeholder="بنك، شخص..." onkeydown="if(event.key==='Enter')addDebt()"><button class="finp-clear" onclick="document.getElementById('debt-name').value=''">✕</button></div>
+          </div>
+          <div class="form-row">
+            <div class="fg"><label class="flbl">المبلغ الكلي (KWD)</label>
+              <div class="finp-wrap"><input class="finp" id="debt-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addDebt()"><button class="finp-clear" onclick="document.getElementById('debt-amount').value=''">✕</button></div>
+            </div>
+            <div class="fg"><label class="flbl">تاريخ الاستحقاق</label>
+              <input class="fsel" id="debt-due" type="date">
+            </div>
+          </div>
+          <div class="form-row" style="margin-top:8px;">
+            <div class="fg"><label class="flbl">الأولوية</label>
+              <select class="fsel" id="debt-priority"><option value="high">🔴 عالية</option><option value="med" selected>🟡 متوسطة</option><option value="low">🟢 منخفضة</option></select>
+            </div>
+            <div class="fg"><label class="flbl">نوع الدين</label>
+              <select class="fsel" id="debt-type"><option value="personal">👤 شخصي</option><option value="bank">🏦 بنك</option><option value="credit">💳 بطاقة</option><option value="other">🔹 أخرى</option></select>
+            </div>
+          </div>
+          <button class="add-btn" onclick="addDebt()">✚ إضافة دين</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- debt list by priority tabs -->
+    <div class="prio-tabs" style="padding:0 0 8px;">
+      <button class="ptab p-all active" id="dt-all"  onclick="switchDebtTab('all')">الكل</button>
+      <button class="ptab p-high"       id="dt-high" onclick="switchDebtTab('high')">🔴 عالية</button>
+      <button class="ptab p-med"        id="dt-med"  onclick="switchDebtTab('med')">🟡 وسط</button>
+      <button class="ptab p-low"        id="dt-low"  onclick="switchDebtTab('low')">🟢 منخفضة</button>
+    </div>
+    <div class="cblock"><div id="debt-list"></div></div>
+  </div>
+
+</div><!-- /main -->
 
 <div class="toast" id="toast"></div>
 
@@ -554,10 +605,10 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
   <div class="sheet">
     <div class="sheet-hdr"><span>⚙️ الإعدادات</span><button class="sheet-x" onclick="closeOv('ov-settings')">✕</button></div>
     <div class="settings-row">
-      <span class="settings-lbl">يوم بداية الدورة الشهرية</span>
-      <input type="number" min="1" max="28" id="cycle-day-inp" class="finp" style="width:70px;direction:ltr;text-align:center;" placeholder="23">
+      <span style="font-size:13px;">يوم بداية الدورة الشهرية</span>
+      <input type="number" min="1" max="28" id="cycle-day-inp" class="fsel" style="width:70px;direction:ltr;text-align:center;" placeholder="23">
     </div>
-    <button class="add-btn" onclick="saveCycleDay()">💾 حفظ</button>
+    <button class="add-btn" onclick="saveCycleDay()" style="margin-top:10px;">💾 حفظ</button>
   </div>
 </div>
 
@@ -577,9 +628,9 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
     <div style="margin-bottom:12px;">
       <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">النوع</div>
       <div class="inner-tabs" style="flex-wrap:wrap;">
-        <button class="itab active" id="rp-both" onclick="setRepType('both')">الاثنين</button>
-        <button class="itab" id="rp-monthly-only" onclick="setRepType('monthly')">شهري فقط</button>
-        <button class="itab" id="rp-annual-only" onclick="setRepType('annual')">سنوي فقط</button>
+        <button class="itab active" id="rp-both"         onclick="setRepType('both')">الاثنين</button>
+        <button class="itab"        id="rp-monthly-only" onclick="setRepType('monthly')">شهري</button>
+        <button class="itab"        id="rp-annual-only"  onclick="setRepType('annual')">سنوي</button>
       </div>
     </div>
     <div id="rep-content"></div>
@@ -596,6 +647,17 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
   </div>
 </div>
 
+<!-- DEBT PAYMENT MODAL -->
+<div class="ov" id="ov-debt-pay" onclick="ovOut(event,'ov-debt-pay')">
+  <div class="sheet">
+    <div class="sheet-hdr"><span id="debt-pay-title">تسجيل دفعة</span><button class="sheet-x" onclick="closeOv('ov-debt-pay')">✕</button></div>
+    <div class="fg"><label class="flbl">المبلغ المدفوع (KWD)</label>
+      <div class="finp-wrap"><input class="finp" id="debt-pay-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;font-size:16px;"><button class="finp-clear" onclick="document.getElementById('debt-pay-amount').value=''">✕</button></div>
+    </div>
+    <button class="add-btn" onclick="confirmDebtPayment()" style="margin-top:10px;">✅ تسجيل الدفعة</button>
+  </div>
+</div>
+
 <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
 
 <script>
@@ -603,35 +665,31 @@ var CY=new Date().getFullYear(), CP=0, CDAY=23;
 var pickerSel={secId:null,secTitle:'',rowId:null,rowLabel:''};
 var ready=false;
 var curNeedTab='all', curRepPeriod='month', curRepType='both';
-var curInvTab='all';
+var curInvTab='all', curDebtTab='all';
+var activeDebtId=null;
 
-// MONTHS
 var MNAMES=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
-function getPeriods(y){
-  return MNAMES.map(function(mn,m){
-    var em=(m+1)%12;
-    return{index:m,name:mn,num:m+1,label:''+CDAY+' '+mn+' \u2013 '+(CDAY-1)+' '+MNAMES[em]};
-  });
-}
+function getPeriods(y){return MNAMES.map(function(mn,m){var em=(m+1)%12;return{index:m,name:mn,num:m+1,label:''+CDAY+' '+mn+' \u2013 '+(CDAY-1)+' '+MNAMES[em]};});}
 function initPeriod(){var d=new Date();return d.getDate()>=CDAY?d.getMonth():(d.getMonth()-1+12)%12;}
 var TODAY_P=0;
 
 // STORAGE
-function SK(y,p,k){return 'F6_v_'+y+'_p'+p+'_'+k;}
-function DK(y,p){return 'F6_d_'+y+'_p'+p;}
-function MK(y,p){return 'F6_m_'+y+'_p'+p;}
-function RK(y,p){return 'F6_r_'+y+'_p'+p;}
-function IK(y){return 'F6_i_'+y;}
-function SECK(t){return 'F6_s_'+t;}
-function NK(y){return 'F6_n_'+y;}
-function SETK(){return 'F6_cfg';}
-function getCV(k){return parseFloat(localStorage.getItem('F6_cv_'+k))||0;}
-function setCV(k,v){localStorage.setItem('F6_cv_'+k,parseFloat(v)||0);}
+function SK(y,p,k){return 'F7_v_'+y+'_p'+p+'_'+k;}
+function DK(y,p){return 'F7_d_'+y+'_p'+p;}
+function MK(y,p){return 'F7_m_'+y+'_p'+p;}
+function RK(y,p){return 'F7_r_'+y+'_p'+p;}
+function IK(y){return 'F7_i_'+y;}
+function SECK(t){return 'F7_s_'+t;}
+function NK(y){return 'F7_n_'+y;}
+function DBK(y){return 'F7_debt_'+y;}
+function SETK(){return 'F7_cfg';}
+function getCV(k){return parseFloat(localStorage.getItem('F7_cv_'+k))||0;}
+function setCV(k,v){localStorage.setItem('F7_cv_'+k,parseFloat(v)||0);}
 
+// Sections: since/until per period
 var DEFS={commit:[{id:'cs1',icon:'🏛',title:'الالتزامات',rows:[{id:'cr1',label:'قسط',key:'cmt_s'}],since:0,until:11}]};
 function getSecs(t){try{var s=localStorage.getItem(SECK(t));return s?JSON.parse(s):JSON.parse(JSON.stringify(DEFS[t]||[]));}catch{return[];}}
 function saveSecs(t,d){localStorage.setItem(SECK(t),JSON.stringify(d));}
-// only return sections visible in period p
 function getVisibleSecs(p){
   return getSecs('commit').filter(function(s){
     var since=typeof s.since==='number'?s.since:0;
@@ -640,10 +698,9 @@ function getVisibleSecs(p){
   });
 }
 
-function getCfg(){try{var s=localStorage.getItem(SETK());return s?JSON.parse(s):{invGoal:'',cycleDay:23,piggyAmt:'',piggyGoal:''};}catch{return{invGoal:'',cycleDay:23,piggyAmt:'',piggyGoal:''};}}
+function getCfg(){try{var s=localStorage.getItem(SETK());return s?JSON.parse(s):{invGoal:'',cycleDay:23,piggyAmt:''};}catch{return{invGoal:'',cycleDay:23,piggyAmt:''};}}
 function saveCfg(){
-  var c=getCfg();
-  c.cycleDay=CDAY;
+  var c=getCfg();c.cycleDay=CDAY;
   var ig=document.getElementById('inv-goal');c.invGoal=ig?ig.value:'';
   var pa=document.getElementById('piggy-amount');c.piggyAmt=pa?pa.value:'';
   localStorage.setItem(SETK(),JSON.stringify(c));
@@ -652,38 +709,26 @@ function flushInputs(){document.querySelectorAll('[data-ck]').forEach(function(e
 function loadInputValues(){document.querySelectorAll('[data-ck]').forEach(function(el){var v=getCV(el.dataset.ck);el.value=v?v:'';});}
 function autoSave(){if(!ready)return;flushInputs();saveCfg();}
 
-// UTILS
 function uid(){return '_'+Math.random().toString(36).substr(2,9);}
 function fmt(n){return parseFloat(n||0).toLocaleString('en-US',{minimumFractionDigits:3,maximumFractionDigits:3});}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
-function nowStr(){
-  var d=new Date();
-  return d.toLocaleDateString('ar-KW',{day:'numeric',month:'short'})+' \u00b7 '+
-         d.toLocaleTimeString('ar-KW',{hour:'2-digit',minute:'2-digit'});
-}
+function nowStr(){var d=new Date();return d.toLocaleDateString('ar-KW',{day:'numeric',month:'short'})+' \u00b7 '+d.toLocaleTimeString('ar-KW',{hour:'2-digit',minute:'2-digit'});}
 function toast(msg,err){var t=document.getElementById('toast');t.textContent=msg;t.className='toast'+(err?' err':'');t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show');},2200);}
 function openOv(id){document.getElementById(id).classList.add('open');}
 function closeOv(id){document.getElementById(id).classList.remove('open');}
 function ovOut(e,id){if(e.target===document.getElementById(id))closeOv(id);}
 
-// MENU
 function toggleMenu(){document.getElementById('mainMenu').classList.toggle('open');}
 function closeMenu(){document.getElementById('mainMenu').classList.remove('open');}
-document.addEventListener('click',function(e){
-  if(!e.target.closest('.menu-wrap'))closeMenu();
-});
+document.addEventListener('click',function(e){if(!e.target.closest('.menu-wrap'))closeMenu();});
 
-// COLLAPSE
 function toggleCBlock(bodyId,triggerEl){
-  var body=document.getElementById(bodyId);
-  if(!body)return;
+  var body=document.getElementById(bodyId);if(!body)return;
   var closed=body.classList.toggle('closed');
-  // find the arr in the same header
-  var arr=triggerEl && (triggerEl.classList.contains('carr') ? triggerEl : triggerEl.querySelector('.carr'));
+  var arr=triggerEl&&(triggerEl.classList.contains('carr')?triggerEl:triggerEl.querySelector('.carr'));
   if(arr)arr.classList.toggle('open',!closed);
 }
 
-// SETTINGS
 function openSettings(){document.getElementById('cycle-day-inp').value=CDAY;openOv('ov-settings');}
 function saveCycleDay(){
   var v=parseInt(document.getElementById('cycle-day-inp').value)||23;
@@ -692,36 +737,39 @@ function saveCycleDay(){
   saveCfg();buildPeriodNav();changePeriod(CP);
   closeOv('ov-settings');toast('تم الحفظ');
 }
-
-// STICKY HEADER HEIGHT
 function updateStickyTop(){
   var hdr=document.getElementById('mainHdr');
   var st=document.getElementById('subTabsSticky');
-  if(hdr&&st){
+  var ast=document.getElementById('annSubTabsSticky');
+  if(hdr){
     var h=hdr.offsetHeight;
-    if(h>0)st.style.top=h+'px';
+    if(h>0){if(st)st.style.top=h+'px';if(ast)ast.style.top=h+'px';}
   }
 }
 
-// RENDER COMMIT SECTIONS
+// ── RENDER COMMIT SECTIONS ──
 function renderCommitSections(){
   if(ready)flushInputs();
-  var secs=getVisibleSecs(CP); // only visible in current period
-  var allSecs=getSecs('commit');
+  var secs=getVisibleSecs(CP);
   var cont=document.getElementById('commit-cont');
   if(!cont)return;
   cont.innerHTML='';
-
-  secs.forEach(function(sec){
-    var rowsHTML=sec.rows.map(function(row){
-      return '<div class="row-item" draggable="true"'+
-        ' ondragstart="dragRowStart(event,\'commit\',\''+sec.id+'\')"'+
-        ' ondragover="event.preventDefault()"'+
-        ' ondrop="dropRow(event,\'commit\',\''+sec.id+'\',\''+row.id+'\')"'+
+  secs.forEach(function(sec,si){
+    var bodyId='sb-body-'+sec.id;
+    var rowsHTML=sec.rows.map(function(row,ri){
+      return '<div class="row-item" data-secid="'+sec.id+'" data-rowid="'+row.id+'"'+
+        ' draggable="true"'+
+        ' ondragstart="dragRowStart(event,\''+sec.id+'\','+ri+')"'+
+        ' ondragover="event.preventDefault();this.classList.add(\'drag-over\')"'+
+        ' ondragleave="this.classList.remove(\'drag-over\')"'+
+        ' ondrop="dropRow(event,\''+sec.id+'\','+ri+')"'+
         '>'+
-        '<span class="drag-handle" draggable="false">⠿</span>'+
-        '<input class="row-lbl-inp" value="'+esc(row.label)+'" onchange="updateRowLabel(\'commit\',\''+sec.id+'\',\''+row.id+'\',this.value)" onclick="event.stopPropagation()">'+
-        '<div class="row-inp-wrap">'+
+        '<span class="drag-handle">⠿</span>'+
+        '<div class="row-lbl-wrap">'+
+          '<input class="row-lbl-inp" value="'+esc(row.label)+'" onchange="updateRowLabel(\'commit\',\''+sec.id+'\',\''+row.id+'\',this.value)">'+
+          '<button class="clear-x" onclick="this.previousElementSibling.value=\'\';updateRowLabel(\'commit\',\''+sec.id+'\',\''+row.id+'\',\'\')">✕</button>'+
+        '</div>'+
+        '<div class="row-amt-wrap">'+
           '<input class="row-inp" type="number" step="0.001" min="0" placeholder="0.000" data-ck="'+row.key+'" oninput="autoSave();updateAll();" style="direction:ltr;" onkeydown="if(event.key===\'Enter\')this.blur()">'+
           '<span class="row-cur">KWD</span>'+
           '<button class="del-row-btn" onclick="deleteRow(\'commit\',\''+sec.id+'\',\''+row.id+'\')">✕</button>'+
@@ -730,21 +778,27 @@ function renderCommitSections(){
 
     var div=document.createElement('div');
     div.className='cblock';
-    var bodyId='sb-body-'+sec.id;
+    div.setAttribute('draggable','true');
+    div.setAttribute('ondragstart','dragSecStart(event,\''+sec.id+'\','+si+')');
+    div.setAttribute('ondragover','event.preventDefault();this.classList.add(\'drag-over\')');
+    div.setAttribute('ondragleave','this.classList.remove(\'drag-over\')');
+    div.setAttribute('ondrop','dropSec(event,'+si+')');
     div.innerHTML=
-      '<div class="cblock-hdr" ondragstart="dragSecStart(event,\''+sec.id+'\')" ondragover="event.preventDefault()" ondrop="dropSec(event,\''+sec.id+'\')" draggable="true">'+
-        '<span class="cblock-title" style="cursor:grab;">⠿ '+sec.icon+
-          ' <input class="sec-row-inp" value="'+esc(sec.title)+'" onchange="updateSecTitle(\'commit\',\''+sec.id+'\',this.value)" onclick="event.stopPropagation()" ondragstart="event.stopPropagation()" style="flex:1;min-width:0;cursor:text;">'+
+      '<div class="cblock-hdr">'+
+        '<span class="drag-handle" style="font-size:18px;">⠿</span>'+
+        '<span class="cblock-title">'+
+          '<span>'+sec.icon+'</span>'+
+          '<input class="sec-inp" value="'+esc(sec.title)+'" onchange="updateSecTitle(\'commit\',\''+sec.id+'\',this.value)" onclick="event.stopPropagation()">'+
         '</span>'+
         '<div class="cblock-right">'+
-          '<span class="cbadge" id="st-'+sec.id+'">0.000</span>'+
-          '<button class="del-sec-btn" onclick="event.stopPropagation();deleteSection(\'commit\',\''+sec.id+'\')">🗑</button>'+
+          '<span class="sec-total-badge" id="st-'+sec.id+'">0.000</span>'+
+          '<button class="del-sec-btn" onclick="event.stopPropagation();deleteSection(\'commit\',\''+sec.id+'\')">🗑 حذف</button>'+
           '<span class="carr open" onclick="event.stopPropagation();toggleCBlock(\''+bodyId+'\',this)">▼</span>'+
         '</div>'+
       '</div>'+
       '<div class="cblock-body" id="'+bodyId+'">'+
         '<div style="padding:4px 12px;background:rgba(61,32,8,.03);border-bottom:1px solid var(--bg2);font-size:10px;color:var(--muted);">'+
-          '<span style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1px 6px;font-size:9px;font-weight:700;color:var(--brand);">ثابت</span> يترحل تلقائياً'+
+          '<span style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1px 6px;font-size:9px;font-weight:700;color:var(--brand);">ثابت</span> يترحل تلقائياً من الشهر الحالي فصاعداً'+
         '</div>'+
         '<div id="sb-'+sec.id+'">'+rowsHTML+'</div>'+
         '<button class="add-row-btn" onclick="addRow(\'commit\',\''+sec.id+'\')">➕ إضافة بند</button>'+
@@ -758,65 +812,66 @@ function renderCommitSections(){
   if(ready)updateAll();
 }
 
-// DRAG
-var dragSecId='',dragRowId='',dragRowSecId='';
-function dragSecStart(e,sid){dragSecId=sid;}
-function dropSec(e,toId){
+// DRAG SECTIONS
+var dragSecIdx=-1;
+function dragSecStart(e,sid,idx){dragSecIdx=idx;e.dataTransfer.effectAllowed='move';}
+function dropSec(e,toIdx){
   e.preventDefault();
-  if(!dragSecId||dragSecId===toId)return;
+  document.querySelectorAll('.cblock').forEach(function(el){el.classList.remove('drag-over');});
+  if(dragSecIdx<0||dragSecIdx===toIdx)return;
   flushInputs();
   var d=getSecs('commit');
-  var fi=d.findIndex(function(x){return x.id===dragSecId;});
-  var ti=d.findIndex(function(x){return x.id===toId;});
-  if(fi<0||ti<0)return;
-  var m=d.splice(fi,1)[0];d.splice(ti,0,m);
-  saveSecs('commit',d);dragSecId='';renderCommitSections();
+  var m=d.splice(dragSecIdx,1)[0];d.splice(toIdx,0,m);
+  saveSecs('commit',d);dragSecIdx=-1;renderCommitSections();
 }
-function dragRowStart(e,type,sid){dragRowId=e.target.closest('.row-item')&&e.target.closest('.row-item').querySelector('.row-lbl-inp')&&e.target.closest('.row-item').querySelector('.row-lbl-inp').value;dragRowSecId=sid;}
-function dropRow(e,type,sid,toRid){
-  e.preventDefault();
-  var d=getSecs(type),s=d.find(function(x){return x.id===sid;});
-  if(!s)return;
-  var fi=s.rows.findIndex(function(r){return r.label===dragRowId;});
-  var ti=s.rows.findIndex(function(r){return r.id===toRid;});
-  if(fi<0||ti<0||fi===ti)return;
+// DRAG ROWS
+var dragRowIdx=-1, dragRowSecId='';
+function dragRowStart(e,sid,idx){dragRowIdx=idx;dragRowSecId=sid;e.dataTransfer.effectAllowed='move';e.stopPropagation();}
+function dropRow(e,sid,toIdx){
+  e.preventDefault();e.stopPropagation();
+  document.querySelectorAll('.row-item').forEach(function(el){el.classList.remove('drag-over');});
+  if(dragRowIdx<0||dragRowIdx===toIdx||dragRowSecId!==sid)return;
   flushInputs();
-  var m=s.rows.splice(fi,1)[0];s.rows.splice(ti,0,m);
-  saveSecs(type,d);renderCommitSections();
+  var d=getSecs('commit'),s=d.find(function(x){return x.id===sid;});
+  if(!s)return;
+  var m=s.rows.splice(dragRowIdx,1)[0];s.rows.splice(toIdx,0,m);
+  saveSecs('commit',d);dragRowIdx=-1;renderCommitSections();
 }
 
 // SECTION CRUD
 function updateSecTitle(type,id,val){var d=getSecs(type),s=d.find(function(x){return x.id===id;});if(s){s.title=val;saveSecs(type,d);rebuildDailyInnerTabs();rebuildMcCatSelect();rebuildMcInnerTabs();}}
 function updateRowLabel(type,sid,rid,val){var d=getSecs(type),s=d.find(function(x){return x.id===sid;});if(s){var r=s.rows.find(function(x){return x.id===rid;});if(r){r.label=val;saveSecs(type,d);}}}
-function addRow(type,sid){flushInputs();var d=getSecs(type),s=d.find(function(x){return x.id===sid;});if(!s)return;s.rows.push({id:uid(),label:'بند جديد',key:type+'_'+uid()});saveSecs(type,d);renderCommitSections();}
-function deleteRow(type,sid,rid){flushInputs();var d=getSecs(type),s=d.find(function(x){return x.id===sid;});if(s){s.rows=s.rows.filter(function(x){return x.id!==rid;});saveSecs(type,d);renderCommitSections();}}
+function addRow(type,sid){
+  flushInputs();
+  var d=getSecs(type),s=d.find(function(x){return x.id===sid;});if(!s)return;
+  s.rows.push({id:uid(),label:'بند جديد',key:type+'_'+uid()});
+  saveSecs(type,d);renderCommitSections();
+}
+function deleteRow(type,sid,rid){
+  flushInputs();
+  var d=getSecs(type),s=d.find(function(x){return x.id===sid;});
+  if(s){s.rows=s.rows.filter(function(x){return x.id!==rid;});saveSecs(type,d);renderCommitSections();}
+}
 function addSection(type){
   flushInputs();
   var d=getSecs(type);
-  // new section: visible from current period to end of year
   d.push({id:uid(),icon:'📌',title:'قسم جديد',rows:[{id:uid(),label:'بند جديد',key:type+'_'+uid()}],since:CP,until:11});
   saveSecs(type,d);renderCommitSections();
 }
 function deleteSection(type,sid){
-  // mark section's until = CP-1 so it disappears from current + future, but stays in past
   flushInputs();
   var d=getSecs(type),s=d.find(function(x){return x.id===sid;});
   if(s){
-    if(CP===0){
-      // delete entirely if current is first period
-      d=d.filter(function(x){return x.id!==sid;});
-    } else {
-      s.until=CP-1; // hide from current period onward
-    }
+    if(CP===0){d=d.filter(function(x){return x.id!==sid;});}
+    else{s.until=CP-1;}
     saveSecs(type,d);renderCommitSections();
   }
 }
 
-// MC CAT & INNER TABS
+// MC INNER TABS
 function rebuildMcCatSelect(){
   var sel=document.getElementById('mc-cat');if(!sel)return;
-  var prev=sel.value;
-  sel.innerHTML='<option value="">— بدون —</option>';
+  var prev=sel.value;sel.innerHTML='<option value="">— بدون —</option>';
   getVisibleSecs(CP).forEach(function(s){var o=document.createElement('option');o.value=s.id;o.textContent=s.icon+' '+s.title;sel.appendChild(o);});
   sel.value=prev;
 }
@@ -825,6 +880,7 @@ function rebuildMcInnerTabs(){
   var tabs=document.getElementById('mc-inner-tabs');
   var views=document.getElementById('mc-inner-views');
   if(!tabs||!views)return;
+  // NO "other" tab for mcommit
   var all=[{id:'mc-all',label:'الكل'}].concat(secs.map(function(s){return{id:'mc-'+s.id,label:s.icon+' '+s.title};}));
   tabs.innerHTML=all.map(function(t,i){return '<button class="itab'+(i===0?' active':'')+'" onclick="switchMcTab(\''+t.id+'\')">'+t.label+'</button>';}).join('');
   views.innerHTML=all.map(function(t,i){return '<div class="inner-view'+(i===0?' active':'')+'" id="mcv-'+t.id+'"><div id="mcl-'+t.id+'"></div></div>';}).join('');
@@ -833,15 +889,11 @@ function rebuildMcInnerTabs(){
 var curMcTab='mc-all';
 function switchMcTab(id){
   curMcTab=id;
-  document.querySelectorAll('#mc-inner-tabs .itab').forEach(function(b){
-    b.classList.toggle('active',b.getAttribute('onclick').includes("'"+id+"'"));
-  });
-  document.querySelectorAll('#mc-inner-views .inner-view').forEach(function(v){
-    v.classList.toggle('active',v.id==='mcv-'+id);
-  });
+  document.querySelectorAll('#mc-inner-tabs .itab').forEach(function(b){b.classList.toggle('active',b.getAttribute('onclick').indexOf("'"+id+"'")>=0);});
+  document.querySelectorAll('#mc-inner-views .inner-view').forEach(function(v){v.classList.toggle('active',v.id==='mcv-'+id);});
 }
 
-// MC LIST
+// MC DATA
 function getMC(y,p){try{var s=localStorage.getItem(MK(y,p));return s?JSON.parse(s):[]}catch{return[];}}
 function saveMC(y,p,l){localStorage.setItem(MK(y,p),JSON.stringify(l));}
 function addMonthCommit(){
@@ -849,8 +901,7 @@ function addMonthCommit(){
   var amt=parseFloat(document.getElementById('mc-amount').value);
   var catId=document.getElementById('mc-cat').value;
   if(!name||isNaN(amt)||amt<=0){toast('أدخل اسم ومبلغ صحيح',true);return;}
-  var secs=getVisibleSecs(CP);
-  var catName=catId?(secs.find(function(s){return s.id===catId;})||{title:''}).title:'';
+  var catName=catId?(getVisibleSecs(CP).find(function(s){return s.id===catId;})||{title:''}).title:'';
   var list=getMC(CY,CP);
   list.unshift({id:uid(),name:name,amount:amt,catId:catId,catName:catName,ts:nowStr(),paid:false});
   saveMC(CY,CP,list);
@@ -863,21 +914,18 @@ function renderMcList(){
   var list=getMC(CY,CP);
   var secs=getVisibleSecs(CP);
   renderMcGroup('mc-all',list);
-  secs.forEach(function(sec){
-    renderMcGroup('mc-'+sec.id,list.filter(function(e){return e.catId===sec.id;}));
-  });
+  secs.forEach(function(sec){renderMcGroup('mc-'+sec.id,list.filter(function(e){return e.catId===sec.id;}));});
   var paid=list.filter(function(e){return e.paid;}).reduce(function(a,e){return a+e.amount;},0);
   var tot=list.reduce(function(a,e){return a+e.amount;},0);
   var ep=document.getElementById('total-mcommit-paid'),ea=document.getElementById('total-mcommit-all');
   if(ep)ep.textContent=fmt(paid)+' KWD';if(ea)ea.textContent=fmt(tot)+' KWD';
 }
 function renderMcGroup(gid,list){
-  var cont=document.getElementById('mcl-'+gid);
-  if(!cont)return;
+  var cont=document.getElementById('mcl-'+gid);if(!cont)return;
   if(!list.length){cont.innerHTML='<div class="empty">لا توجد التزامات</div>';return;}
   cont.innerHTML=list.map(function(e){
     return '<div class="entry-card">'+
-      '<input class="need-chk" type="checkbox"'+(e.paid?' checked':'')+' onchange="toggleMC(\''+e.id+'\')" style="margin-top:2px;">'+
+      '<input class="need-chk" type="checkbox"'+(e.paid?' checked':'')+' onchange="toggleMC(\''+e.id+'\')" style="margin-top:2px;flex-shrink:0;">'+
       '<div class="ec-info">'+
         '<div class="ec-name" style="'+(e.paid?'text-decoration:line-through;opacity:.6':'')+'">'+esc(e.name)+'</div>'+
         '<div class="ec-meta"><span>'+esc(e.ts||'')+'</span>'+
@@ -906,45 +954,52 @@ function rebuildDailyInnerTabs(){
 var curDailyTab='all';
 function switchDailyTab(id){
   curDailyTab=id;
-  document.querySelectorAll('#daily-inner-tabs .itab').forEach(function(b){b.classList.toggle('active',b.getAttribute('onclick').includes("'"+id+"'"));});
+  document.querySelectorAll('#daily-inner-tabs .itab').forEach(function(b){b.classList.toggle('active',b.getAttribute('onclick').indexOf("'"+id+"'")>=0);});
   document.querySelectorAll('#daily-inner-views .inner-view').forEach(function(v){v.classList.toggle('active',v.id==='dv-'+id);});
 }
 
 // DAILY
 function getDL(y,p){try{var s=localStorage.getItem(DK(y,p));return s?JSON.parse(s):[]}catch{return[];}}
 function saveDL(y,p,l){localStorage.setItem(DK(y,p),JSON.stringify(l));}
+
 function openPicker(){
   var secs=getVisibleSecs(CP);
   var html='';
-  secs.forEach(function(sec){
-    html+='<div class="pick-group"><div class="pick-g-lbl">'+sec.icon+' '+esc(sec.title)+'</div>';
-    sec.rows.forEach(function(row){
-      var on=pickerSel.secId===sec.id&&pickerSel.rowId===row.id;
-      html+='<div class="pick-item" onclick="pickItem(\''+sec.id+'\',\''+esc(sec.title)+'\',\''+row.id+'\',\''+esc(row.label)+'\')">'+
-        '<span class="pick-name">'+esc(row.label)+'</span><span class="pick-chk'+(on?' on':'')+'">✓</span></div>';
+  if(secs.length){
+    secs.forEach(function(sec){
+      html+='<div class="pick-group"><div class="pick-g-lbl">'+sec.icon+' '+esc(sec.title)+'</div>';
+      sec.rows.forEach(function(row){
+        var on=pickerSel.secId===sec.id&&pickerSel.rowId===row.id;
+        var sid=sec.id, stitle=esc(sec.title), rid=row.id, rlabel=esc(row.label);
+        html+='<div class="pick-item'+(on?' selected':'')+'" data-sid="'+sid+'" data-rid="'+rid+'" onclick="pickItem(this,\''+sid+'\',\''+stitle+'\',\''+rid+'\',\''+rlabel+'\')">'+
+          '<span class="pick-name">'+esc(row.label)+'</span><span class="pick-chk'+(on?' on':'')+'">✓</span></div>';
+      });
+      html+='</div>';
     });
-    html+='</div>';
-  });
+  }
+  var onOther=pickerSel.rowId==='other';
   html+='<div class="pick-group"><div class="pick-g-lbl">أخرى</div>'+
-    '<div class="pick-item" onclick="pickItem(\'\',\'متنوع\',\'other\',\'متنوع\')">'+
-    '<span class="pick-name">متنوع / غير مصنف</span>'+
-    '<span class="pick-chk'+(pickerSel.rowId==='other'?' on':'')+'">✓</span></div></div>';
+    '<div class="pick-item'+(onOther?' selected':'')+'" data-sid="" data-rid="other" onclick="pickItem(this,\'\',\'أخرى\',\'other\',\'أخرى\')">'+
+    '<span class="pick-name">متنوع / غير مصنف</span><span class="pick-chk'+(onOther?' on':'')+'">✓</span></div></div>';
   document.getElementById('picker-content').innerHTML=html;
   openOv('ov-picker');
 }
-function pickItem(secId,secTitle,rowId,rowLabel){
+
+function pickItem(el,secId,secTitle,rowId,rowLabel){
   pickerSel={secId:secId,secTitle:secTitle,rowId:rowId,rowLabel:rowLabel};
-  document.querySelectorAll('#picker-content .pick-chk').forEach(function(el){el.classList.remove('on');});
-  document.querySelectorAll('#picker-content .pick-item').forEach(function(el){
-    var nm=el.querySelector('.pick-name');
-    if(nm&&nm.textContent===rowLabel)el.querySelector('.pick-chk').classList.add('on');
+  // clear all selections
+  document.querySelectorAll('#picker-content .pick-item').forEach(function(item){
+    item.classList.remove('selected');
+    var chk=item.querySelector('.pick-chk');if(chk)chk.classList.remove('on');
   });
+  // mark selected
+  el.classList.add('selected');
+  var chk=el.querySelector('.pick-chk');if(chk)chk.classList.add('on');
 }
 function confirmPicker(){
-  // only confirm if actually selected
   if(pickerSel.rowId){
     var b=document.getElementById('cat-btn');
-    b.textContent=(pickerSel.rowId==='other'?'متنوع':pickerSel.rowLabel)+' \u25be';
+    b.textContent=(pickerSel.rowId==='other'?'أخرى':pickerSel.rowLabel)+' \u25be';
     b.classList.add('sel');
   }
   closeOv('ov-picker');
@@ -955,14 +1010,10 @@ function addDailyExpense(){
   if(!name||isNaN(amt)||amt<=0){toast('أدخل اسم ومبلغ صحيح',true);return;}
   var list=getDL(CY,CP);
   list.unshift({id:uid(),name:name,amount:amt,
-    secId:pickerSel.secId||'other',
-    secTitle:pickerSel.secTitle||'أخرى',
-    rowId:pickerSel.rowId||'other',
-    rowLabel:pickerSel.rowLabel||'',
-    ts:nowStr()});
+    secId:pickerSel.secId||'other',secTitle:pickerSel.secTitle||'أخرى',
+    rowId:pickerSel.rowId||'other',rowLabel:pickerSel.rowLabel||'',ts:nowStr()});
   saveDL(CY,CP,list);
   document.getElementById('daily-name').value='';document.getElementById('daily-amount').value='';
-  // reset picker
   pickerSel={secId:null,secTitle:'',rowId:null,rowLabel:''};
   var b=document.getElementById('cat-btn');b.textContent='اختر \u25be';b.classList.remove('sel');
   renderDailyList();updateAll();
@@ -972,7 +1023,7 @@ function renderDailyList(){
   var secs=getVisibleSecs(CP);
   renderDailyGroup('all',list);
   secs.forEach(function(sec){renderDailyGroup(sec.id,list.filter(function(e){return e.secId===sec.id;}));});
-  renderDailyGroup('other',list.filter(function(e){return !e.secId||e.secId==='other'||e.secId===null||e.secId==='';}));
+  renderDailyGroup('other',list.filter(function(e){return !e.secId||e.secId==='other'||e.secId===''||e.secId===null;}));
 }
 function renderDailyGroup(gid,list){
   var cont=document.getElementById('dl-'+gid);if(!cont)return;
@@ -982,8 +1033,8 @@ function renderDailyGroup(gid,list){
       '<div class="ec-info">'+
         '<div class="ec-name">'+esc(e.name)+'</div>'+
         '<div class="ec-meta"><span>'+esc(e.ts||'')+'</span>'+
-          (e.rowLabel&&e.rowLabel!=='متنوع'?'<span class="ec-badge cat">'+esc(e.rowLabel)+'</span>':'')+
-          (e.secTitle&&e.secTitle!==e.rowLabel&&e.secTitle!=='أخرى'&&e.secTitle!=='متنوع'?'<span class="ec-badge cat" style="opacity:.65">'+esc(e.secTitle)+'</span>':'')+
+          (e.rowLabel&&e.rowLabel!=='أخرى'?'<span class="ec-badge cat">'+esc(e.rowLabel)+'</span>':'')+
+          (e.secTitle&&e.secTitle!==e.rowLabel&&e.secTitle!=='أخرى'?'<span class="ec-badge cat" style="opacity:.65">'+esc(e.secTitle)+'</span>':'')+
         '</div>'+
       '</div>'+
       '<span class="ec-amt r">'+fmt(e.amount)+' KWD</span>'+
@@ -1006,10 +1057,8 @@ function rebuildRevInnerTabs(){
   views.innerHTML=all.map(function(t,i){return '<div class="inner-view'+(i===0?' active':'')+'" id="rv-'+t.id+'"><div id="rl-'+t.id+'"></div></div>';}).join('');
   renderRevList();
 }
-var curRevTab='rev-all';
 function switchRevTab(id){
-  curRevTab=id;
-  document.querySelectorAll('#rev-inner-tabs .itab').forEach(function(b){b.classList.toggle('active',b.getAttribute('onclick').includes("'"+id+"'"));});
+  document.querySelectorAll('#rev-inner-tabs .itab').forEach(function(b){b.classList.toggle('active',b.getAttribute('onclick').indexOf("'"+id+"'")>=0);});
   document.querySelectorAll('#rev-inner-views .inner-view').forEach(function(v){v.classList.toggle('active',v.id==='rv-'+id);});
 }
 function getRL(y,p){try{var s=localStorage.getItem(RK(y,p));return s?JSON.parse(s):[]}catch{return[];}}
@@ -1035,10 +1084,8 @@ function renderRevGroup(gid,list){
   if(!list.length){cont.innerHTML='<div class="empty">لا توجد إيرادات</div>';return;}
   cont.innerHTML=list.map(function(e){
     return '<div class="entry-card">'+
-      '<div class="ec-info">'+
-        '<div class="ec-name">'+(REV_ICONS[e.type]||'🔹')+' '+esc(e.name)+'</div>'+
-        '<div class="ec-meta"><span>'+esc(e.ts||'')+'</span><span class="ec-badge rev">'+(REV_LABELS[e.type]||'')+'</span></div>'+
-      '</div>'+
+      '<div class="ec-info"><div class="ec-name">'+(REV_ICONS[e.type]||'🔹')+' '+esc(e.name)+'</div>'+
+      '<div class="ec-meta"><span>'+esc(e.ts||'')+'</span><span class="ec-badge rev">'+(REV_LABELS[e.type]||'')+'</span></div></div>'+
       '<span class="ec-amt g">'+fmt(e.amount)+' KWD</span>'+
       '<button class="del-row-btn" onclick="delRev(\''+e.id+'\')">✕</button>'+
     '</div>';
@@ -1061,8 +1108,7 @@ function addInvEntry(){
   var amt=parseFloat(document.getElementById('inv-amount').value);
   var type=document.getElementById('inv-type').value;
   if(!name||isNaN(amt)||amt<=0){toast('أدخل اسم ومبلغ صحيح',true);return;}
-  var list=getIL();
-  list.unshift({id:uid(),name:name,amount:amt,type:type,ts:nowStr()});
+  var list=getIL();list.unshift({id:uid(),name:name,amount:amt,type:type,ts:nowStr()});
   saveIL(list);
   document.getElementById('inv-name').value='';document.getElementById('inv-amount').value='';
   renderInvList();updateAll();
@@ -1070,23 +1116,20 @@ function addInvEntry(){
 function delInv(id){saveIL(getIL().filter(function(x){return x.id!==id;}));renderInvList();updateAll();}
 function renderInvList(){
   var list=getIL();
-  var html=function(items){
+  var mkHtml=function(items){
     if(!items.length)return '<div class="empty">لا توجد بيانات</div>';
     return items.map(function(e){
       var isIn=e.type==='in';
-      return '<div class="entry-card">'+
-        '<div class="ec-info">'+
-          '<div class="ec-name">'+(isIn?'📥':'📤')+' '+esc(e.name)+'</div>'+
-          '<div class="ec-meta"><span>'+esc(e.ts||'')+'</span><span class="ec-badge '+(isIn?'rev':'cat')+'">'+(isIn?'عائد':'صرف')+'</span></div>'+
-        '</div>'+
+      return '<div class="entry-card"><div class="ec-info">'+
+        '<div class="ec-name">'+(isIn?'📥':'📤')+' '+esc(e.name)+'</div>'+
+        '<div class="ec-meta"><span>'+esc(e.ts||'')+'</span><span class="ec-badge '+(isIn?'rev':'cat')+'">'+(isIn?'عائد':'صرف')+'</span></div></div>'+
         '<span class="ec-amt '+(isIn?'g':'r')+'">'+fmt(e.amount)+' KWD</span>'+
-        '<button class="del-row-btn" onclick="delInv(\''+e.id+'\')">✕</button>'+
-      '</div>';
+        '<button class="del-row-btn" onclick="delInv(\''+e.id+'\')">✕</button></div>';
     }).join('');
   };
-  var il=document.getElementById('inv-list');if(il)il.innerHTML=html(list);
-  var io=document.getElementById('inv-list-out-items');if(io)io.innerHTML=html(list.filter(function(e){return e.type==='out';}));
-  var ii=document.getElementById('inv-list-in-items');if(ii)ii.innerHTML=html(list.filter(function(e){return e.type==='in';}));
+  var il=document.getElementById('inv-list');if(il)il.innerHTML=mkHtml(list);
+  var io=document.getElementById('inv-list-out-items');if(io)io.innerHTML=mkHtml(list.filter(function(e){return e.type==='out';}));
+  var ii=document.getElementById('inv-list-in-items');if(ii)ii.innerHTML=mkHtml(list.filter(function(e){return e.type==='in';}));
 }
 
 // NEEDS
@@ -1101,8 +1144,7 @@ function addNeed(){
   document.getElementById('need-name').value='';document.getElementById('need-amount').value='';
   renderNeeds();updateAll();
 }
-var PLAB={high:'🔴',med:'🟡',low:'🟢'};
-var PNEXT={high:'med',med:'low',low:'high'};
+var PLAB={high:'🔴',med:'🟡',low:'🟢'},PNEXT={high:'med',med:'low',low:'high'};
 function switchNeedTab(t){
   curNeedTab=t;
   ['all','high','med','low'].forEach(function(p){var b=document.getElementById('nt-'+p);if(b)b.classList.toggle('active',p===t);});
@@ -1131,21 +1173,103 @@ function renderNeeds(){
 function toggleNeed(id){var l=getNeeds(),n=l.find(function(x){return x.id===id;});if(n){n.done=!n.done;saveNeeds(l);renderNeeds();updateAll();}}
 function delNeed(id){saveNeeds(getNeeds().filter(function(x){return x.id!==id;}));renderNeeds();updateAll();}
 
+// DEBTS
+function getDebts(){try{var s=localStorage.getItem(DBK(CY));return s?JSON.parse(s):[]}catch{return[];}}
+function saveDebts(l){localStorage.setItem(DBK(CY),JSON.stringify(l));}
+var DTYPE_ICONS={personal:'👤',bank:'🏦',credit:'💳',other:'🔹'};
+function addDebt(){
+  var name=document.getElementById('debt-name').value.trim();
+  var amt=parseFloat(document.getElementById('debt-amount').value);
+  var due=document.getElementById('debt-due').value;
+  var prio=document.getElementById('debt-priority').value;
+  var type=document.getElementById('debt-type').value;
+  if(!name||isNaN(amt)||amt<=0){toast('أدخل اسم ومبلغ',true);return;}
+  var l=getDebts();
+  l.push({id:uid(),name:name,total:amt,paid:0,due:due,priority:prio,type:type,ts:nowStr()});
+  saveDebts(l);
+  document.getElementById('debt-name').value='';document.getElementById('debt-amount').value='';document.getElementById('debt-due').value='';
+  renderDebts();updateAll();
+}
+function openDebtPayment(id){
+  activeDebtId=id;
+  var d=getDebts().find(function(x){return x.id===id;});
+  if(!d)return;
+  document.getElementById('debt-pay-title').textContent='دفعة — '+d.name;
+  document.getElementById('debt-pay-amount').value='';
+  openOv('ov-debt-pay');
+}
+function confirmDebtPayment(){
+  var amt=parseFloat(document.getElementById('debt-pay-amount').value);
+  if(!amt||amt<=0){toast('أدخل مبلغ صحيح',true);return;}
+  var l=getDebts(),d=l.find(function(x){return x.id===activeDebtId;});
+  if(d){d.paid=Math.min(d.total,d.paid+amt);saveDebts(l);}
+  closeOv('ov-debt-pay');renderDebts();updateAll();
+}
+function delDebt(id){saveDebts(getDebts().filter(function(x){return x.id!==id;}));renderDebts();updateAll();}
+function switchDebtTab(t){
+  curDebtTab=t;
+  ['all','high','med','low'].forEach(function(p){var b=document.getElementById('dt-'+p);if(b)b.classList.toggle('active',p===t);});
+  renderDebts();
+}
+function renderDebts(){
+  var list=getDebts();
+  var filtered=curDebtTab==='all'?list:list.filter(function(d){return d.priority===curDebtTab;});
+  var cont=document.getElementById('debt-list');if(!cont)return;
+  var today=new Date();
+  if(!filtered.length){cont.innerHTML='<div class="empty">لا توجد ديون مسجلة</div>';return;}
+  cont.innerHTML=filtered.map(function(d){
+    var pct=d.total>0?Math.min(100,d.paid/d.total*100):0;
+    var remaining=d.total-d.paid;
+    var isDone=remaining<=0;
+    var isOverdue=d.due&&new Date(d.due)<today&&!isDone;
+    var dueStr=d.due?new Date(d.due).toLocaleDateString('ar-KW',{day:'numeric',month:'short',year:'numeric'}):'';
+    return '<div class="entry-card">'+
+      '<div style="flex-shrink:0;margin-top:2px;">'+
+        '<input class="need-chk" type="checkbox"'+(isDone?' checked':'')+' onchange="openDebtPayment(\''+d.id+'\')" '+(isDone?'disabled':'')+'>'+'</div>'+
+      '<div class="ec-info">'+
+        '<div class="ec-name" style="'+(isDone?'text-decoration:line-through;opacity:.5':'')+'">'+
+          (DTYPE_ICONS[d.type]||'🔹')+' '+esc(d.name)+
+          ' <span class="ec-badge '+(isDone?'rev':PLAB[d.priority]==='🔴'?'high':PLAB[d.priority]==='🟡'?'med':'low')+'">'+
+          (isDone?'✅ منتهي':PLAB[d.priority||'med'])+'</span>'+
+        '</div>'+
+        '<div class="ec-meta">'+
+          '<span>المتبقي: <b>'+fmt(remaining)+' KWD</b></span>'+
+          (dueStr?'<span class="debt-due'+(isOverdue?' overdue':'')+'">'+(isOverdue?'⚠️ ':'📅 ')+dueStr+'</span>':'')+
+        '</div>'+
+        '<div class="debt-progress"><div class="debt-fill" style="width:'+pct+'%"></div></div>'+
+        '<div style="font-size:9px;color:var(--muted);margin-top:2px;">'+fmt(d.paid)+' / '+fmt(d.total)+' KWD ('+pct.toFixed(0)+'%)</div>'+
+      '</div>'+
+      '<div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;flex-shrink:0;">'+
+        '<button class="add-btn" style="padding:5px 8px;font-size:11px;margin:0;width:auto;'+(isDone?'opacity:.4':'')+';" onclick="openDebtPayment(\''+d.id+'\')" '+(isDone?'disabled':'')+'>💳 دفعة</button>'+
+        '<button class="del-row-btn" onclick="delDebt(\''+d.id+'\')">✕</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+
+  // totals
+  var total=list.reduce(function(a,d){return a+d.total;},0);
+  var paidTot=list.reduce(function(a,d){return a+d.paid;},0);
+  var rem=total-paidTot;
+  var pct=total>0?Math.min(100,paidTot/total*100):0;
+  var dt=document.getElementById('debt-total');if(dt)dt.textContent=fmt(total);
+  var dp=document.getElementById('debt-paid-total');if(dp)dp.textContent=fmt(paidTot);
+  var dr=document.getElementById('debt-remaining');if(dr)dr.textContent=fmt(rem);
+  var db=document.getElementById('debt-progress-bar');if(db)db.style.width=pct+'%';
+}
+
 // TOTALS
 function getPT(y,p){
-  var visibleSecs=getVisibleSecs(p);
   var rev=getRL(y,p).reduce(function(a,e){return a+e.amount;},0);
   var daily=getDL(y,p).reduce(function(a,e){return a+e.amount;},0);
   var mcommit=getMC(y,p).filter(function(e){return e.paid;}).reduce(function(a,e){return a+e.amount;},0);
   var commitRef=0;
-  visibleSecs.forEach(function(s){s.rows.forEach(function(r){commitRef+=getCV(r.key);});});
+  getVisibleSecs(p).forEach(function(s){s.rows.forEach(function(r){commitRef+=getCV(r.key);});});
   var totalSpent=daily+mcommit;
   return{rev:rev,daily:daily,mcommit:mcommit,commitRef:commitRef,totalSpent:totalSpent,net:rev-totalSpent};
 }
 
 function updateAll(){
   if(!ready)return;
-  // section totals
   var totalCommitRef=0;
   getVisibleSecs(CP).forEach(function(s){
     var st=s.rows.reduce(function(a,r){return a+getCV(r.key);},0);
@@ -1153,7 +1277,6 @@ function updateAll(){
     var el=document.getElementById('st-'+s.id);if(el)el.textContent=fmt(st)+' KWD';
   });
   var t=getPT(CY,CP);
-  // summary
   document.getElementById('ps-rev').textContent=fmt(t.rev);
   document.getElementById('ps-exp').textContent=fmt(t.totalSpent);
   document.getElementById('ps-net').textContent=fmt(Math.abs(t.net));
@@ -1163,12 +1286,11 @@ function updateAll(){
   document.getElementById('total-commit').textContent=fmt(totalCommitRef)+' KWD';
   document.getElementById('total-daily').textContent=fmt(t.daily)+' KWD';
   document.getElementById('total-rev').textContent=fmt(t.rev)+' KWD';
-  // inv returns reference in monthly rev tab
   var invReturns=getIL().filter(function(e){return e.type==='in';}).reduce(function(a,e){return a+e.amount;},0);
-  var irEl=document.getElementById('inv-returns-ref');
-  if(irEl)irEl.textContent=fmt(invReturns)+' KWD';
+  var irEl=document.getElementById('inv-returns-ref');if(irEl)irEl.textContent=fmt(invReturns)+' KWD';
   renderMcList();
   buildAnnual();
+  renderDebts();
 }
 
 function buildAnnual(){
@@ -1191,39 +1313,26 @@ function buildAnnual(){
   });
   grid.innerHTML=html;
   document.getElementById('ann-yr-lbl').textContent='ملخص دورات '+CY;
-
   var invList=getIL();
   var invOut=invList.filter(function(e){return e.type==='out';}).reduce(function(a,e){return a+e.amount;},0);
   var invIn=invList.filter(function(e){return e.type==='in';}).reduce(function(a,e){return a+e.amount;},0);
   var nTot=getNeeds().filter(function(n){return n.done;}).reduce(function(a,n){return a+n.amount;},0);
-
-  // إجمالي الدخل = دخل شهري + عوائد الاستثمار
-  var totalRev=aRev+invIn;
-  // الصافي السنوي = دخل كلي - مصروف
-  var totalNet=aNet+invIn;
-
+  var totalRev=aRev+invIn, totalNet=aNet+invIn;
+  var debtPaid=getDebts().reduce(function(a,d){return a+d.paid;},0);
   document.getElementById('ann-rev').textContent=fmt(totalRev);
   document.getElementById('ann-exp').textContent=fmt(aSpent);
   document.getElementById('ann-net').textContent=fmt(totalNet);
-
   var piggyAmt=parseFloat(document.getElementById('piggy-amount')?document.getElementById('piggy-amount').value:0)||0;
   if(document.getElementById('piggy-badge'))document.getElementById('piggy-badge').textContent=fmt(piggyAmt)+' KWD';
-
-  // النتيجة النهائية = صافي كلي - صرف استثمار - احتياجات منجزة - حصالة
   var fin=totalNet-invOut-nTot-piggyAmt;
   var fe=document.getElementById('ann-final');if(fe){fe.textContent=fmt(fin);fe.className='ann-val '+(fin>=0?'g':'r');}
-
-  // صافي الثروة = صافي كلي - صرف استثمار + حصالة
-  var nw=totalNet-invOut+piggyAmt;
+  // net worth includes piggy, excludes paid debts
+  var nw=totalNet-invOut+piggyAmt-debtPaid;
   if(document.getElementById('nw-val'))document.getElementById('nw-val').textContent=fmt(nw)+' KWD';
   if(document.getElementById('nw-piggy'))document.getElementById('nw-piggy').textContent=fmt(piggyAmt);
   if(document.getElementById('nw-net'))document.getElementById('nw-net').textContent=fmt(totalNet-invOut);
-
-  // inv badge
   var netInv=invIn-invOut;
   if(document.getElementById('inv-badge'))document.getElementById('inv-badge').textContent=(netInv>=0?'+':'')+fmt(netInv)+' KWD';
-
-  // goal
   var goal=parseFloat(document.getElementById('inv-goal')?document.getElementById('inv-goal').value:0)||0;
   if(document.getElementById('inv-accum'))document.getElementById('inv-accum').textContent=fmt(totalNet);
   if(goal>0){
@@ -1235,15 +1344,8 @@ function buildAnnual(){
 }
 
 // NAV
-function switchAnnualSub(tab){
-  ['needs','inv','months'].forEach(function(t){
-    document.getElementById('ast-'+t).classList.toggle('active',t===tab);
-    document.getElementById('asv-'+t).classList.toggle('active',t===tab);
-  });
-}
-
 function switchMain(tab){
-  ['monthly','annual'].forEach(function(t){
+  ['monthly','annual','debts'].forEach(function(t){
     document.getElementById('mt-'+t).classList.toggle('active',t===tab);
     document.getElementById('view-'+t).classList.toggle('active',t===tab);
   });
@@ -1252,12 +1354,19 @@ function switchMain(tab){
   if(st)st.style.display=tab==='monthly'?'block':'none';
   if(ast)ast.style.display=tab==='annual'?'block':'none';
   if(tab==='annual'){renderInvList();buildAnnual();}
+  if(tab==='debts')renderDebts();
   updateStickyTop();
 }
 function switchSub(tab){
   ['commit','mcommit','daily','rev'].forEach(function(t){
     document.getElementById('st-'+t).classList.toggle('active',t===tab);
     document.getElementById('sv-'+t).classList.toggle('active',t===tab);
+  });
+}
+function switchAnnualSub(tab){
+  ['needs','inv','months'].forEach(function(t){
+    document.getElementById('ast-'+t).classList.toggle('active',t===tab);
+    document.getElementById('asv-'+t).classList.toggle('active',t===tab);
   });
 }
 function changePeriod(idx){
@@ -1282,16 +1391,8 @@ function buildPeriodNav(){
 }
 
 // REPORT
-function setRepPeriod(p){
-  curRepPeriod=p;
-  ['month','3','6','year'].forEach(function(x){var b=document.getElementById('rp-'+x);if(b)b.classList.toggle('active',x===p);});
-  buildReport();
-}
-function setRepType(t){
-  curRepType=t;
-  ['both','monthly-only','annual-only'].forEach(function(x){var b=document.getElementById('rp-'+x);if(b)b.classList.toggle('active',x===t);});
-  buildReport();
-}
+function setRepPeriod(p){curRepPeriod=p;['month','3','6','year'].forEach(function(x){var b=document.getElementById('rp-'+x);if(b)b.classList.toggle('active',x===p);});buildReport();}
+function setRepType(t){curRepType=t;['both','monthly-only','annual-only'].forEach(function(x){var b=document.getElementById('rp-'+x);if(b)b.classList.toggle('active',x===t);});buildReport();}
 function openReport(){buildReport();openOv('ov-report');}
 function buildReport(){
   var periods=getPeriods(CY);
@@ -1300,23 +1401,20 @@ function buildReport(){
   else if(curRepPeriod==='3'){for(var i=Math.max(0,CP-2);i<=CP;i++)pList.push(i);}
   else if(curRepPeriod==='6'){for(var i=Math.max(0,CP-5);i<=CP;i++)pList.push(i);}
   else{for(var i=0;i<12;i++)pList.push(i);}
-
   var html='<div class="rep-sec" style="text-align:center;border-bottom:2px solid var(--brand);padding-bottom:10px;margin-bottom:12px;">'+
-    '<div style="font-size:16px;font-weight:700;color:var(--brand);">ميزانيتي</div>'+
+    '<div style="font-size:16px;font-weight:700;color:var(--brand);">\u0645\u064a\u0632\u0627\u0646\u064a\u062a\u064a</div>'+
     '<div style="font-size:11px;color:var(--muted);margin-top:2px;">'+MNAMES[pList[0]]+(pList.length>1?' \u2013 '+MNAMES[pList[pList.length-1]]:'')+'</div></div>';
-
   if(curRepType!=='annual-only'){
     pList.forEach(function(pi){
       var p=periods[pi],t=getPT(CY,pi);
-      html+='<div class="rep-sec"><div class="rep-head">'+p.name+' — '+p.label+'</div>'+
-        '<div class="rep-row"><span>الدخل</span><span style="color:var(--green)">'+fmt(t.rev)+' KWD</span></div>'+
-        '<div class="rep-row"><span>المنصرفات</span><span style="color:var(--red)">'+fmt(t.daily)+' KWD</span></div>'+
-        '<div class="rep-row"><span>التزامات الشهر</span><span style="color:var(--red)">'+fmt(t.mcommit)+' KWD</span></div>'+
-        '<div class="rep-row"><b>الصافي</b><b style="color:'+(t.net>=0?'var(--green)':'var(--red)')+'">'+fmt(t.net)+' KWD</b></div>'+
+      html+='<div class="rep-sec"><div class="rep-head">'+p.name+' \u2014 '+p.label+'</div>'+
+        '<div class="rep-row"><span>\u0627\u0644\u062f\u062e\u0644</span><span style="color:var(--green)">'+fmt(t.rev)+' KWD</span></div>'+
+        '<div class="rep-row"><span>\u0627\u0644\u0645\u0646\u0635\u0631\u0641\u0627\u062a</span><span style="color:var(--red)">'+fmt(t.daily)+' KWD</span></div>'+
+        '<div class="rep-row"><span>\u0627\u0644\u062a\u0632\u0627\u0645\u0627\u062a \u0627\u0644\u0634\u0647\u0631</span><span style="color:var(--red)">'+fmt(t.mcommit)+' KWD</span></div>'+
+        '<div class="rep-row"><b>\u0627\u0644\u0635\u0627\u0641\u064a</b><b style="color:'+(t.net>=0?'var(--green)':'var(--red)')+'">'+fmt(t.net)+' KWD</b></div>'+
       '</div>';
     });
   }
-
   if(curRepType!=='monthly-only'){
     var aRev=0,aSpent=0,aNet=0;
     pList.forEach(function(pi){var tt=getPT(CY,pi);aRev+=tt.rev;aSpent+=tt.totalSpent;aNet+=tt.net;});
@@ -1325,17 +1423,17 @@ function buildReport(){
     var invIn=invList.filter(function(e){return e.type==='in';}).reduce(function(a,e){return a+e.amount;},0);
     var nTot=getNeeds().filter(function(n){return n.done;}).reduce(function(a,n){return a+n.amount;},0);
     var piggyAmt=parseFloat(document.getElementById('piggy-amount')?document.getElementById('piggy-amount').value:0)||0;
-    var fin=aNet+invIn-invOut-nTot-piggyAmt;
-    var lbl=curRepPeriod==='month'?'ملخص '+MNAMES[pList[0]]:curRepPeriod==='3'?'ملخص 3 أشهر':curRepPeriod==='6'?'ملخص 6 أشهر':'الملخص السنوي '+CY;
+    var totalNet=aNet+invIn;
+    var fin=totalNet-invOut-nTot-piggyAmt;
+    var lbl=curRepPeriod==='month'?'\u0645\u0644\u062e\u0635 '+MNAMES[pList[0]]:curRepPeriod==='3'?'\u0645\u0644\u062e\u0635 3 \u0623\u0634\u0647\u0631':curRepPeriod==='6'?'\u0645\u0644\u062e\u0635 6 \u0623\u0634\u0647\u0631':'\u0627\u0644\u0645\u0644\u062e\u0635 \u0627\u0644\u0633\u0646\u0648\u064a '+CY;
     html+='<div class="rep-sec"><div class="rep-head">'+lbl+'</div>'+
-      '<div class="rep-row"><span>إجمالي الدخل</span><span style="color:var(--green)">'+fmt(aRev)+' KWD</span></div>'+
-      '<div class="rep-row"><span>إجمالي المصروف</span><span style="color:var(--red)">'+fmt(aSpent)+' KWD</span></div>'+
-      '<div class="rep-row"><b>الصافي</b><b style="color:'+(aNet>=0?'var(--green)':'var(--red)')+'">'+fmt(aNet)+' KWD</b></div>'+
-      '<div class="rep-row"><span>عائد استثمار</span><span style="color:var(--green)">+'+fmt(invIn)+' KWD</span></div>'+
-      '<div class="rep-row"><span>صرف استثمار</span><span style="color:var(--red)">-'+fmt(invOut)+' KWD</span></div>'+
-      '<div class="rep-row"><span>الاحتياجات المنجزة</span><span>-'+fmt(nTot)+' KWD</span></div>'+
-      '<div class="rep-row"><span>الحصالة</span><span>-'+fmt(piggyAmt)+' KWD</span></div>'+
-      '<div class="rep-row"><b>النتيجة النهائية</b><b style="color:'+(fin>=0?'var(--green)':'var(--red)')+'">'+fmt(fin)+' KWD</b></div>'+
+      '<div class="rep-row"><span>\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u062f\u062e\u0644</span><span style="color:var(--green)">'+fmt(aRev+invIn)+' KWD</span></div>'+
+      '<div class="rep-row"><span>\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u0645\u0635\u0631\u0648\u0641</span><span style="color:var(--red)">'+fmt(aSpent)+' KWD</span></div>'+
+      '<div class="rep-row"><b>\u0627\u0644\u0635\u0627\u0641\u064a</b><b style="color:'+(totalNet>=0?'var(--green)':'var(--red)')+'">'+fmt(totalNet)+' KWD</b></div>'+
+      '<div class="rep-row"><span>\u0635\u0631\u0641 \u0627\u0633\u062a\u062b\u0645\u0627\u0631</span><span style="color:var(--red)">-'+fmt(invOut)+' KWD</span></div>'+
+      '<div class="rep-row"><span>\u0627\u0644\u0627\u062d\u062a\u064a\u0627\u062c\u0627\u062a \u0627\u0644\u0645\u0646\u062c\u0632\u0629</span><span>-'+fmt(nTot)+' KWD</span></div>'+
+      '<div class="rep-row"><span>\u0627\u0644\u062d\u0635\u0627\u0644\u0629</span><span>-'+fmt(piggyAmt)+' KWD</span></div>'+
+      '<div class="rep-row"><b>\u0627\u0644\u0646\u062a\u064a\u062c\u0629 \u0627\u0644\u0646\u0647\u0627\u0626\u064a\u0629</b><b style="color:'+(fin>=0?'var(--green)':'var(--red)')+'">'+fmt(fin)+' KWD</b></div>'+
     '</div>';
   }
   document.getElementById('rep-content').innerHTML=html;
@@ -1357,7 +1455,7 @@ function printReport(){
 function exportData(){
   flushInputs();saveCfg();
   var d={};
-  for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.startsWith('F6_'))d[k]=localStorage.getItem(k);}
+  for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.startsWith('F7_'))d[k]=localStorage.getItem(k);}
   var blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
   var url=URL.createObjectURL(blob);
   var a=document.createElement('a');a.href=url;a.download='\u0645\u064a\u0632\u0627\u0646\u064a\u062a\u064a-'+CY+'.json';a.click();
@@ -1369,7 +1467,7 @@ function handleImport(e){
   r.onload=function(ev){
     try{
       var d=JSON.parse(ev.target.result);
-      Object.keys(d).forEach(function(k){if(k.startsWith('F6_'))localStorage.setItem(k,d[k]);});
+      Object.keys(d).forEach(function(k){if(k.startsWith('F7_'))localStorage.setItem(k,d[k]);});
       init();toast('\ud83d\udce5 \u062a\u0645 \u0627\u0644\u0627\u0633\u062a\u064a\u0631\u0627\u062f');
     }catch(err){toast('\u274c \u0645\u0644\u0641 \u063a\u064a\u0631 \u0635\u0627\u0644\u062d',true);}
   };
@@ -1379,8 +1477,7 @@ function handleImport(e){
 // INIT
 function init(){
   ready=false;
-  var cfg=getCfg();
-  CDAY=cfg.cycleDay||23;
+  var cfg=getCfg();CDAY=cfg.cycleDay||23;
   TODAY_P=initPeriod();CP=TODAY_P;
   buildPeriodNav();
   renderCommitSections();
@@ -1391,11 +1488,9 @@ function init(){
   var pa=document.getElementById('piggy-amount');if(pa)pa.value=cfg.piggyAmt||'';
   loadInputValues();
   rebuildRevInnerTabs();
-  renderDailyList();renderMcList();renderNeeds();renderInvList();
-  var st=document.getElementById('subTabsSticky');
-  var ast=document.getElementById('annSubTabsSticky');
-  if(st)st.style.display='block';
-  if(ast)ast.style.display='none';
+  renderDailyList();renderMcList();renderNeeds();renderInvList();renderDebts();
+  var st=document.getElementById('subTabsSticky');if(st)st.style.display='block';
+  var ast=document.getElementById('annSubTabsSticky');if(ast)ast.style.display='none';
   ready=true;
   updateAll();
   updateStickyTop();
