@@ -546,59 +546,114 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 
   <!-- DEBTS -->
   <div class="view" id="view-debts">
-    <!-- summary -->
-    <div class="ps-card" style="margin-top:10px;">
-      <div class="ps-period">💳 إدارة الديون</div>
-      <div class="ps-grid">
-        <div><div class="ps-lbl">إجمالي الديون</div><div class="ps-val r" id="debt-total">0.000</div><div class="ps-sub">KWD</div></div>
-        <div><div class="ps-lbl">المدفوع</div><div class="ps-val g" id="debt-paid-total">0.000</div><div class="ps-sub">KWD</div></div>
-        <div><div class="ps-lbl">المتبقي</div><div class="ps-val gold" id="debt-remaining">0.000</div><div class="ps-sub">KWD</div></div>
-      </div>
-      <div class="ps-bar-track" style="margin-top:10px;">
-        <div class="pb-net" id="debt-progress-bar" style="width:0%;background:var(--green-l,#27AE60)"></div>
-      </div>
+
+    <!-- MAIN DEBT TABS -->
+    <div style="display:flex;background:var(--card);border-radius:12px;border:1px solid var(--border);overflow:hidden;box-shadow:0 1px 4px var(--sh);margin-top:10px;margin-bottom:12px;">
+      <button class="stab active" id="dt-main-owed" onclick="switchDebtMain('owed')" style="flex:1;">💸 عليّ</button>
+      <button class="stab" id="dt-main-lent" onclick="switchDebtMain('lent')" style="flex:1;border-left:1px solid var(--border);">💰 لي</button>
     </div>
 
-    <!-- add debt form -->
-    <div class="cblock">
-      <div class="cblock-hdr">
-        <span class="cblock-title">➕ إضافة دين</span>
-        <span class="carr open" onclick="toggleCBlock('debt-form-body',this)">▼</span>
-      </div>
-      <div class="cblock-body" id="debt-form-body">
-        <div class="fbox">
-          <div class="fg"><label class="flbl">اسم الدين / الدائن</label>
-            <div class="finp-wrap"><input class="finp" id="debt-name" placeholder="بنك، شخص..." onkeydown="if(event.key==='Enter')addDebt()"><button class="finp-clear" onclick="document.getElementById('debt-name').value=''">✕</button></div>
-          </div>
-          <div class="form-row">
-            <div class="fg"><label class="flbl">المبلغ الكلي (KWD)</label>
-              <div class="finp-wrap"><input class="finp" id="debt-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addDebt()"><button class="finp-clear" onclick="document.getElementById('debt-amount').value=''">✕</button></div>
-            </div>
-            <div class="fg"><label class="flbl">تاريخ الاستحقاق</label>
-              <input class="fsel" id="debt-due" type="date">
-            </div>
-          </div>
-          <div class="form-row" style="margin-top:8px;">
-            <div class="fg"><label class="flbl">الأولوية</label>
-              <select class="fsel" id="debt-priority"><option value="high">🔴 عالية</option><option value="med" selected>🟡 متوسطة</option><option value="low">🟢 منخفضة</option></select>
-            </div>
-            <div class="fg"><label class="flbl">نوع الدين</label>
-              <select class="fsel" id="debt-type"><option value="personal">👤 شخصي</option><option value="bank">🏦 بنك</option><option value="credit">💳 بطاقة</option><option value="other">🔹 أخرى</option></select>
-            </div>
-          </div>
-          <button class="add-btn" onclick="addDebt()">✚ إضافة دين</button>
+    <!-- عليّ -->
+    <div id="dv-owed">
+      <!-- summary -->
+      <div class="ps-card" style="margin-bottom:10px;">
+        <div class="ps-period">💸 ديون عليّ</div>
+        <div class="ps-grid">
+          <div><div class="ps-lbl">إجمالي</div><div class="ps-val r" id="owed-total">0.000</div><div class="ps-sub">KWD</div></div>
+          <div><div class="ps-lbl">المسدّد</div><div class="ps-val g" id="owed-paid">0.000</div><div class="ps-sub">KWD</div></div>
+          <div><div class="ps-lbl">المتبقي</div><div class="ps-val gold" id="owed-rem">0.000</div><div class="ps-sub">KWD</div></div>
+        </div>
+        <div class="ps-bar-track" style="margin-top:10px;">
+          <div class="pb-net" id="owed-bar" style="width:0%;background:#27AE60;"></div>
         </div>
       </div>
+      <!-- add form -->
+      <div class="cblock">
+        <div class="cblock-hdr">
+          <span class="cblock-title">➕ إضافة دين عليّ</span>
+          <span class="carr open" onclick="toggleCBlock('owed-form-body',this)">▼</span>
+        </div>
+        <div class="cblock-body" id="owed-form-body">
+          <div class="fbox">
+            <div class="fg"><label class="flbl">الدائن (من أخذت منه)</label>
+              <div class="finp-wrap"><input class="finp" id="owed-name" placeholder="شخص، بنك..." onkeydown="if(event.key==='Enter')addOwed()"><button class="finp-clear" onclick="document.getElementById('owed-name').value=''">✕</button></div>
+            </div>
+            <div class="form-row">
+              <div class="fg"><label class="flbl">المبلغ (KWD)</label>
+                <div class="finp-wrap"><input class="finp" id="owed-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addOwed()"><button class="finp-clear" onclick="document.getElementById('owed-amount').value=''">✕</button></div>
+              </div>
+              <div class="fg"><label class="flbl">تاريخ الاستحقاق</label><input class="fsel" id="owed-due" type="date"></div>
+            </div>
+            <div class="form-row" style="margin-top:8px;">
+              <div class="fg"><label class="flbl">الأولوية</label>
+                <select class="fsel" id="owed-priority"><option value="high">🔴 عالية</option><option value="med" selected>🟡 متوسطة</option><option value="low">🟢 منخفضة</option></select>
+              </div>
+              <div class="fg"><label class="flbl">النوع</label>
+                <select class="fsel" id="owed-type"><option value="personal">👤 شخصي</option><option value="bank">🏦 بنك</option><option value="credit">💳 بطاقة</option><option value="other">🔹 أخرى</option></select>
+              </div>
+            </div>
+            <button class="add-btn" onclick="addOwed()">✚ إضافة</button>
+          </div>
+        </div>
+      </div>
+      <!-- priority filter -->
+      <div class="prio-tabs" style="padding:0 0 8px;">
+        <button class="ptab p-all active" id="owf-all"  onclick="switchOwedTab('all')">الكل</button>
+        <button class="ptab p-high"       id="owf-high" onclick="switchOwedTab('high')">🔴 عالية</button>
+        <button class="ptab p-med"        id="owf-med"  onclick="switchOwedTab('med')">🟡 وسط</button>
+        <button class="ptab p-low"        id="owf-low"  onclick="switchOwedTab('low')">🟢 منخفضة</button>
+      </div>
+      <div class="cblock"><div id="owed-list"></div></div>
     </div>
 
-    <!-- debt list by priority tabs -->
-    <div class="prio-tabs" style="padding:0 0 8px;">
-      <button class="ptab p-all active" id="dt-all"  onclick="switchDebtTab('all')">الكل</button>
-      <button class="ptab p-high"       id="dt-high" onclick="switchDebtTab('high')">🔴 عالية</button>
-      <button class="ptab p-med"        id="dt-med"  onclick="switchDebtTab('med')">🟡 وسط</button>
-      <button class="ptab p-low"        id="dt-low"  onclick="switchDebtTab('low')">🟢 منخفضة</button>
+    <!-- لي -->
+    <div id="dv-lent" style="display:none;">
+      <!-- summary -->
+      <div class="ps-card" style="margin-bottom:10px;">
+        <div class="ps-period">💰 ديون لي</div>
+        <div class="ps-grid">
+          <div><div class="ps-lbl">إجمالي</div><div class="ps-val g" id="lent-total">0.000</div><div class="ps-sub">KWD</div></div>
+          <div><div class="ps-lbl">المسترد</div><div class="ps-val g" id="lent-paid">0.000</div><div class="ps-sub">KWD</div></div>
+          <div><div class="ps-lbl">المتبقي</div><div class="ps-val gold" id="lent-rem">0.000</div><div class="ps-sub">KWD</div></div>
+        </div>
+        <div class="ps-bar-track" style="margin-top:10px;">
+          <div class="pb-net" id="lent-bar" style="width:0%;background:#27AE60;"></div>
+        </div>
+      </div>
+      <!-- add form -->
+      <div class="cblock">
+        <div class="cblock-hdr">
+          <span class="cblock-title">➕ إضافة دين لي</span>
+          <span class="carr open" onclick="toggleCBlock('lent-form-body',this)">▼</span>
+        </div>
+        <div class="cblock-body" id="lent-form-body">
+          <div class="fbox">
+            <div class="fg"><label class="flbl">المدين (من أعطيته)</label>
+              <div class="finp-wrap"><input class="finp" id="lent-name" placeholder="شخص..." onkeydown="if(event.key==='Enter')addLent()"><button class="finp-clear" onclick="document.getElementById('lent-name').value=''">✕</button></div>
+            </div>
+            <div class="form-row">
+              <div class="fg"><label class="flbl">المبلغ (KWD)</label>
+                <div class="finp-wrap"><input class="finp" id="lent-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addLent()"><button class="finp-clear" onclick="document.getElementById('lent-amount').value=''">✕</button></div>
+              </div>
+              <div class="fg"><label class="flbl">تاريخ الاسترداد</label><input class="fsel" id="lent-due" type="date"></div>
+            </div>
+            <div class="fg" style="margin-top:8px;"><label class="flbl">الأولوية</label>
+              <select class="fsel" id="lent-priority"><option value="high">🔴 عالية</option><option value="med" selected>🟡 متوسطة</option><option value="low">🟢 منخفضة</option></select>
+            </div>
+            <button class="add-btn" onclick="addLent()">✚ إضافة</button>
+          </div>
+        </div>
+      </div>
+      <!-- priority filter -->
+      <div class="prio-tabs" style="padding:0 0 8px;">
+        <button class="ptab p-all active" id="lnf-all"  onclick="switchLentTab('all')">الكل</button>
+        <button class="ptab p-high"       id="lnf-high" onclick="switchLentTab('high')">🔴 عالية</button>
+        <button class="ptab p-med"        id="lnf-med"  onclick="switchLentTab('med')">🟡 وسط</button>
+        <button class="ptab p-low"        id="lnf-low"  onclick="switchLentTab('low')">🟢 منخفضة</button>
+      </div>
+      <div class="cblock"><div id="lent-list"></div></div>
     </div>
-    <div class="cblock"><div id="debt-list"></div></div>
+
   </div>
 
 </div><!-- /main -->
@@ -1211,26 +1266,43 @@ function renderNeeds(){
 function toggleNeed(id){var l=getNeeds(),n=l.find(function(x){return x.id===id;});if(n){n.done=!n.done;saveNeeds(l);renderNeeds();updateAll();}}
 function delNeed(id){showConfirm('حذف الاحتياج','هل تريد حذف هذا الاحتياج؟',function(){saveNeeds(getNeeds().filter(function(x){return x.id!==id;}));renderNeeds();updateAll();});}
 
-// DEBTS
-function getDebts(){try{var s=localStorage.getItem(DBK(CY));return s?JSON.parse(s):[]}catch{return[];}}
-function saveDebts(l){localStorage.setItem(DBK(CY),JSON.stringify(l));}
+// ── DEBTS: OWED (عليّ) & LENT (لي) ──
 var DTYPE_ICONS={personal:'👤',bank:'🏦',credit:'💳',other:'🔹'};
-function addDebt(){
-  var name=document.getElementById('debt-name').value.trim();
-  var amt=parseFloat(document.getElementById('debt-amount').value);
-  var due=document.getElementById('debt-due').value;
-  var prio=document.getElementById('debt-priority').value;
-  var type=document.getElementById('debt-type').value;
-  if(!name||isNaN(amt)||amt<=0){toast('أدخل اسم ومبلغ',true);return;}
-  var l=getDebts();
-  l.push({id:uid(),name:name,total:amt,paid:0,due:due,priority:prio,type:type,ts:nowStr()});
-  saveDebts(l);
-  document.getElementById('debt-name').value='';document.getElementById('debt-amount').value='';document.getElementById('debt-due').value='';
-  renderDebts();updateAll();
+var curOwedTab='all', curLentTab='all', curDebtMain='owed';
+
+function getOwed(){try{var s=localStorage.getItem(PX+'owed_'+CY);return s?JSON.parse(s):[]}catch{return[];}}
+function saveOwed(l){localStorage.setItem(PX+'owed_'+CY,JSON.stringify(l));}
+function getLent(){try{var s=localStorage.getItem(PX+'lent_'+CY);return s?JSON.parse(s):[]}catch{return[];}}
+function saveLent(l){localStorage.setItem(PX+'lent_'+CY,JSON.stringify(l));}
+
+// Compat: keep old getDebts for report only (returns owed)
+function getDebts(){return getOwed();}
+
+function switchDebtMain(tab){
+  curDebtMain=tab;
+  document.getElementById('dt-main-owed').classList.toggle('active',tab==='owed');
+  document.getElementById('dt-main-lent').classList.toggle('active',tab==='lent');
+  document.getElementById('dv-owed').style.display=tab==='owed'?'block':'none';
+  document.getElementById('dv-lent').style.display=tab==='lent'?'block':'none';
 }
-function openDebtPayment(id){
+
+// ── OWED ──
+function addOwed(){
+  var name=document.getElementById('owed-name').value.trim();
+  var amt=parseFloat(document.getElementById('owed-amount').value);
+  var due=document.getElementById('owed-due').value;
+  var prio=document.getElementById('owed-priority').value;
+  var type=document.getElementById('owed-type').value;
+  if(!name||isNaN(amt)||amt<=0){toast('أدخل اسم ومبلغ',true);return;}
+  var l=getOwed();
+  l.push({id:uid(),name:name,total:amt,paid:0,due:due,priority:prio,type:type,ts:nowStr()});
+  saveOwed(l);
+  document.getElementById('owed-name').value='';document.getElementById('owed-amount').value='';document.getElementById('owed-due').value='';
+  renderOwed();
+}
+function openOwedPayment(id){
   activeDebtId=id;
-  var d=getDebts().find(function(x){return x.id===id;});
+  var d=getOwed().find(function(x){return x.id===id;});
   if(!d)return;
   document.getElementById('debt-pay-title').textContent='دفعة — '+d.name;
   document.getElementById('debt-pay-amount').value='';
@@ -1239,61 +1311,126 @@ function openDebtPayment(id){
 function confirmDebtPayment(){
   var amt=parseFloat(document.getElementById('debt-pay-amount').value);
   if(!amt||amt<=0){toast('أدخل مبلغ صحيح',true);return;}
-  var l=getDebts(),d=l.find(function(x){return x.id===activeDebtId;});
-  if(d){d.paid=Math.min(d.total,d.paid+amt);saveDebts(l);}
-  closeOv('ov-debt-pay');renderDebts();updateAll();
+  var l=getOwed(),d=l.find(function(x){return x.id===activeDebtId;});
+  if(d){d.paid=Math.min(d.total,d.paid+amt);saveOwed(l);}
+  closeOv('ov-debt-pay');renderOwed();
 }
-function delDebt(id){showConfirm('حذف الدين','هل تريد حذف هذا الدين؟',function(){saveDebts(getDebts().filter(function(x){return x.id!==id;}));renderDebts();updateAll();});}
-function switchDebtTab(t){
-  curDebtTab=t;
-  ['all','high','med','low'].forEach(function(p){var b=document.getElementById('dt-'+p);if(b)b.classList.toggle('active',p===t);});
-  renderDebts();
+function delOwed(id){showConfirm('حذف الدين','هل تريد حذف هذا الدين؟',function(){saveOwed(getOwed().filter(function(x){return x.id!==id;}));renderOwed();});}
+function switchOwedTab(t){
+  curOwedTab=t;
+  ['all','high','med','low'].forEach(function(p){var b=document.getElementById('owf-'+p);if(b)b.classList.toggle('active',p===t);});
+  renderOwed();
 }
-function renderDebts(){
-  var list=getDebts();
-  var filtered=curDebtTab==='all'?list:list.filter(function(d){return d.priority===curDebtTab;});
-  var cont=document.getElementById('debt-list');if(!cont)return;
-  var today=new Date();
-  if(!filtered.length){cont.innerHTML='<div class="empty">لا توجد ديون مسجلة</div>';return;}
-  cont.innerHTML=filtered.map(function(d){
-    var pct=d.total>0?Math.min(100,d.paid/d.total*100):0;
-    var remaining=d.total-d.paid;
-    var isDone=remaining<=0;
-    var isOverdue=d.due&&new Date(d.due)<today&&!isDone;
-    var dueStr=d.due?new Date(d.due).toLocaleDateString('ar-KW',{day:'numeric',month:'short',year:'numeric'}):'';
-    return '<div class="entry-card">'+
-      '<div style="flex-shrink:0;margin-top:2px;">'+
-        '<input class="need-chk" type="checkbox"'+(isDone?' checked':'')+' onchange="openDebtPayment(\''+d.id+'\')" '+(isDone?'disabled':'')+'>'+'</div>'+
-      '<div class="ec-info">'+
-        '<div class="ec-name" style="'+(isDone?'text-decoration:line-through;opacity:.5':'')+'">'+
-          (DTYPE_ICONS[d.type]||'🔹')+' '+esc(d.name)+
-          ' <span class="ec-badge '+(isDone?'rev':PLAB[d.priority]==='🔴'?'high':PLAB[d.priority]==='🟡'?'med':'low')+'">'+
-          (isDone?'✅ منتهي':PLAB[d.priority||'med'])+'</span>'+
+function renderOwed(){
+  var list=getOwed();
+  var filtered=curOwedTab==='all'?list:list.filter(function(d){return d.priority===curOwedTab;});
+  var cont=document.getElementById('owed-list');if(!cont)return;
+  var today=new Date();today.setHours(0,0,0,0);
+  if(!filtered.length){cont.innerHTML='<div class="empty">لا توجد ديون عليك</div>';}
+  else{
+    cont.innerHTML=filtered.map(function(d){
+      var pct=d.total>0?Math.min(100,d.paid/d.total*100):0;
+      var rem=d.total-d.paid;
+      var isDone=rem<=0;
+      var dueDate=d.due?new Date(d.due):null;
+      if(dueDate)dueDate.setHours(0,0,0,0);
+      var isOverdue=dueDate&&dueDate<today&&!isDone;
+      var dueStr=dueDate?dueDate.toLocaleDateString('ar-KW',{day:'numeric',month:'short',year:'numeric'}):'';
+      return '<div class="entry-card">'+
+        '<div class="ec-info">'+
+          '<div class="ec-name" style="'+(isDone?'text-decoration:line-through;opacity:.5':'')+'">'+
+            (DTYPE_ICONS[d.type]||'🔹')+' '+esc(d.name)+
+            ' <span class="ec-badge '+(isDone?'rev':d.priority==='high'?'high':d.priority==='med'?'med':'low')+'">'+
+            (isDone?'✅ منتهي':PLAB[d.priority||'med'])+'</span>'+
+          '</div>'+
+          '<div class="ec-meta">'+
+            '<span>المتبقي: <b>'+fmt(rem)+' KWD</b></span>'+
+            (dueStr?'<span class="debt-due'+(isOverdue?' overdue':'')+'">'+(isOverdue?'⚠️ ':'📅 ')+dueStr+'</span>':'')+
+          '</div>'+
+          '<div class="debt-progress"><div class="debt-fill" style="width:'+pct+'%"></div></div>'+
+          '<div style="font-size:9px;color:var(--muted);margin-top:2px;">'+fmt(d.paid)+' / '+fmt(d.total)+' KWD ('+pct.toFixed(0)+'%)</div>'+
         '</div>'+
-        '<div class="ec-meta">'+
-          '<span>المتبقي: <b>'+fmt(remaining)+' KWD</b></span>'+
-          (dueStr?'<span class="debt-due'+(isOverdue?' overdue':'')+'">'+(isOverdue?'⚠️ ':'📅 ')+dueStr+'</span>':'')+
+        '<div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;flex-shrink:0;">'+
+          '<button class="add-btn" style="padding:5px 8px;font-size:11px;margin:0;width:auto;'+(isDone?'opacity:.4':'')+';" onclick="openOwedPayment(\''+d.id+'\')" '+(isDone?'disabled':'')+'>💳 دفعة</button>'+
+          '<button class="del-row-btn" onclick="delOwed(\''+d.id+'\')">✕</button>'+
         '</div>'+
-        '<div class="debt-progress"><div class="debt-fill" style="width:'+pct+'%"></div></div>'+
-        '<div style="font-size:9px;color:var(--muted);margin-top:2px;">'+fmt(d.paid)+' / '+fmt(d.total)+' KWD ('+pct.toFixed(0)+'%)</div>'+
-      '</div>'+
-      '<div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;flex-shrink:0;">'+
-        '<button class="add-btn" style="padding:5px 8px;font-size:11px;margin:0;width:auto;'+(isDone?'opacity:.4':'')+';" onclick="openDebtPayment(\''+d.id+'\')" '+(isDone?'disabled':'')+'>💳 دفعة</button>'+
-        '<button class="del-row-btn" onclick="delDebt(\''+d.id+'\')">✕</button>'+
-      '</div>'+
-    '</div>';
-  }).join('');
-
-  // totals
+      '</div>';
+    }).join('');
+  }
   var total=list.reduce(function(a,d){return a+d.total;},0);
-  var paidTot=list.reduce(function(a,d){return a+d.paid;},0);
-  var rem=total-paidTot;
-  var pct=total>0?Math.min(100,paidTot/total*100):0;
-  var dt=document.getElementById('debt-total');if(dt)dt.textContent=fmt(total);
-  var dp=document.getElementById('debt-paid-total');if(dp)dp.textContent=fmt(paidTot);
-  var dr=document.getElementById('debt-remaining');if(dr)dr.textContent=fmt(rem);
-  var db=document.getElementById('debt-progress-bar');if(db)db.style.width=pct+'%';
+  var paid=list.reduce(function(a,d){return a+d.paid;},0);
+  var pct2=total>0?Math.min(100,paid/total*100):0;
+  var ot=document.getElementById('owed-total');if(ot)ot.textContent=fmt(total);
+  var op=document.getElementById('owed-paid');if(op)op.textContent=fmt(paid);
+  var or2=document.getElementById('owed-rem');if(or2)or2.textContent=fmt(total-paid);
+  var ob=document.getElementById('owed-bar');if(ob)ob.style.width=pct2+'%';
 }
+
+// ── LENT ──
+function addLent(){
+  var name=document.getElementById('lent-name').value.trim();
+  var amt=parseFloat(document.getElementById('lent-amount').value);
+  var due=document.getElementById('lent-due').value;
+  var prio=document.getElementById('lent-priority').value;
+  if(!name||isNaN(amt)||amt<=0){toast('أدخل اسم ومبلغ',true);return;}
+  var l=getLent();
+  l.push({id:uid(),name:name,total:amt,returned:0,due:due,priority:prio,ts:nowStr()});
+  saveLent(l);
+  document.getElementById('lent-name').value='';document.getElementById('lent-amount').value='';document.getElementById('lent-due').value='';
+  renderLent();
+}
+function delLent(id){showConfirm('حذف الدين','هل تريد حذف هذا البند؟',function(){saveLent(getLent().filter(function(x){return x.id!==id;}));renderLent();});}
+function markLentReturn(id){
+  var l=getLent(),d=l.find(function(x){return x.id===id;});
+  if(d){d.returned=d.total;saveLent(l);renderLent();}
+}
+function switchLentTab(t){
+  curLentTab=t;
+  ['all','high','med','low'].forEach(function(p){var b=document.getElementById('lnf-'+p);if(b)b.classList.toggle('active',p===t);});
+  renderLent();
+}
+function renderLent(){
+  var list=getLent();
+  var filtered=curLentTab==='all'?list:list.filter(function(d){return d.priority===curLentTab;});
+  var cont=document.getElementById('lent-list');if(!cont)return;
+  var today=new Date();today.setHours(0,0,0,0);
+  if(!filtered.length){cont.innerHTML='<div class="empty">لا توجد ديون لك</div>';}
+  else{
+    cont.innerHTML=filtered.map(function(d){
+      var isDone=d.returned>=d.total;
+      var rem=d.total-d.returned;
+      var dueDate=d.due?new Date(d.due):null;
+      if(dueDate)dueDate.setHours(0,0,0,0);
+      var isOverdue=dueDate&&dueDate<today&&!isDone;
+      var dueStr=dueDate?dueDate.toLocaleDateString('ar-KW',{day:'numeric',month:'short',year:'numeric'}):'';
+      return '<div class="entry-card">'+
+        '<div class="ec-info">'+
+          '<div class="ec-name" style="'+(isDone?'text-decoration:line-through;opacity:.5':'')+'">'+
+            '👤 '+esc(d.name)+
+            ' <span class="ec-badge '+(isDone?'rev':d.priority==='high'?'high':d.priority==='med'?'med':'low')+'">'+
+            (isDone?'✅ مسترد':PLAB[d.priority||'med'])+'</span>'+
+          '</div>'+
+          '<div class="ec-meta">'+
+            '<span>المتبقي: <b>'+fmt(rem)+' KWD</b></span>'+
+            (dueStr?'<span class="debt-due'+(isOverdue?' overdue':'')+'">'+(isOverdue?'⚠️ ':'📅 ')+dueStr+'</span>':'')+
+          '</div>'+
+        '</div>'+
+        '<div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;flex-shrink:0;">'+
+          (!isDone?'<button class="add-btn" style="padding:5px 8px;font-size:11px;margin:0;width:auto;" onclick="markLentReturn(\''+d.id+'\')">✅ تم الاسترداد</button>':'')+
+          '<button class="del-row-btn" onclick="delLent(\''+d.id+'\')">✕</button>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
+  var total=list.reduce(function(a,d){return a+d.total;},0);
+  var ret=list.reduce(function(a,d){return a+d.returned;},0);
+  var lt=document.getElementById('lent-total');if(lt)lt.textContent=fmt(total);
+  var lp=document.getElementById('lent-paid');if(lp)lp.textContent=fmt(ret);
+  var lr=document.getElementById('lent-rem');if(lr)lr.textContent=fmt(total-ret);
+  var lb=document.getElementById('lent-bar');if(lb)lb.style.width=(total>0?Math.min(100,ret/total*100):0)+'%';
+}
+
+function renderDebts(){renderOwed();renderLent();}
 
 // TOTALS
 function getPT(y,p){
@@ -1334,7 +1471,6 @@ function updateAll(){
   }else{if(pbSp)pbSp.style.width='0%';if(pbNet)pbNet.style.width='0%';}
   renderMcList();
   buildAnnual();
-  renderDebts();
 }
 
 function buildAnnual(){
@@ -1369,9 +1505,8 @@ function buildAnnual(){
   if(document.getElementById('piggy-badge'))document.getElementById('piggy-badge').textContent=fmt(piggyAmt)+' KWD';
   var fin=totalNet-invOut-nTot-piggyAmt;
   var fe=document.getElementById('ann-final');if(fe){fe.textContent=fmt(fin);fe.className='ann-val '+(fin>=0?'g':'r');}
-  // صافي الثروة: يُخصم فقط الديون المسدّدة كاملاً (paid >= total)
-  var debtDeducted=getDebts().filter(function(d){return d.paid>=d.total&&d.total>0;}).reduce(function(a,d){return a+d.total;},0);
-  var nw=totalNet-invOut+piggyAmt-debtDeducted;
+  // صافي الثروة = الصافي السنوي - صرف الاستثمار + الحصالة (الديون بيانات فقط)
+  var nw=totalNet-invOut+piggyAmt;
   if(document.getElementById('nw-val'))document.getElementById('nw-val').textContent=fmt(nw)+' KWD';
   if(document.getElementById('nw-piggy'))document.getElementById('nw-piggy').textContent=fmt(piggyAmt);
   if(document.getElementById('nw-net'))document.getElementById('nw-net').textContent=fmt(totalNet-invOut);
@@ -1404,7 +1539,7 @@ function switchMain(tab){
   if(ast)ast.style.display=tab==='annual'?'block':'none';
   if(tab==='annual'){renderInvList();buildAnnual();}
   if(tab==='treasury'){buildAnnual();}
-  if(tab==='debts')renderDebts();
+  if(tab==='debts'){renderOwed();renderLent();}
   updateStickyTop();
 }
 function switchSub(tab){
@@ -1557,6 +1692,7 @@ function init(){
   var ast=document.getElementById('annSubTabsSticky');if(ast)ast.style.display='none';
   ready=true;
   updateAll();
+  renderOwed();renderLent();
   updateStickyTop();
   setTimeout(function(){
     var cards=document.querySelectorAll('.pcard');
