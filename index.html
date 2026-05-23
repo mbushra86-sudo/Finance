@@ -327,7 +327,7 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
             </div>
             <div class="form-row">
               <div class="fg"><label class="flbl">المبلغ (KWD)</label>
-                <div class="finp-wrap"><input class="finp" id="mc-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addMonthCommit()"><button class="finp-clear" onclick="document.getElementById('mc-amount').value=''">✕</button></div>
+                <div class="finp-wrap"><input class="finp" id="mc-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addMonthCommit()"></div>
               </div>
               <div class="fg"><label class="flbl">القسم</label><select class="fsel" id="mc-cat"><option value="">— بدون —</option></select></div>
             </div>
@@ -367,7 +367,7 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
             </div>
             <div class="form-row">
               <div class="fg"><label class="flbl">المبلغ (KWD)</label>
-                <div class="finp-wrap"><input class="finp" id="daily-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addDailyExpense()"><button class="finp-clear" onclick="document.getElementById('daily-amount').value=''">✕</button></div>
+                <div class="finp-wrap"><input class="finp" id="daily-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addDailyExpense()"></div>
               </div>
               <div class="fg"><label class="flbl">البند</label><button class="cat-btn" id="cat-btn" onclick="openPicker()">اختر ▾</button></div>
             </div>
@@ -394,7 +394,7 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
             </div>
             <div class="form-row">
               <div class="fg"><label class="flbl">المبلغ (KWD)</label>
-                <div class="finp-wrap"><input class="finp" id="rev-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addRevEntry()"><button class="finp-clear" onclick="document.getElementById('rev-amount').value=''">✕</button></div>
+                <div class="finp-wrap"><input class="finp" id="rev-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addRevEntry()"></div>
               </div>
               <div class="fg"><label class="flbl">النوع</label>
                 <select class="fsel" id="rev-type">
@@ -439,6 +439,20 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
         </div>
         <div class="cblock-body" id="needs-body">
           <div style="padding:7px 12px;font-size:11px;color:var(--muted);background:rgba(26,107,53,.04);border-bottom:1px solid var(--border);">تُخصم من الصافي السنوي عند التحديد ✅</div>
+          <!-- FORM TOP -->
+          <div class="fbox" style="border-bottom:1px solid var(--border);">
+            <div class="fg"><label class="flbl">اسم الاحتياج</label>
+              <div class="finp-wrap"><input class="finp" id="need-name" placeholder="هاتف، أثاث..." onkeydown="if(event.key==='Enter')addNeed()"><button class="finp-clear" onclick="document.getElementById('need-name').value=''">✕</button></div>
+            </div>
+            <div class="form-row">
+              <div class="fg"><label class="flbl">السعر (KWD)</label>
+                <div class="finp-wrap"><input class="finp" id="need-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addNeed()"></div>
+              </div>
+              <div class="fg"><label class="flbl">الأولوية</label><select class="fsel" id="need-priority"><option value="high">🔴 عالية</option><option value="med" selected>🟡 متوسطة</option><option value="low">🟢 منخفضة</option></select></div>
+            </div>
+            <button class="add-btn" onclick="addNeed()">✚ إضافة</button>
+          </div>
+          <!-- LIST BELOW -->
           <div class="prio-tabs">
             <button class="ptab p-all active" id="nt-all"  onclick="switchNeedTab('all')">الكل</button>
             <button class="ptab p-high"       id="nt-high" onclick="switchNeedTab('high')">🔴 عالية</button>
@@ -446,18 +460,6 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
             <button class="ptab p-low"        id="nt-low"  onclick="switchNeedTab('low')">🟢 منخفضة</button>
           </div>
           <div id="needs-list"></div>
-          <div class="fbox" style="border-top:1px solid var(--border);">
-            <div class="fg"><label class="flbl">اسم الاحتياج</label>
-              <div class="finp-wrap"><input class="finp" id="need-name" placeholder="هاتف، أثاث..." onkeydown="if(event.key==='Enter')addNeed()"><button class="finp-clear" onclick="document.getElementById('need-name').value=''">✕</button></div>
-            </div>
-            <div class="form-row">
-              <div class="fg"><label class="flbl">السعر (KWD)</label>
-                <div class="finp-wrap"><input class="finp" id="need-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addNeed()"><button class="finp-clear" onclick="document.getElementById('need-amount').value=''">✕</button></div>
-              </div>
-              <div class="fg"><label class="flbl">الأولوية</label><select class="fsel" id="need-priority"><option value="high">🔴 عالية</option><option value="med" selected>🟡 متوسطة</option><option value="low">🟢 منخفضة</option></select></div>
-            </div>
-            <button class="add-btn" onclick="addNeed()">✚ إضافة</button>
-          </div>
         </div>
       </div>
     </div>
@@ -469,6 +471,20 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
           <div class="cblock-right"><span class="cbadge" id="inv-badge">0.000 KWD</span><span class="carr open" onclick="toggleCBlock('inv-body',this)">▼</span></div>
         </div>
         <div class="cblock-body" id="inv-body">
+          <!-- FORM TOP -->
+          <div class="fbox" style="border-bottom:1px solid var(--border);">
+            <div class="fg"><label class="flbl">اسم الاستثمار</label>
+              <div class="finp-wrap"><input class="finp" id="inv-name" placeholder="عقار، أسهم..." onkeydown="if(event.key==='Enter')addInvEntry()"><button class="finp-clear" onclick="document.getElementById('inv-name').value=''">✕</button></div>
+            </div>
+            <div class="form-row">
+              <div class="fg"><label class="flbl">المبلغ (KWD)</label>
+                <div class="finp-wrap"><input class="finp" id="inv-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addInvEntry()"></div>
+              </div>
+              <div class="fg"><label class="flbl">النوع</label><select class="fsel" id="inv-type"><option value="out">📤 استثمار (صرف)</option><option value="in">📥 عائد (دخل)</option></select></div>
+            </div>
+            <button class="add-btn" onclick="addInvEntry()">✚ إضافة</button>
+          </div>
+          <!-- LIST BELOW -->
           <div class="inner-tabs" style="padding:8px 12px 0;">
             <button class="itab active" id="ivt-all" onclick="switchInvTab('all')">الكل</button>
             <button class="itab"        id="ivt-out" onclick="switchInvTab('out')">📤 صرف</button>
@@ -477,21 +493,8 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
           <div id="inv-list-all"  class="inner-view active"><div id="inv-list"></div></div>
           <div id="inv-list-out"  class="inner-view"><div id="inv-list-out-items"></div></div>
           <div id="inv-list-in"   class="inner-view"><div id="inv-list-in-items"></div></div>
-          <div class="fbox" style="border-top:1px solid var(--border);">
-            <div class="fg"><label class="flbl">اسم الاستثمار</label>
-              <div class="finp-wrap"><input class="finp" id="inv-name" placeholder="عقار، أسهم..." onkeydown="if(event.key==='Enter')addInvEntry()"><button class="finp-clear" onclick="document.getElementById('inv-name').value=''">✕</button></div>
-            </div>
-            <div class="form-row">
-              <div class="fg"><label class="flbl">المبلغ (KWD)</label>
-                <div class="finp-wrap"><input class="finp" id="inv-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addInvEntry()"><button class="finp-clear" onclick="document.getElementById('inv-amount').value=''">✕</button></div>
-              </div>
-              <div class="fg"><label class="flbl">النوع</label><select class="fsel" id="inv-type"><option value="out">📤 استثمار (صرف)</option><option value="in">📥 عائد (دخل)</option></select></div>
-            </div>
-            <button class="add-btn" onclick="addInvEntry()">✚ إضافة</button>
-          </div>
         </div>
       </div>
-      <!-- inv returns ref -->
       <div class="total-card ref">
         <span class="tc-lbl">📈 عوائد الاستثمار (مرجع في الإيرادات)</span>
         <span style="font-size:14px;font-weight:700;color:var(--green);" id="inv-returns-ref">0.000 KWD</span>
@@ -538,7 +541,7 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
       <div class="cblock-body" id="piggy-body">
         <div class="fbox">
           <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">المبلغ المدخر — يُضاف لصافي الثروة ويُخصم من النتيجة النهائية</div>
-          <div class="finp-wrap"><input class="finp" id="piggy-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;font-size:16px;font-weight:700;" oninput="autoSave();updateAll();"><button class="finp-clear" onclick="document.getElementById('piggy-amount').value='';autoSave();updateAll();">✕</button></div>
+          <div class="finp-wrap"><input class="finp" id="piggy-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;font-size:16px;font-weight:700;" oninput="autoSave();updateAll();"></div>
         </div>
       </div>
     </div>
@@ -580,7 +583,7 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
             </div>
             <div class="form-row">
               <div class="fg"><label class="flbl">المبلغ (KWD)</label>
-                <div class="finp-wrap"><input class="finp" id="owed-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addOwed()"><button class="finp-clear" onclick="document.getElementById('owed-amount').value=''">✕</button></div>
+                <div class="finp-wrap"><input class="finp" id="owed-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addOwed()" onkeydown="if(event.key==='Enter')addOwed()"></div>
               </div>
               <div class="fg"><label class="flbl">تاريخ الاستحقاق</label><input class="fsel" id="owed-due" type="date"></div>
             </div>
@@ -629,11 +632,11 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
         <div class="cblock-body" id="lent-form-body">
           <div class="fbox">
             <div class="fg"><label class="flbl">المدين (من أعطيته)</label>
-              <div class="finp-wrap"><input class="finp" id="lent-name" placeholder="شخص..." onkeydown="if(event.key==='Enter')addLent()"><button class="finp-clear" onclick="document.getElementById('lent-name').value=''">✕</button></div>
+              <div class="finp-wrap"><input class="finp" id="lent-name" placeholder="شخص..." onkeydown="if(event.key==='Enter')addLent()" onkeydown="if(event.key==='Enter')addLent()"><button class="finp-clear" onclick="document.getElementById('lent-name').value=''">✕</button></div>
             </div>
             <div class="form-row">
               <div class="fg"><label class="flbl">المبلغ (KWD)</label>
-                <div class="finp-wrap"><input class="finp" id="lent-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addLent()"><button class="finp-clear" onclick="document.getElementById('lent-amount').value=''">✕</button></div>
+                <div class="finp-wrap"><input class="finp" id="lent-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;" onkeydown="if(event.key==='Enter')addLent()" onkeydown="if(event.key==='Enter')addLent()"></div>
               </div>
               <div class="fg"><label class="flbl">تاريخ الاسترداد</label><input class="fsel" id="lent-due" type="date"></div>
             </div>
@@ -678,12 +681,18 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
     <div class="sheet-hdr"><span>📊 التقارير</span><button class="sheet-x" onclick="closeOv('ov-report')">✕</button></div>
     <div style="margin-bottom:10px;">
       <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">الفترة</div>
-      <div class="inner-tabs" style="flex-wrap:wrap;">
+      <div class="inner-tabs" style="flex-wrap:wrap;gap:5px;">
         <button class="itab active" id="rp-month" onclick="setRepPeriod('month')">هذا الشهر</button>
         <button class="itab" id="rp-3" onclick="setRepPeriod('3')">3 أشهر</button>
         <button class="itab" id="rp-6" onclick="setRepPeriod('6')">6 أشهر</button>
         <button class="itab" id="rp-year" onclick="setRepPeriod('year')">السنة</button>
+        <button class="itab" id="rp-custom" onclick="setRepPeriod('custom')">اختيار ▾</button>
       </div>
+    </div>
+    <!-- custom month picker -->
+    <div id="rep-custom-months" style="display:none;margin-bottom:10px;">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">اختر الشهور</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;" id="rep-month-checks"></div>
     </div>
     <div style="margin-bottom:12px;">
       <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">النوع</div>
@@ -712,7 +721,7 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
   <div class="sheet">
     <div class="sheet-hdr"><span id="debt-pay-title">تسجيل دفعة</span><button class="sheet-x" onclick="closeOv('ov-debt-pay')">✕</button></div>
     <div class="fg"><label class="flbl">المبلغ المدفوع (KWD)</label>
-      <div class="finp-wrap"><input class="finp" id="debt-pay-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;font-size:16px;"><button class="finp-clear" onclick="document.getElementById('debt-pay-amount').value=''">✕</button></div>
+      <div class="finp-wrap"><input class="finp" id="debt-pay-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;font-size:16px;"></div>
     </div>
     <button class="add-btn" onclick="confirmDebtPayment()" style="margin-top:10px;">✅ تسجيل الدفعة</button>
   </div>
@@ -758,8 +767,8 @@ function SETK(){return 'F7_cfg';}
 function getCV(k){return parseFloat(localStorage.getItem('F7_cv_'+k))||0;}
 function setCV(k,v){localStorage.setItem('F7_cv_'+k,parseFloat(v)||0);}
 
-// Sections: since/until per period
-var DEFS={commit:[{id:'cs1',icon:'🏛',title:'الالتزامات',rows:[{id:'cr1',label:'قسط',key:'cmt_s'}],since:0,until:11}]};
+// Sections: since/until per period — NO defaults, start empty
+var DEFS={commit:[]};
 function getSecs(t){try{var s=localStorage.getItem(SECK(t));return s?JSON.parse(s):JSON.parse(JSON.stringify(DEFS[t]||[]));}catch{return[];}}
 function saveSecs(t,d){localStorage.setItem(SECK(t),JSON.stringify(d));}
 function getVisibleSecs(p){
@@ -973,8 +982,8 @@ function rebuildMcInnerTabs(){
   var tabs=document.getElementById('mc-inner-tabs');
   var views=document.getElementById('mc-inner-views');
   if(!tabs||!views)return;
-  // NO "other" tab for mcommit
   var all=[{id:'mc-all',label:'الكل'}].concat(secs.map(function(s){return{id:'mc-'+s.id,label:s.icon+' '+s.title};}));
+  all.push({id:'mc-none',label:'بدون'});
   tabs.innerHTML=all.map(function(t,i){return '<button class="itab'+(i===0?' active':'')+'" onclick="switchMcTab(\''+t.id+'\')">'+t.label+'</button>';}).join('');
   views.innerHTML=all.map(function(t,i){return '<div class="inner-view'+(i===0?' active':'')+'" id="mcv-'+t.id+'"><div id="mcl-'+t.id+'"></div></div>';}).join('');
   renderMcList();
@@ -1008,6 +1017,7 @@ function renderMcList(){
   var secs=getVisibleSecs(CP);
   renderMcGroup('mc-all',list);
   secs.forEach(function(sec){renderMcGroup('mc-'+sec.id,list.filter(function(e){return e.catId===sec.id;}));});
+  renderMcGroup('mc-none',list.filter(function(e){return !e.catId||e.catId==='';}));
   var paid=list.filter(function(e){return e.paid;}).reduce(function(a,e){return a+e.amount;},0);
   var tot=list.reduce(function(a,e){return a+e.amount;},0);
   var ep=document.getElementById('total-mcommit-paid'),ea=document.getElementById('total-mcommit-all');
@@ -1270,10 +1280,10 @@ function delNeed(id){showConfirm('حذف الاحتياج','هل تريد حذف
 var DTYPE_ICONS={personal:'👤',bank:'🏦',credit:'💳',other:'🔹'};
 var curOwedTab='all', curLentTab='all', curDebtMain='owed';
 
-function getOwed(){try{var s=localStorage.getItem(PX+'owed_'+CY);return s?JSON.parse(s):[]}catch{return[];}}
-function saveOwed(l){localStorage.setItem(PX+'owed_'+CY,JSON.stringify(l));}
-function getLent(){try{var s=localStorage.getItem(PX+'lent_'+CY);return s?JSON.parse(s):[]}catch{return[];}}
-function saveLent(l){localStorage.setItem(PX+'lent_'+CY,JSON.stringify(l));}
+function getOwed(){try{var s=localStorage.getItem('F7_owed_'+CY);return s?JSON.parse(s):[]}catch{return[];}}
+function saveOwed(l){localStorage.setItem('F7_owed_'+CY,JSON.stringify(l));}
+function getLent(){try{var s=localStorage.getItem('F7_lent_'+CY);return s?JSON.parse(s):[]}catch{return[];}}
+function saveLent(l){localStorage.setItem('F7_lent_'+CY,JSON.stringify(l));}
 
 // Compat: keep old getDebts for report only (returns owed)
 function getDebts(){return getOwed();}
@@ -1540,6 +1550,7 @@ function switchMain(tab){
   if(tab==='annual'){renderInvList();buildAnnual();}
   if(tab==='treasury'){buildAnnual();}
   if(tab==='debts'){renderOwed();renderLent();}
+  localStorage.setItem('F7_activeTab',tab);
   updateStickyTop();
 }
 function switchSub(tab){
@@ -1576,7 +1587,36 @@ function buildPeriodNav(){
 }
 
 // REPORT
-function setRepPeriod(p){curRepPeriod=p;['month','3','6','year'].forEach(function(x){var b=document.getElementById('rp-'+x);if(b)b.classList.toggle('active',x===p);});buildReport();}
+var repCustomMonths=[];
+function setRepPeriod(p){
+  curRepPeriod=p;
+  ['month','3','6','year','custom'].forEach(function(x){var b=document.getElementById('rp-'+x);if(b)b.classList.toggle('active',x===p);});
+  var customDiv=document.getElementById('rep-custom-months');
+  if(p==='custom'){
+    customDiv.style.display='block';
+    // Build month checkboxes
+    var cont=document.getElementById('rep-month-checks');
+    cont.innerHTML=MNAMES.map(function(mn,i){
+      var checked=repCustomMonths.indexOf(i)>=0;
+      return '<label style="display:flex;align-items:center;gap:4px;padding:4px 8px;border-radius:8px;border:1px solid var(--border);background:'+(checked?'var(--brand)':'var(--card)')+';color:'+(checked?'#fff':'var(--muted)')+';font-size:11px;cursor:pointer;">'+
+        '<input type="checkbox" style="display:none;" '+(checked?'checked':'')+' onchange="toggleRepMonth('+i+',this)">'+mn+'</label>';
+    }).join('');
+  } else {
+    customDiv.style.display='none';
+  }
+  buildReport();
+}
+function toggleRepMonth(idx,cb){
+  var i=repCustomMonths.indexOf(idx);
+  if(cb.checked){if(i<0)repCustomMonths.push(idx);}
+  else{if(i>=0)repCustomMonths.splice(i,1);}
+  repCustomMonths.sort(function(a,b){return a-b;});
+  // Restyle label
+  var lbl=cb.parentElement;
+  lbl.style.background=cb.checked?'var(--brand)':'var(--card)';
+  lbl.style.color=cb.checked?'#fff':'var(--muted)';
+  buildReport();
+}
 function setRepType(t){curRepType=t;['both','monthly-only','annual-only'].forEach(function(x){var b=document.getElementById('rp-'+x);if(b)b.classList.toggle('active',x===t);});buildReport();}
 function openReport(){buildReport();openOv('ov-report');}
 function buildReport(){
@@ -1585,6 +1625,7 @@ function buildReport(){
   if(curRepPeriod==='month'){pList=[CP];}
   else if(curRepPeriod==='3'){for(var i=Math.max(0,CP-2);i<=CP;i++)pList.push(i);}
   else if(curRepPeriod==='6'){for(var i=Math.max(0,CP-5);i<=CP;i++)pList.push(i);}
+  else if(curRepPeriod==='custom'){pList=repCustomMonths.length?repCustomMonths:[CP];}
   else{for(var i=0;i<12;i++)pList.push(i);}
   var html='<div class="rep-sec" style="text-align:center;border-bottom:2px solid var(--brand);padding-bottom:10px;margin-bottom:12px;">'+
     '<div style="font-size:16px;font-weight:700;color:var(--brand);">\u0645\u064a\u0632\u0627\u0646\u064a\u062a\u064a</div>'+
@@ -1693,6 +1734,9 @@ function init(){
   ready=true;
   updateAll();
   renderOwed();renderLent();
+  // Restore last active tab
+  var lastTab=localStorage.getItem('F7_activeTab')||'monthly';
+  switchMain(lastTab);
   updateStickyTop();
   setTimeout(function(){
     var cards=document.querySelectorAll('.pcard');
