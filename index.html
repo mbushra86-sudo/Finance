@@ -47,7 +47,7 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 .pc-d{font-size:8px;color:rgba(255,255,255,.3);margin-top:1px;}
 .pcard.active .pc-n,.pcard.active .pc-d{color:#fff;}
 .pcard.today .pc-n{color:#fff;}
-.main-tabs{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(255,255,255,.08);}
+.main-tabs{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px solid rgba(255,255,255,.08);}
 .mtab{padding:10px;border:none;background:transparent;color:rgba(255,255,255,.45);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;border-bottom:3px solid transparent;text-align:center;}
 .mtab.active{color:#fff;border-bottom-color:var(--accent2);}
 
@@ -266,8 +266,9 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
   <div class="period-strip"><div class="period-cards" id="periodCards"></div></div>
   <div class="main-tabs">
     <button class="mtab active" id="mt-monthly" onclick="switchMain('monthly')">📅 الشهري</button>
-    <button class="mtab" id="mt-annual" onclick="switchMain('annual')">🗓 السنوي</button>
-    <button class="mtab" id="mt-debts" onclick="switchMain('debts')">💳 الديون</button>
+    <button class="mtab" id="mt-annual"  onclick="switchMain('annual')">🗓 السنوي</button>
+    <button class="mtab" id="mt-treasury" onclick="switchMain('treasury')">🏦 الخزينة</button>
+    <button class="mtab" id="mt-debts"   onclick="switchMain('debts')">💳 الديون</button>
   </div>
 </div>
 
@@ -422,14 +423,6 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
       <div class="ann-card"><div class="ann-lbl">الصافي السنوي</div><div class="ann-val gold" id="ann-net">0.000</div><div style="font-size:10px;color:var(--muted)">KWD</div></div>
       <div class="ann-card"><div class="ann-lbl">النتيجة النهائية</div><div class="ann-val" id="ann-final">0.000</div><div style="font-size:10px;color:var(--muted)">KWD</div></div>
     </div>
-    <div class="networth-card">
-      <div class="nw-lbl">💎 صافي الثروة</div>
-      <div class="nw-val" id="nw-val">0.000 KWD</div>
-      <div class="nw-sub">
-        <span>🐷 <b id="nw-piggy">0.000</b> KWD</span>
-        <span>📊 صافي: <b id="nw-net">0.000</b> KWD</span>
-      </div>
-    </div>
     <div class="sub-tabs-sticky" id="annSubTabsSticky" style="display:none;">
       <div class="sub-tabs">
         <button class="stab active" id="ast-needs"  onclick="switchAnnualSub('needs')">📝 الاحتياجات</button>
@@ -439,27 +432,6 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
     </div>
     <!-- NEEDS -->
     <div class="ann-sub-view active" id="asv-needs">
-      <div class="goal-card">
-        <div class="goal-card-title">🎯 هدف الادخار السنوي</div>
-        <div class="goal-grid">
-          <div><div class="goal-lbl">الهدف (KWD)</div><input class="goal-inp" type="number" id="inv-goal" placeholder="0.000" oninput="autoSave();updateAll();"></div>
-          <div><div class="goal-lbl">المتراكم</div><div class="goal-val" id="inv-accum">0.000</div></div>
-        </div>
-        <div class="goal-bar"><div class="goal-fill" id="goal-fill" style="width:0%"></div></div>
-        <div class="goal-meta"><span id="goal-pct">0%</span><span id="goal-rem">0.000 KWD متبقي</span></div>
-      </div>
-      <div class="cblock">
-        <div class="cblock-hdr">
-          <span class="cblock-title">🐷 الحصالة</span>
-          <div class="cblock-right"><span class="cbadge" id="piggy-badge">0.000 KWD</span><span class="carr open" onclick="toggleCBlock('piggy-body',this)">▼</span></div>
-        </div>
-        <div class="cblock-body" id="piggy-body">
-          <div class="fbox">
-            <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">المبلغ المدخر — يُضاف لصافي الثروة ويُخصم من النتيجة النهائية</div>
-            <div class="finp-wrap"><input class="finp" id="piggy-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;font-size:16px;font-weight:700;" oninput="autoSave();updateAll();"><button class="finp-clear" onclick="document.getElementById('piggy-amount').value='';autoSave();updateAll();">✕</button></div>
-          </div>
-        </div>
-      </div>
       <div class="cblock">
         <div class="cblock-hdr">
           <span class="cblock-title">📝 الاحتياجات</span>
@@ -534,6 +506,39 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
         </div>
         <div class="cblock-body" id="months-body">
           <div style="padding:10px;"><div class="ann-months-grid" id="annGrid"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TREASURY -->
+  <div class="view" id="view-treasury">
+    <div class="networth-card" style="margin-top:10px;">
+      <div class="nw-lbl">💎 صافي الثروة</div>
+      <div class="nw-val" id="nw-val">0.000 KWD</div>
+      <div class="nw-sub">
+        <span>🐷 <b id="nw-piggy">0.000</b> KWD</span>
+        <span>📊 صافي: <b id="nw-net">0.000</b> KWD</span>
+      </div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-card-title">🎯 هدف الادخار السنوي</div>
+      <div class="goal-grid">
+        <div><div class="goal-lbl">الهدف (KWD)</div><input class="goal-inp" type="number" id="inv-goal" placeholder="0.000" oninput="autoSave();updateAll();"></div>
+        <div><div class="goal-lbl">المتراكم</div><div class="goal-val" id="inv-accum">0.000</div></div>
+      </div>
+      <div class="goal-bar"><div class="goal-fill" id="goal-fill" style="width:0%"></div></div>
+      <div class="goal-meta"><span id="goal-pct">0%</span><span id="goal-rem">0.000 KWD متبقي</span></div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-hdr">
+        <span class="cblock-title">🐷 الحصالة</span>
+        <div class="cblock-right"><span class="cbadge" id="piggy-badge">0.000 KWD</span><span class="carr open" onclick="toggleCBlock('piggy-body',this)">▼</span></div>
+      </div>
+      <div class="cblock-body" id="piggy-body">
+        <div class="fbox">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">المبلغ المدخر — يُضاف لصافي الثروة ويُخصم من النتيجة النهائية</div>
+          <div class="finp-wrap"><input class="finp" id="piggy-amount" type="number" step="0.001" placeholder="0.000" style="direction:ltr;font-size:16px;font-weight:700;" oninput="autoSave();updateAll();"><button class="finp-clear" onclick="document.getElementById('piggy-amount').value='';autoSave();updateAll();">✕</button></div>
         </div>
       </div>
     </div>
@@ -660,6 +665,18 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 
 <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
 
+<!-- CONFIRM DIALOG -->
+<div id="ov-confirm" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:800;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;">
+  <div style="background:var(--card);border-radius:16px;padding:20px;width:100%;max-width:320px;box-shadow:0 8px 32px rgba(0,0,0,.2);transform:scale(.95);transition:transform .2s;" id="confirm-box">
+    <div style="font-size:15px;font-weight:700;color:var(--brand);margin-bottom:6px;" id="confirm-title">تأكيد</div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.5;" id="confirm-msg">هل أنت متأكد؟</div>
+    <div style="display:flex;gap:8px;">
+      <button onclick="closeConfirmDialog()" style="flex:1;padding:10px;border:1.5px solid var(--border);background:transparent;border-radius:10px;font-size:13px;font-family:inherit;cursor:pointer;color:var(--muted);">إلغاء</button>
+      <button id="confirm-ok-btn" style="flex:1;padding:10px;background:var(--red);border:none;border-radius:10px;font-size:13px;font-family:inherit;cursor:pointer;color:#fff;font-weight:600;">حذف</button>
+    </div>
+  </div>
+</div>
+
 <script>
 var CY=new Date().getFullYear(), CP=0, CDAY=23;
 var pickerSel={secId:null,secTitle:'',rowId:null,rowLabel:''};
@@ -728,6 +745,23 @@ function toggleCBlock(bodyId,triggerEl){
   var arr=triggerEl&&(triggerEl.classList.contains('carr')?triggerEl:triggerEl.querySelector('.carr'));
   if(arr)arr.classList.toggle('open',!closed);
 }
+
+var _confirmCb=null;
+function showConfirm(title,msg,cb){
+  document.getElementById('confirm-title').textContent=title;
+  document.getElementById('confirm-msg').textContent=msg;
+  _confirmCb=cb;
+  var ov=document.getElementById('ov-confirm');
+  ov.style.opacity='1';ov.style.visibility='visible';
+  document.getElementById('confirm-box').style.transform='scale(1)';
+}
+function closeConfirmDialog(){
+  var ov=document.getElementById('ov-confirm');
+  ov.style.opacity='0';ov.style.visibility='hidden';
+  document.getElementById('confirm-box').style.transform='scale(.95)';
+  _confirmCb=null;
+}
+document.getElementById('confirm-ok-btn').onclick=function(){if(_confirmCb)_confirmCb();closeConfirmDialog();};
 
 function openSettings(){document.getElementById('cycle-day-inp').value=CDAY;openOv('ov-settings');}
 function saveCycleDay(){
@@ -848,9 +882,11 @@ function addRow(type,sid){
   saveSecs(type,d);renderCommitSections();
 }
 function deleteRow(type,sid,rid){
-  flushInputs();
-  var d=getSecs(type),s=d.find(function(x){return x.id===sid;});
-  if(s){s.rows=s.rows.filter(function(x){return x.id!==rid;});saveSecs(type,d);renderCommitSections();}
+  showConfirm('حذف البند','هل تريد حذف هذا البند؟',function(){
+    flushInputs();
+    var d=getSecs(type),s=d.find(function(x){return x.id===sid;});
+    if(s){s.rows=s.rows.filter(function(x){return x.id!==rid;});saveSecs(type,d);renderCommitSections();}
+  });
 }
 function addSection(type){
   flushInputs();
@@ -859,13 +895,15 @@ function addSection(type){
   saveSecs(type,d);renderCommitSections();
 }
 function deleteSection(type,sid){
-  flushInputs();
-  var d=getSecs(type),s=d.find(function(x){return x.id===sid;});
-  if(s){
-    if(CP===0){d=d.filter(function(x){return x.id!==sid;});}
-    else{s.until=CP-1;}
-    saveSecs(type,d);renderCommitSections();
-  }
+  showConfirm('حذف القسم','سيُحذف من الشهر الحالي وما بعده. البيانات السابقة تبقى.',function(){
+    flushInputs();
+    var d=getSecs(type),s=d.find(function(x){return x.id===sid;});
+    if(s){
+      if(CP===0){d=d.filter(function(x){return x.id!==sid;});}
+      else{s.until=CP-1;}
+      saveSecs(type,d);renderCommitSections();
+    }
+  });
 }
 
 // MC INNER TABS
@@ -909,7 +947,7 @@ function addMonthCommit(){
   renderMcList();updateAll();
 }
 function toggleMC(id){var l=getMC(CY,CP),e=l.find(function(x){return x.id===id;});if(e){e.paid=!e.paid;saveMC(CY,CP,l);renderMcList();updateAll();}}
-function delMC(id){saveMC(CY,CP,getMC(CY,CP).filter(function(x){return x.id!==id;}));renderMcList();updateAll();}
+function delMC(id){showConfirm('حذف الالتزام','هل تريد حذف هذا الالتزام؟',function(){saveMC(CY,CP,getMC(CY,CP).filter(function(x){return x.id!==id;}));renderMcList();updateAll();});}
 function renderMcList(){
   var list=getMC(CY,CP);
   var secs=getVisibleSecs(CP);
@@ -1042,7 +1080,7 @@ function renderDailyGroup(gid,list){
     '</div>';
   }).join('');
 }
-function delDaily(id){saveDL(CY,CP,getDL(CY,CP).filter(function(x){return x.id!==id;}));renderDailyList();updateAll();}
+function delDaily(id){showConfirm('حذف المنصرف','هل تريد حذف هذا المنصرف؟',function(){saveDL(CY,CP,getDL(CY,CP).filter(function(x){return x.id!==id;}));renderDailyList();updateAll();});}
 
 // REVENUE INNER TABS
 var REV_TYPES=['salary','invest','freelance','other'];
@@ -1091,7 +1129,7 @@ function renderRevGroup(gid,list){
     '</div>';
   }).join('');
 }
-function delRev(id){saveRL(CY,CP,getRL(CY,CP).filter(function(x){return x.id!==id;}));renderRevList();updateAll();}
+function delRev(id){showConfirm('حذف الإيراد','هل تريد حذف هذا الإيراد؟',function(){saveRL(CY,CP,getRL(CY,CP).filter(function(x){return x.id!==id;}));renderRevList();updateAll();});}
 
 // INVESTMENTS
 function switchInvTab(t){
@@ -1113,7 +1151,7 @@ function addInvEntry(){
   document.getElementById('inv-name').value='';document.getElementById('inv-amount').value='';
   renderInvList();updateAll();
 }
-function delInv(id){saveIL(getIL().filter(function(x){return x.id!==id;}));renderInvList();updateAll();}
+function delInv(id){showConfirm('حذف الاستثمار','هل تريد حذف هذا البند؟',function(){saveIL(getIL().filter(function(x){return x.id!==id;}));renderInvList();updateAll();});}
 function renderInvList(){
   var list=getIL();
   var mkHtml=function(items){
@@ -1171,7 +1209,7 @@ function renderNeeds(){
   var el=document.getElementById('needs-total');if(el)el.textContent=fmt(tot)+' KWD';
 }
 function toggleNeed(id){var l=getNeeds(),n=l.find(function(x){return x.id===id;});if(n){n.done=!n.done;saveNeeds(l);renderNeeds();updateAll();}}
-function delNeed(id){saveNeeds(getNeeds().filter(function(x){return x.id!==id;}));renderNeeds();updateAll();}
+function delNeed(id){showConfirm('حذف الاحتياج','هل تريد حذف هذا الاحتياج؟',function(){saveNeeds(getNeeds().filter(function(x){return x.id!==id;}));renderNeeds();updateAll();});}
 
 // DEBTS
 function getDebts(){try{var s=localStorage.getItem(DBK(CY));return s?JSON.parse(s):[]}catch{return[];}}
@@ -1205,7 +1243,7 @@ function confirmDebtPayment(){
   if(d){d.paid=Math.min(d.total,d.paid+amt);saveDebts(l);}
   closeOv('ov-debt-pay');renderDebts();updateAll();
 }
-function delDebt(id){saveDebts(getDebts().filter(function(x){return x.id!==id;}));renderDebts();updateAll();}
+function delDebt(id){showConfirm('حذف الدين','هل تريد حذف هذا الدين؟',function(){saveDebts(getDebts().filter(function(x){return x.id!==id;}));renderDebts();updateAll();});}
 function switchDebtTab(t){
   curDebtTab=t;
   ['all','high','med','low'].forEach(function(p){var b=document.getElementById('dt-'+p);if(b)b.classList.toggle('active',p===t);});
@@ -1284,10 +1322,16 @@ function updateAll(){
   document.getElementById('ps-net-lbl').textContent=t.net>=0?'KWD فائض ✅':'KWD عجز ⚠️';
   document.getElementById('ps-commit-ref').textContent=fmt(totalCommitRef)+' KWD';
   document.getElementById('total-commit').textContent=fmt(totalCommitRef)+' KWD';
-  document.getElementById('total-daily').textContent=fmt(t.daily)+' KWD';
+  document.getElementById('total-daily').textContent=fmt(t.daily+t.mcommit)+' KWD';
   document.getElementById('total-rev').textContent=fmt(t.rev)+' KWD';
   var invReturns=getIL().filter(function(e){return e.type==='in';}).reduce(function(a,e){return a+e.amount;},0);
   var irEl=document.getElementById('inv-returns-ref');if(irEl)irEl.textContent=fmt(invReturns)+' KWD';
+  // progress bar
+  var pbSp=document.getElementById('pb-sp'),pbNet=document.getElementById('pb-net-bar');
+  if(t.rev>0){
+    if(pbSp)pbSp.style.width=Math.min(100,t.totalSpent/t.rev*100)+'%';
+    if(pbNet)pbNet.style.width=Math.max(0,Math.min(100,t.net/t.rev*100))+'%';
+  }else{if(pbSp)pbSp.style.width='0%';if(pbNet)pbNet.style.width='0%';}
   renderMcList();
   buildAnnual();
   renderDebts();
@@ -1318,7 +1362,6 @@ function buildAnnual(){
   var invIn=invList.filter(function(e){return e.type==='in';}).reduce(function(a,e){return a+e.amount;},0);
   var nTot=getNeeds().filter(function(n){return n.done;}).reduce(function(a,n){return a+n.amount;},0);
   var totalRev=aRev+invIn, totalNet=aNet+invIn;
-  var debtPaid=getDebts().reduce(function(a,d){return a+d.paid;},0);
   document.getElementById('ann-rev').textContent=fmt(totalRev);
   document.getElementById('ann-exp').textContent=fmt(aSpent);
   document.getElementById('ann-net').textContent=fmt(totalNet);
@@ -1326,26 +1369,32 @@ function buildAnnual(){
   if(document.getElementById('piggy-badge'))document.getElementById('piggy-badge').textContent=fmt(piggyAmt)+' KWD';
   var fin=totalNet-invOut-nTot-piggyAmt;
   var fe=document.getElementById('ann-final');if(fe){fe.textContent=fmt(fin);fe.className='ann-val '+(fin>=0?'g':'r');}
-  // net worth includes piggy, excludes paid debts
-  var nw=totalNet-invOut+piggyAmt-debtPaid;
+  // صافي الثروة: يُخصم فقط الديون المسدّدة كاملاً (paid >= total)
+  var debtDeducted=getDebts().filter(function(d){return d.paid>=d.total&&d.total>0;}).reduce(function(a,d){return a+d.total;},0);
+  var nw=totalNet-invOut+piggyAmt-debtDeducted;
   if(document.getElementById('nw-val'))document.getElementById('nw-val').textContent=fmt(nw)+' KWD';
   if(document.getElementById('nw-piggy'))document.getElementById('nw-piggy').textContent=fmt(piggyAmt);
   if(document.getElementById('nw-net'))document.getElementById('nw-net').textContent=fmt(totalNet-invOut);
   var netInv=invIn-invOut;
   if(document.getElementById('inv-badge'))document.getElementById('inv-badge').textContent=(netInv>=0?'+':'')+fmt(netInv)+' KWD';
   var goal=parseFloat(document.getElementById('inv-goal')?document.getElementById('inv-goal').value:0)||0;
-  if(document.getElementById('inv-accum'))document.getElementById('inv-accum').textContent=fmt(totalNet);
+  // المتراكم = النتيجة النهائية (ما تبقى فعلاً بعد كل الخصومات)
+  if(document.getElementById('inv-accum'))document.getElementById('inv-accum').textContent=fmt(fin);
   if(goal>0){
-    var gp=Math.min(100,totalNet/goal*100);
+    var gp=Math.min(100,fin/goal*100);
     if(document.getElementById('goal-fill'))document.getElementById('goal-fill').style.width=gp+'%';
     if(document.getElementById('goal-pct'))document.getElementById('goal-pct').textContent=gp.toFixed(1)+'%';
-    if(document.getElementById('goal-rem'))document.getElementById('goal-rem').textContent=fmt(Math.max(0,goal-totalNet))+' KWD متبقي';
+    if(document.getElementById('goal-rem'))document.getElementById('goal-rem').textContent=fmt(Math.max(0,goal-fin))+' KWD متبقي';
+  }else{
+    if(document.getElementById('goal-fill'))document.getElementById('goal-fill').style.width='0%';
+    if(document.getElementById('goal-pct'))document.getElementById('goal-pct').textContent='0%';
+    if(document.getElementById('goal-rem'))document.getElementById('goal-rem').textContent='—';
   }
 }
 
 // NAV
 function switchMain(tab){
-  ['monthly','annual','debts'].forEach(function(t){
+  ['monthly','annual','treasury','debts'].forEach(function(t){
     document.getElementById('mt-'+t).classList.toggle('active',t===tab);
     document.getElementById('view-'+t).classList.toggle('active',t===tab);
   });
@@ -1354,6 +1403,7 @@ function switchMain(tab){
   if(st)st.style.display=tab==='monthly'?'block':'none';
   if(ast)ast.style.display=tab==='annual'?'block':'none';
   if(tab==='annual'){renderInvList();buildAnnual();}
+  if(tab==='treasury'){buildAnnual();}
   if(tab==='debts')renderDebts();
   updateStickyTop();
 }
@@ -1434,6 +1484,20 @@ function buildReport(){
       '<div class="rep-row"><span>\u0627\u0644\u0627\u062d\u062a\u064a\u0627\u062c\u0627\u062a \u0627\u0644\u0645\u0646\u062c\u0632\u0629</span><span>-'+fmt(nTot)+' KWD</span></div>'+
       '<div class="rep-row"><span>\u0627\u0644\u062d\u0635\u0627\u0644\u0629</span><span>-'+fmt(piggyAmt)+' KWD</span></div>'+
       '<div class="rep-row"><b>\u0627\u0644\u0646\u062a\u064a\u062c\u0629 \u0627\u0644\u0646\u0647\u0627\u0626\u064a\u0629</b><b style="color:'+(fin>=0?'var(--green)':'var(--red)')+'">'+fmt(fin)+' KWD</b></div>'+
+    '</div>';
+  }
+  // DEBTS in report
+  var dList=getDebts();
+  if(dList.length){
+    var dTotal=dList.reduce(function(a,d){return a+d.total;},0);
+    var dPaid=dList.reduce(function(a,d){return a+d.paid;},0);
+    html+='<div class="rep-sec"><div class="rep-head">\u0627\u0644\u062f\u064a\u0648\u0646</div>'+
+      dList.map(function(d){
+        var rem=d.total-d.paid;
+        var pct=d.total>0?Math.min(100,d.paid/d.total*100):0;
+        return '<div class="rep-row"><span>'+esc(d.name)+'</span><span>\u0645\u062a\u0628\u0642\u064a: <b>'+fmt(rem)+'</b> KWD ('+pct.toFixed(0)+'%)</span></div>';
+      }).join('')+
+      '<div class="rep-row"><b>\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u062f\u064a\u0648\u0646</b><b style="color:var(--red)">'+fmt(dTotal-dPaid)+' KWD \u0645\u062a\u0628\u0642\u064a</b></div>'+
     '</div>';
   }
   document.getElementById('rep-content').innerHTML=html;
